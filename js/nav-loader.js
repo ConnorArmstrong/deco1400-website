@@ -7,8 +7,7 @@ fetch('./components/navbar.html')
   })
   .then(html => {
     placeholder.innerHTML = html;
-    // trigger the fade-in
-    placeholder.style.opacity = '1';
+    placeholder.style.opacity = '1'; // WIP: Currently to stop the Navbar snapping as it loads in
   })
   .catch(err => console.error('Nav load failed:', err));
 //});

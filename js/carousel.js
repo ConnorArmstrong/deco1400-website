@@ -3,8 +3,9 @@ document.querySelectorAll('.carousel-container').forEach(container => {
     const prev  = container.querySelector('.prev');
     const next  = container.querySelector('.next');
   
-    // how much to scroll on each click (80% of visible width)
-    const scrollAmount = () => track.clientWidth * 0.8;
+    // how much to scroll on each click 
+    const scroll_percent = 0.8;
+    const scrollAmount = () => track.clientWidth * scroll_percent;
   
     prev.addEventListener('click', () =>
       track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' })
@@ -23,7 +24,7 @@ document.querySelectorAll('.carousel-container').forEach(container => {
     window.addEventListener('resize', updateArrows);
     updateArrows();
   
-    // optional: drag-to-scroll on desktop
+    // TODO: drag to scroll? 
     let isDown = false, startX, scrollLeft;
     track.addEventListener('mousedown', e => {
       isDown = true;
@@ -41,7 +42,8 @@ document.querySelectorAll('.carousel-container').forEach(container => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - track.offsetLeft;
-      const walk = (x - startX) * 1.5; // tweak scroll speed
+      const scroll_speed = 1.2;
+      const walk = (x - startX) * scroll_speed;
       track.scrollLeft = scrollLeft - walk;
     });
   });

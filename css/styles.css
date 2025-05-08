@@ -101,7 +101,7 @@ main {
    /* Content Sections */
    .content-section {
      background-color: var(--surface);
-     padding: 2rem;
+     padding: 0rem 2rem 2rem 2rem;
      margin-bottom: 2rem;
      border-radius: var(--radius);
    }
@@ -125,6 +125,7 @@ main {
    .carousel {
      display: flex;
      overflow-x: auto;
+     overflow-y: visible;
      scroll-snap-type: x mandatory;
      -webkit-overflow-scrolling: touch;
      scrollbar-width: none; /* Firefox */
@@ -148,7 +149,7 @@ main {
      aspect-ratio: 1/1.5;
      scroll-snap-align: start;
      border-radius: var(--radius);
-     overflow: hidden;
+     overflow: visible;
      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
      text-align: center;
      position: relative;
