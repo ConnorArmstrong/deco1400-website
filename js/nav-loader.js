@@ -1,3 +1,4 @@
+//document.addEventListenter("DOMContentLoaded", () => {
 const placeholder = document.getElementById('nav-placeholder');
 fetch('./components/navbar.html')
   .then(res => {
@@ -10,3 +11,4 @@ fetch('./components/navbar.html')
     placeholder.style.opacity = '1';
   })
   .catch(err => console.error('Nav load failed:', err));
+//});

@@ -7,7 +7,7 @@
 
   <!-- Quicksand Font -->
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
-
+ 
   <link rel="stylesheet" href="css/styles.css" />
 
 
@@ -18,11 +18,46 @@
   <script src="js/nav-loader.js"></script>
 
   <main>
-    <h1>Welcome to your cozy review hub ☕</h1>
+    <h1>Welcome to your Review Home Page ☕</h1>
     <p>Start by browsing the library or adding a new book or movie review!</p>
+
+    <!-- ─── BOOKS CAROUSEL ─────────────────────────────────────── -->
+  <section class="library-section books">
+    <h1>Books</h1>
+
+    <div class="carousel-container">
+      <!-- left arrow -->
+      <button class="carousel-arrow prev" aria-label="Scroll left">❮</button>
+
+      <!-- the scroll‐area -->
+      <div class="carousel">
+        <!-- each .card -->
+        <div class="card"></div>
+        <div class="card test-blank"></div>
+        <div class="card test-blank"></div>
+        <div class="card test-blank"></div>
+        <div class="card test-blank"></div>
+        <div class="card test-blank"></div>
+        <div class="card test-blank"></div>        
+        <div class="card test-blank"></div>
+        <div class="card test-blank"></div>        
+        <div class="card test-blank"></div>
+        <div class="card test-blank"></div>
+        
+        <div class="card add-card">
+          <span>＋</span>
+          <small>Add Review</small>
+        </div>
+      </div>
+
+      <!-- right arrow -->
+      <button class="carousel-arrow next" aria-label="Scroll right">❯</button>
+    </div>
+  </section>
+
   </main>
 
-  
+  <script src="js/carousel.js"></script>
 
 </body>
 </html>
