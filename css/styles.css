@@ -81,9 +81,6 @@ main {
     padding: 2rem;
 }
 
-/* ======================
-   2. BASE STYLES
-   ====================== */
    *,
    *::before,
    *::after {
@@ -101,17 +98,15 @@ main {
      padding: 2rem;
    }
    
-   /* ======================
-      3. LIBRARY SECTION
-      ====================== */
-   .library-section {
+   /* Content Sections */
+   .content-section {
      background-color: var(--surface);
      padding: 2rem;
      margin-bottom: 2rem;
      border-radius: var(--radius);
    }
    
-   .library-section h1 {
+   .content-section h1 {
      font-size: 2rem;
      margin-bottom: var(--gap-narrow);
      display: inline-block;
@@ -119,9 +114,7 @@ main {
      color: var(--text);
    }
    
-   /* ======================
-      4. CAROUSEL
-      ====================== */
+   /* Carousel */
    .carousel-container {
      position: relative;
      margin-top: var(--gap-narrow);
@@ -149,9 +142,7 @@ main {
      border-radius: 3px;
    }
    
-   /* ======================
-      5. CARDS
-      ====================== */
+   /* Carousel Cards */
    .card {
      flex: 0 0 clamp(140px, 20vw, 200px);
      aspect-ratio: 1/1.5;
@@ -201,9 +192,7 @@ main {
         aspect-ratio: 1/1.5;
     }
    
-   /* ======================
-      6. NAVIGATION ARROWS
-      ====================== */
+   /* Carousel Arrows */
    .carousel-arrow {
      position: absolute;
      top: 50%;
@@ -232,9 +221,7 @@ main {
      right: 0.5rem;
    }
    
-   /* ======================
-      7. RESPONSIVE TWEAKS
-      ====================== */
+   /* Responsive Tweaks */
    @media (max-width: 768px) {
      .card {
        flex: 0 0 80%;
