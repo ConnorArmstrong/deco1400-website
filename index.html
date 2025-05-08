@@ -8,101 +8,21 @@
   <!-- Quicksand Font -->
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    /* Catppuccin Mocha Colors */
-    :root {
-      --bg: #1E1E2E;
-      --surface: #11111B;
-      --text: #CDD6F4;
-      --text-muted: #A6ADC8;
-      --accent: #89B4FA;   /* Blue */
-      --accent-hover: #F5C2E7; /* Pink */
-      --border-hover: #89B4FA;
-    }
+  <link rel="stylesheet" href="css/styles.css" />
 
-    body {
-      margin: 0;
-      font-family: 'Quicksand', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-    }
 
-    .navbar {
-      background-color: var(--surface);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-group {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .brand {
-      font-weight: 600;
-      font-size: 1.25rem;
-      color: var(--accent);
-      margin-right: 2rem;
-    }
-
-    .nav-links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .nav-links li a {
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 1.1rem;
-      color: var(--text);
-      padding: 0.5rem 0.5rem;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.2s ease, color 0.2s ease;
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-links li a:hover {
-      color: var(--accent-hover);
-      border-color: var(--border-hover);
-    }
-
-    .nav-links li a span {
-      margin-right: 0.5em;
-    }
-
-    main {
-      padding: 2rem;
-    }
-  </style>
 </head>
 
 <body>
-  <nav class="navbar">
-    <div class="nav-group">
-      <div class="brand">📚 MyMedia</div>
-      <ul class="nav-links">
-        <li><a href="#"><span>🏠</span>Home</a></li>
-        <li><a href="#"><span>📖</span>Library</a></li>
-      </ul>
-    </div>
-    <ul class="nav-links">
-      <li><a href="#"><span>☀️</span></a></li>
-      <li><a href="#"><span>➕</span>Add Review</a></li>
-      <li><a href="#"><span>🚪</span>Log Out</a></li>
-    </ul>
-  </nav>
+  <div id="nav-placeholder"></div>
+  <script src="js/nav-loader.js"></script>
 
   <main>
     <h1>Welcome to your cozy review hub ☕</h1>
-    <p>Start by browsing the library or adding a new book or movie review.</p>
+    <p>Start by browsing the library or adding a new book or movie review!</p>
   </main>
+
+  
+
 </body>
 </html>
