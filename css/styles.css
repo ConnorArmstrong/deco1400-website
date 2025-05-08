@@ -4,6 +4,7 @@
     --area: #6C7086;
     --surface: #11111B;
     --focus: #CDD6F4;
+    --overlay: #45475a;
     --text: #CDD6F4;
     --text-muted: #A6ADC8;
     --accent: #89B4FA;   /* Blue */
@@ -20,6 +21,19 @@ body {
     color: var(--text);
 }
 
+.intro {
+  background-color: var(--bg);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+.intro h1 {
+  margin-bottom: var(--gap-narrow);
+  display: inline-block;
+  color: var(--text);
+  font-weight: bold;
+}
+
 .navbar {
     background-color: var(--surface);
     display: flex;
@@ -34,6 +48,7 @@ body {
     opacity: 0;
     transition: opacity 0.3s ease;
   }
+
 
 .nav-group {
     display: flex;
@@ -58,8 +73,8 @@ body {
 
 .nav-links li a {
     text-decoration: none;
-    font-weight: 500;
-    font-size: 1.1rem;
+    font-weight: bold;
+    font-size: 1.2rem;
     color: var(--text);
     padding: 0.5rem 0.5rem;
     border-bottom: 2px solid transparent;
@@ -93,11 +108,7 @@ main {
      background-color: var(--bg);
      color: var(--text);
    }
-   
-   main {
-     padding: 2rem;
-   }
-   
+
    /* Content Sections */
    .content-section {
      background-color: var(--surface);
