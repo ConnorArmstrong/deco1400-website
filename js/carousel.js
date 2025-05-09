@@ -46,4 +46,6 @@ document.querySelectorAll('.carousel-container').forEach(container => {
       const walk = (x - startX) * scroll_speed;
       track.scrollLeft = scrollLeft - walk;
     });
+
+    // Pressing on a certain Card Selects it:
   });
