@@ -224,6 +224,9 @@ main {
   border-radius: var(--radius);
 
   margin-inline: calc(var(--gap-narrow) / 2);
+
+  font-weight: bold;
+  font-size: 2em;
 }
 
 .card.test-blank {

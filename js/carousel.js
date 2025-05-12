@@ -10,7 +10,7 @@ function initCarousels() {
 
     // center a chosen card
     function centerCard(card) {
-      card.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 
     // compute the offset for a given card
@@ -25,16 +25,8 @@ function initCarousels() {
     // click on a card to scroll and select
     cards.forEach(card => {
       card.addEventListener('click', () => {
-        const trackRect = track.getBoundingClientRect();
-        const cardRect  = card.getBoundingClientRect();
-    
-        // calculate how far to scroll so that cards center = tracks center
-        const trackCenter = trackRect.left + trackRect.width  / 2;
-        const cardCenter  = cardRect.left  + cardRect.width  / 2;
-        const offset      = cardCenter - trackCenter;
-    
-        // perform the smooth scroll
-        track.scrollBy({ left: offset, behavior: 'smooth' });
+        // smoothly bring card to the true center of the carousel
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       });
     });
 
@@ -85,19 +77,7 @@ function initCarousels() {
     track.addEventListener('scroll', updateSelected);
     window.addEventListener('resize', updateSelected);
     updateSelected();
-  
-    /*
-    // disable arrows at the ends
-    function updateArrows() {
-      prev.disabled = track.scrollLeft <= 0;
-      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
-    }
-  
-    track.addEventListener('scroll', updateArrows);
-    window.addEventListener('resize', updateArrows);
-    updateArrows();
-    */
-  
+
     // TODO: drag to scroll? 
     let isDown = false, startX, scrollLeft;
     track.addEventListener('mousedown', e => {
