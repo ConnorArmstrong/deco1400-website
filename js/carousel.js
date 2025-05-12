@@ -3,7 +3,37 @@ function initCarousels() {
     const track = container.querySelector('.carousel');
     const prev  = container.querySelector('.prev');
     const next  = container.querySelector('.next');
+    
+    const realCards = Array.from(track.querySelectorAll('.card'));
+    const buffer = 3; // The amount of clones on either end for smooth traversal
+
+    track.querySelectorAll('.card.clone').forEach(c => c.remove()); // clear previous
+
+
+    // add the first 3:
+    realCards.slice(-buffer).reverse().forEach(c => {
+      const clone = c.cloneNode(true);
+      clone.classList.add('clone');
+      track.insertBefore(clone, track.firstChild);
+    });
+
+    // add the last 3:
+    realCards.slice(0, buffer).forEach(c => {
+      const clone = c.cloneNode(true);
+      clone.classList.add('clone');
+      track.appendChild(clone);
+    });
+
     const cards = Array.from(track.querySelectorAll('.card'));
+
+    // set the scroll position so the first REAL card is centered:
+    (() => {
+      const style = getComputedStyle(track);
+      const cardW = parseFloat(style.getPropertyValue('--card-width'));
+      const gap = parseFloat(style.getPropertyValue("gap"));
+      // scroll by (buffer * (cardW + gap)) to ensure the real card is selected
+      track.scrollLeft = buffer * (cardW + gap)
+    })
 
     // disable mouse-wheel scrolling over the carousel
     track.addEventListener('wheel', e => e.preventDefault(), { passive: false });
@@ -13,38 +43,41 @@ function initCarousels() {
       card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 
-    // compute the offset for a given card
-    function computeOffset(card) {
-      const t = track.getBoundingClientRect();
-      const c = card.getBoundingClientRect();
-      const trackCenter = t.left + t.width / 2;
-      const cardCenter  = c.left + c.width / 2;
-      return cardCenter - trackCenter;
-    }
-
     // click on a card to scroll and select
-    cards.forEach(card => {
+    cards.forEach((card, idx) => {
       card.addEventListener('click', () => {
-        // smoothly bring card to the true center of the carousel
-        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        const real = card.classList.contains('clone') ?
+          realCards[
+            idx < buffer
+              ? realCards.length - buffer + idx
+              : idx >= buffer + realCards.length
+                ? idx - (buffer + realCards.length)
+                : idx - buffer
+          ]
+        : card;
+        centerCard(real);
       });
     });
 
     // arrow navigation with wrap-around
     prev.addEventListener('click', () => {
       const selected = track.querySelector('.card.selected');
-      if (selected === cards[0]) {
-        centerCard(cards[cards.length - 1]);
+      const real_idx = realCards.indexOf(selected);
+
+      if (real_idx === 0) {
+        centerCard(realCards.length[-1]);
       } else {
-        track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+        track.scrollBy({left: -scrollAmount(), behavior: 'smooth'});
       }
     });
     next.addEventListener('click', () => {
       const selected = track.querySelector('.card.selected');
-      if (selected === cards[cards.length - 1]) {
-        centerCard(cards[0]);
+      const real_idx = realCards.indexOf(selected);
+
+      if (real_idx === 0) {
+        centerCard(realCards.length[-1]);
       } else {
-        track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+        track.scrollBy({left: scrollAmount(), behavior: 'smooth'});
       }
     });
   
