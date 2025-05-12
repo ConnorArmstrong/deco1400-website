@@ -15,11 +15,6 @@
   --gap-half: 0.5rem;
   --radius: 0.5rem;
 
-  --visible-cards: 5; /* TODO: TESTING */
-  --total-gaps: 4rem; /* TODO: TESTING */
-  --card-width: 110px; /* TODO: TESTING */
-  --gap: 1rem; /* TODO: TESTING */
-
   --selected-scale: 1.2;
 }
 
