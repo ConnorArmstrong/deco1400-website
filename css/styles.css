@@ -12,6 +12,7 @@
   --border-hover: #89B4FA;
 
   --gap-narrow: 1rem;
+  --gap-half: 0.5rem;
   --radius: 0.5rem;
 
   --visible-cards: 5; /* TODO: TESTING */
@@ -47,7 +48,7 @@ main {
   background-color: var(--surface);
   border-radius: var(--radius);
   padding: 0.25rem 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: var(--gap-half);
 }
 
 .intro h1 {
@@ -126,8 +127,8 @@ main {
    
 .content-section h1 {
   font-size: 2rem;
-  margin-bottom: 0.5rem;
-  margin-top: 0.5rem;
+  margin-bottom: var(--gap-half);
+  margin-top: var(--gap-half);
   display: inline-block;
   border-bottom: 2px solid var(--accent);
   color: var(--text);
@@ -163,7 +164,7 @@ main {
   gap: var(--gap-narrow);
   padding-block: 0;
 
-  scroll-padding-inline: calc(var(--gap-narrow) / 2);
+  scroll-padding-inline: var(--gap-half);
 }
 
 .carousel::-webkit-scrollbar {
@@ -180,7 +181,7 @@ main {
   aspect-ratio: 1/1.5;
   scroll-snap-align: center;
   border-radius: var(--radius);
-  margin-inline: calc(var(--gap-narrow) / 2);
+  margin-inline: var(--gap-half);
   overflow: visible;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   text-align: center;

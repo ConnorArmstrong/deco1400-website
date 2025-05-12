@@ -38,8 +38,6 @@ function initCarousels() {
       });
     });
 
-
-
     // arrow navigation with wrap-around
     prev.addEventListener('click', () => {
       const selected = track.querySelector('.card.selected');
@@ -122,8 +120,6 @@ function initCarousels() {
       const walk = (x - startX) * scroll_speed;
       track.scrollLeft = scrollLeft - walk;
     });
-
-    
   });
 }
 
