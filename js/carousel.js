@@ -4,21 +4,67 @@ function initCarousels() {
     const prev  = container.querySelector('.prev');
     const next  = container.querySelector('.next');
     const cards = Array.from(track.querySelectorAll('.card'));
+
+    // disable mouse-wheel scrolling over the carousel
+    track.addEventListener('wheel', e => e.preventDefault(), { passive: false });
+
+    // center a chosen card
+    function centerCard(card) {
+      card.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    }
+
+    // compute the offset for a given card
+    function computeOffset(card) {
+      const t = track.getBoundingClientRect();
+      const c = card.getBoundingClientRect();
+      const trackCenter = t.left + t.width / 2;
+      const cardCenter  = c.left + c.width / 2;
+      return cardCenter - trackCenter;
+    }
+
+    // click on a card to scroll and select
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const trackRect = track.getBoundingClientRect();
+        const cardRect  = card.getBoundingClientRect();
+    
+        // calculate how far to scroll so that cards center = tracks center
+        const trackCenter = trackRect.left + trackRect.width  / 2;
+        const cardCenter  = cardRect.left  + cardRect.width  / 2;
+        const offset      = cardCenter - trackCenter;
+    
+        // perform the smooth scroll
+        track.scrollBy({ left: offset, behavior: 'smooth' });
+      });
+    });
+
+
+
+    // arrow navigation with wrap-around
+    prev.addEventListener('click', () => {
+      const selected = track.querySelector('.card.selected');
+      if (selected === cards[0]) {
+        centerCard(cards[cards.length - 1]);
+      } else {
+        track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+      }
+    });
+    next.addEventListener('click', () => {
+      const selected = track.querySelector('.card.selected');
+      if (selected === cards[cards.length - 1]) {
+        centerCard(cards[0]);
+      } else {
+        track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+      }
+    });
   
-    // how much to scroll on each click 
+    // how much to scroll on each arrow click 
     function scrollAmount() {
       const style = getComputedStyle(track);
       const cardW = parseFloat(style.getPropertyValue('--card-width'));
       const gap   = parseFloat(style.getPropertyValue('gap'));
       return cardW + gap;
     }
-  
-    prev.addEventListener('click', () =>
-      track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' })
-    );
-    next.addEventListener('click', () =>
-      track.scrollBy({ left:  scrollAmount(), behavior: 'smooth' })
-    );
 
     function updateSelected() {
       const {left, width} = track.getBoundingClientRect();
@@ -42,6 +88,7 @@ function initCarousels() {
     window.addEventListener('resize', updateSelected);
     updateSelected();
   
+    /*
     // disable arrows at the ends
     function updateArrows() {
       prev.disabled = track.scrollLeft <= 0;
@@ -51,6 +98,7 @@ function initCarousels() {
     track.addEventListener('scroll', updateArrows);
     window.addEventListener('resize', updateArrows);
     updateArrows();
+    */
   
     // TODO: drag to scroll? 
     let isDown = false, startX, scrollLeft;
