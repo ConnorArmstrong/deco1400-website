@@ -5,7 +5,7 @@ function initCarousels() {
     const next  = container.querySelector('.next');
     
     const realCards = Array.from(track.querySelectorAll('.card'));
-    const buffer = 3; // The amount of clones on either end for smooth traversal
+    const buffer = 3; // The amount of clones on either end for smooth looping traversal
 
     track.querySelectorAll('.card.clone').forEach(c => c.remove()); // clear previous
 
