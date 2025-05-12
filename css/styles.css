@@ -13,6 +13,16 @@
 
   --gap-narrow: 1rem;
   --radius: 0.5rem;
+
+  --visible-cards: 5; /* TODO: TESTING */
+  --total-gaps: 4rem; /* TODO: TESTING */
+  --card-width: 110px; /* TODO: TESTING */
+  --gap: 1rem; /* TODO: TESTING */
+  --selected-scale: 1.2;
+}
+
+html, body {
+  overflow-x: hidden;
 }
 
 body {
@@ -128,18 +138,22 @@ main {
   margin-top: var(--gap-narrow);
   background-color: var(--area);
   border-radius: var(--radius);
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .carousel {
   display: flex;
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: visible;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
   gap: var(--gap-narrow);
-  padding: var(--gap-narrow), 0;
+  padding-block: var(--gap-narrow);
+  scroll-padding-inline: calc(var(--gap-narrow) / 2);
+
   min-height: clamp(180px, 15vw, 260px);
 }
 
@@ -153,16 +167,19 @@ main {
    
 /* Carousel Cards */
 .card {
-  flex: 0 0 clamp(110px, 20vw, 165px);
+  flex: 0 0 var(--card-width);
   aspect-ratio: 1/1.5;
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   border-radius: var(--radius);
+  margin-inline: calc(var(--gap-narrow) / 2);
   overflow: visible;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   text-align: center;
   position: relative;
   background-color: var(--surface);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 0;
+  transform: scale(1);
 }
    
 .card img {
@@ -192,6 +209,18 @@ main {
 .card:empty {
   background-color: #fff;
   border: 1px dashed #000;
+}
+
+.card.selected {
+  transform: scale(var(--selected-scale));
+  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+  z-index: 10;
+  border-radius: var(--radius);
+
+  margin-inline: calc(
+    var(--gap-narrow)/2 
+    + ((var(--card-width) * (var(--selected-scale) - 1)) / 2)
+  );
 }
 
 .card.test-blank {
