@@ -112,6 +112,7 @@ function initCarousels() {
     updateSelected();
 
     // TODO: drag to scroll? 
+    // need to incorporate scrolling changes and smoother transitions
     let isDown = false, startX, scrollLeft;
     track.addEventListener('mousedown', e => {
       isDown = true;

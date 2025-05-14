@@ -10,7 +10,6 @@
         },
         "date": {
             "type":"string",
-            "format": "date",
             "description": "Date of Last User Interaction"
         },
         "contentType": {
@@ -94,5 +93,4 @@
             }
         }
     }
-
 }
