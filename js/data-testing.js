@@ -1,7 +1,7 @@
 async function getJSON() {
     const response = await fetch("./media/data.json");
     const json = await response.json();
-    //console.log("Fetched data:", json);
+    console.log("Fetched data:", json);
     return json;
 }
 
@@ -12,7 +12,7 @@ async function getContentData(contentTitle) {
     const item = data.items.find(item => item.title === contentTitle);
 
     if (!item) {
-        console.warn("No item found with title: ${contentTitle}");
+        console.warn(`No item found with title: ${contentTitle}`);
         return;
     }
 
@@ -24,4 +24,4 @@ async function getContentData(contentTitle) {
 }
 
 
-getContentData("The King in Yellow1");
+getContentData("The King in Yellow");

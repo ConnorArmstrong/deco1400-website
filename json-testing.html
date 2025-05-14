@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Media Editor (Multi-item)</title>
+    <style>
+        body { font-family: sans-serif; max-width: 700px; margin: 2rem auto; }
+        label { display: block; margin-top: 10px; }
+        input, textarea, select {
+            width: 100%; padding: 5px; margin-top: 5px;
+            box-sizing: border-box;
+        }
+        .top-controls { display: flex; gap: 1rem; align-items: center; }
+    </style>
+</head>
+<body>
+    <h1>Media Editor</h1>
+
+    <div class="top-controls">
+        <label for="itemSelect">Select Item:</label>
+        <select id="itemSelect"></select>
+        <button id="newItemBtn">➕ New Item</button>
+    </div>
+
+    <form id="editorForm">
+        <label>Title <input id="title" type="text" required></label>
+        <label>Date <input id="date" type="date" required></label>
+        <label>Content Type
+            <select id="contentType" required>
+                <option value="Book">Book</option>
+                <option value="Movie">Movie</option>
+            </select>
+        </label>
+        <label>Thumbnail <input id="thumbnail" type="text"></label>
+        <label>Rating <input id="rating" type="number" step="0.1" min="0" max="5"></label>
+        <label>Amount <input id="amount" type="number" min="0"></label>
+        <label>Status
+            <select id="status">
+                <option value="Planned">Planned</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
+        </label>
+        <label>Series <input id="series" type="text"></label>
+        <label>Tags (comma-separated) <input id="tags" type="text"></label>
+
+        <h3>Summary</h3>
+        <label>Summary Source <input id="summarySource" type="text"></label>
+        <label>Summary Text <textarea id="summaryText"></textarea></label>
+        <label>Platform Rating <input id="platformRating" type="number" step="0.1" min="0" max="5"></label>
+        <label>Rating N <input id="ratingN" type="number" min="0"></label>
+
+        <h3>User Text</h3>
+        <label><textarea id="userText"></textarea></label>
+
+        <h3>Questions</h3>
+        <label>Question <input id="question" type="text"></label>
+        <label>Answer <textarea id="answer"></textarea></label>
+
+        <button type="submit">💾 Save Changes</button>
+    </form>
+
+    <button id="downloadBtn">⬇️ Download Backup</button>
+
+    <script type="module">
+        let data = [];
+        let currentIndex = 0;
+
+        async function loadInitialData() {
+            const stored = localStorage.getItem("mediaData");
+            if (stored) {
+                return JSON.parse(stored);
+            }
+            const response = await fetch("./media/data.json");
+            const json = await response.json();
+            localStorage.setItem("mediaData", JSON.stringify(json.items));
+            return json.items;
+        }
+
+        function populateDropdown() {
+            const select = document.getElementById("itemSelect");
+            select.innerHTML = data.map((item, i) => `<option value="${i}">${item.title || "Untitled"} (${i})</option>`).join("");
+            select.value = currentIndex;
+        }
+
+        function populateForm(item) {
+            document.getElementById("title").value = item.title || "";
+            document.getElementById("date").value = item.date || "";
+            document.getElementById("contentType").value = item.contentType || "Book";
+            document.getElementById("thumbnail").value = item.thumbnail || "";
+            document.getElementById("rating").value = item.rating ?? "";
+            document.getElementById("amount").value = item.amount ?? "";
+            document.getElementById("status").value = item.status || "Planned";
+            document.getElementById("series").value = item.series ?? "";
+            document.getElementById("tags").value = item.tags?.join(", ") ?? "";
+
+            const summary = item.summary || {};
+            document.getElementById("summarySource").value = summary.source || "";
+            document.getElementById("summaryText").value = summary.text || "";
+            document.getElementById("platformRating").value = summary.platformRating ?? "";
+            document.getElementById("ratingN").value = summary.ratingN ?? "";
+
+            document.getElementById("userText").value = item.userText || "";
+
+            const questions = item.questions || {};
+            document.getElementById("question").value = questions.question || "";
+            document.getElementById("answer").value = questions.answer || "";
+        }
+
+        function updateDataFromForm() {
+            const item = {
+                title: document.getElementById("title").value,
+                date: document.getElementById("date").value,
+                contentType: document.getElementById("contentType").value,
+                thumbnail: document.getElementById("thumbnail").value,
+                rating: parseFloat(document.getElementById("rating").value) || null,
+                amount: parseInt(document.getElementById("amount").value) || 0,
+                status: document.getElementById("status").value,
+                series: document.getElementById("series").value || null,
+                tags: document.getElementById("tags").value.split(",").map(s => s.trim()).filter(Boolean),
+                summary: {
+                    source: document.getElementById("summarySource").value,
+                    text: document.getElementById("summaryText").value,
+                    platformRating: parseFloat(document.getElementById("platformRating").value) || null,
+                    ratingN: parseInt(document.getElementById("ratingN").value) || 0,
+                },
+                userText: document.getElementById("userText").value,
+                questions: {
+                    question: document.getElementById("question").value,
+                    answer: document.getElementById("answer").value,
+                }
+            };
+
+            data[currentIndex] = item;
+            localStorage.setItem("mediaData", JSON.stringify(data));
+            populateDropdown();
+        }
+
+        function downloadBackup() {
+            const blob = new Blob([JSON.stringify({ items: data }, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "media_backup.json";
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function createNewItem() {
+            const newItem = {
+                title: "New Entry",
+                date: new Date().toISOString().split("T")[0],
+                contentType: "Book",
+                thumbnail: "",
+                rating: null,
+                amount: 0,
+                status: "Planned",
+                series: null,
+                tags: [],
+                summary: {
+                    source: "",
+                    text: "",
+                    platformRating: null,
+                    ratingN: 0
+                },
+                userText: "",
+                questions: {
+                    question: "",
+                    answer: ""
+                }
+            };
+            data.push(newItem);
+            currentIndex = data.length - 1;
+            localStorage.setItem("mediaData", JSON.stringify(data));
+            populateDropdown();
+            populateForm(newItem);
+        }
+
+        document.getElementById("editorForm").addEventListener("submit", e => {
+            e.preventDefault();
+            updateDataFromForm();
+            alert("Changes saved!");
+        });
+
+        document.getElementById("downloadBtn").addEventListener("click", downloadBackup);
+
+        document.getElementById("itemSelect").addEventListener("change", e => {
+            currentIndex = parseInt(e.target.value);
+            populateForm(data[currentIndex]);
+        });
+
+        document.getElementById("newItemBtn").addEventListener("click", createNewItem);
+
+        // Load and initialize
+        loadInitialData().then(items => {
+            data = items;
+            currentIndex = 0;
+            populateDropdown();
+            populateForm(data[currentIndex]);
+        });
+    </script>
+</body>
+</html>
