@@ -1,0 +1,98 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "mediaItem",
+    "type": "object",
+    "required": ["title", "date", "contentType"],
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "User given title. For now will match with saved image"
+        },
+        "date": {
+            "type":"string",
+            "format": "date",
+            "description": "Date of Last User Interaction"
+        },
+        "contentType": {
+            "type": "string",
+            "description": "[ENUM: Book | Movie] Whether content is book or movie"
+        },
+
+        "thumbnail": {
+            "type": "string",
+            "description": "Path to content from starting directory"
+        },
+        "rating": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 5,
+            "description": "User rating, null or nonexistent for no rating"
+        },
+        "amount": {
+            "type": "integer",
+            "description": "How often user has interacted with content"
+        },
+        "status": {
+            "type": "string",
+            "description": "[ENUM: Planned | In Progress | Completed] Status of content"
+        },
+        "series": {
+            "type": ["string", "null"],
+            "description": "Series of Content if Relevant"
+        },
+        "tags": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 0,
+            "uniqueItems": true,
+            "description": "A list of tags for the content"
+        },
+
+        "summary": {
+            "type": "object",
+            "required": ["text"],
+            "properties": {
+                "source": {
+                    "type": "string",
+                    "description": "Source of Auto Summary"
+                },
+                "text": {
+                    "type": "string",
+                    "description": "The auto summary text"
+                },
+                "platformRating": {
+                    "type": ["number", "null"],
+                    "minimum": 0,
+                    "maximum": 5,
+                    "description": "Platform rating, null or nonexistent for no rating"
+                },
+                "ratingN": {
+                    "type": "integer",
+                    "description": "How many people rated the content"
+                }
+            }
+        },
+
+        "userText": {
+            "type": "string",
+            "description": "What the user has written for this content"
+        },
+
+        "questions": {
+            "type": "object",
+            "properties": {
+                "question": {
+                    "type": "string",
+                    "description": "A given question"
+                },
+                "answer": {
+                    "type": "string",
+                    "description": "A given corresponding text answer"
+                }
+            }
+        }
+    }
+
+}
