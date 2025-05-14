@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Media Editor (Multi-item)</title>
+    <title>JSON Content Editor</title>
     <style>
         body { font-family: sans-serif; max-width: 700px; margin: 2rem auto; }
         label { display: block; margin-top: 10px; }
@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-    <h1>Media Editor</h1>
+    <h1>JSON Content Editor</h1>
 
     <div class="top-controls">
         <label for="itemSelect">Select Item:</label>
@@ -61,6 +61,8 @@
     </form>
 
     <button id="downloadBtn">⬇️ Download Backup</button>
+
+    <button onclick="window.location='index.html';" value="go back">Go Back</button>
 
     <script type="module">
         let data = [];
