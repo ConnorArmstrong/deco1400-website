@@ -216,36 +216,48 @@ function renderDisplay(item, container) {
   // 2) Meta: rating - date – status – times
 
   const stars = typeof item.rating === 'number'
-    ? '⭐'.repeat(Math.round(item.rating))
-    : '';
+    ? makeRatingString(item.rating, 0) : '';
 
-  const ratingText = item.rating != null
-    ? ` (${item.rating}/5)`
-    : '';
-
-  metaData.textContent = `${stars}${ratingText} – ${item.date} – ${item.status} – ${item.amount} Times`;
+  metaData.textContent = `${stars} – ${item.date} – ${item.status} – ${item.amount} Times`;
 
   // 3) Summary box
   const sum = item.summary || {};
   const src = sum.source || "Unknown";
   const txt = sum.text   || "No summary available.";
-  const autoStars = typeof sum.platformRating === 'number'
-    ? '⭐'.repeat(Math.round(sum.platformRating))
-    : '';
+  const autoCount = sum.ratingN != null ? sum.ratingN : 0;
 
-  const autoCount = sum.ratingN != null ? ` (${sum.ratingN})` : '';
+  const autoStars = typeof sum.platformRating === 'number'
+    ? makeRatingString(sum.platformRating, autoCount)
+    : '';
 
   // directly write in autosummary
   autoSummary.innerHTML = `
       <p><strong>Summary retrieved from</strong> <a href=#>${src}</a>:</p>
       <p>${txt}</p>
-      <p><strong>Platform Rating:</strong> ${autoStars}${autoCount}</p>
+      <p><strong>Platform Rating:</strong> ${autoStars}</p>
     `;
 
 
   // 4) Cover image
   coverImage.src = item.thumbnail || "";
   coverImage.alt = item.title;
+}
+
+function makeRatingString(rating, n) {
+  // The String Consists of:
+  // [Full Stars - Half Stars - Empty Stars] + [rating/n]
+  const whole_stars_n = Math.round(rating);
+  const full_stars = '⭐'.repeat(whole_stars_n);
+  const empty_stars_n = 5 - whole_stars_n;
+  const empty_stars = '✰'.repeat(empty_stars_n);
+
+  const stars = full_stars + empty_stars;
+
+  const rating_num = n !== 0 ? `(${n})` : "";
+
+  const ratingn = ` (${rating}/5)` + rating_num
+
+  return stars + ratingn;
 }
 
 
