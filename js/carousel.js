@@ -9,7 +9,6 @@ function initCarousels() {
 
     track.querySelectorAll('.card.clone').forEach(c => c.remove()); // clear previous
 
-
     // add the first 3:
     realCards.slice(-buffer).reverse().forEach(c => {
       const clone = c.cloneNode(true);
@@ -191,30 +190,52 @@ async function getContentData(contentTitle) { // Get all fields for a given titl
 
 function renderDisplay(item) {
   if (!item) {
-
-    document.getElementById("display-title").textContent = "Not found";
+    // reset fields
+    document.getElementById("display-title").textContent = "Not Found";
     document.getElementById("display-thumb").src = "";
-    document.getElementById("display-rating").textContent = "";
-
+    document.getElementById("display-thumb").alt = "";
+    document.getElementById("display-meta").textContent = "";
+    document.getElementById("display-summary").textContent = "";
+    document.getElementById("display-summary").innerHTML = "";
     return;
   }
 
-  console.log(item)
-
+  // 1) Title
   document.getElementById("display-title").textContent = item.title;
 
-  const thumb = document.getElementById("display-thumb");
-  console.log("Thumbnail" + item.thumbnail);
-  thumb.src = item.thumbnail || ""; // if no thumbnail
-  thumb.alt = item.title;
+  // 2) Meta: rating - date – status – times
 
-  const ratingElement = document.getElementById("display-rating");
+  rating = "⭐".repeat(Math.round(item.rating)) + ` (${item.rating}/5)`;
 
-  if (typeof item.rating === "number") {
-    ratingElement.innerHTML = "⭐".repeat(Math.round(item.rating)) + ` <small>(${item.rating}/5)</small>`; // for now
-  } else {
-    ratingElement.textContent = "No rating";
-  }
+  document.getElementById("display-meta").textContent =
+    `${rating} - ${item.date} – ${item.status} – ${item.amount} Times`;
+
+  // 3) Summary box
+  const sum = item.summary || {};
+  const src = sum.source || "Unknown";
+  const txt = sum.text   || "No summary available.";
+  const stars = 
+    typeof sum.platformRating === "number"
+      ? "⭐".repeat(Math.round(sum.platformRating)) + ` <small>(${item.rating}/5)</small>`
+      : "";
+  const cnt = sum.ratingN != null ? `(${sum.ratingN})` : "";
+
+  document.getElementById("display-summary").innerHTML = `
+    <p>
+      <strong>Summary retrieved from</strong>
+      <a href="#">${src}</a>:
+    </p>
+    <p>${txt}</p>
+    <p>
+      <strong>Platform Rating:</strong>
+      ${stars} | ${cnt}
+    </p>
+  `;
+
+  // 4) Cover image
+  const img = document.getElementById("display-thumb");
+  img.src = item.thumbnail || "";
+  img.alt = item.title;
 }
 
 

@@ -55,11 +55,35 @@
       </div>
     </section>
 
-    <section id="content-display" class="content-section">
-   <h2 id="display-title">Select a book or movie</h2>
-   <img id="display-thumb" src="" alt="Thumbnail" />
-   <div id="display-rating"></div>
- </section>
+  <section id="content-display" class="content-section">
+    <div class="display-wrapper">
+      <!-- ─── Left side: info ─────────────────────────────────────── -->
+      <div class="display-info">
+        <h1 id="display-title"></h1>
+
+        <div id="display-meta">
+          <!-- JS will fill: date – status – “X times” -->
+        </div>
+
+        <div id="display-summary">
+          <!-- JS will fill the <p>Summary retrieved…</p> block -->
+        </div>
+      </div>
+
+      <!-- ─── Right side: cover ─────────────────────────────────────── -->
+      <div class="display-cover">
+        <img id="display-thumb" src="" alt="" />
+      </div>
+    </div>
+  </section>
+
+    <!-- ─── Right: big cover ─────────────────────────────────────── -->
+    <div class="display-cover">
+      <img src="media/thumbnails/king-in-yellow.jpg" alt="The King in Yellow" />
+    </div>
+
+  </div>
+</section>
 
     <!-- ─── Movies CAROUSEL ─────────────────────────────────────── -->
     <section class="content-section movies">
