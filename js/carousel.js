@@ -46,7 +46,7 @@ function initCarousels() {
     // click on a card to scroll and select
     cards.forEach((card, idx) => {
       card.addEventListener('click', () => {
-        const real = card.classList.contains('clone') ?
+        const real = card.classList.contains('clone') ? // Messy but finds the correct index of the real card
           realCards[
             idx < buffer
               ? realCards.length - buffer + idx
@@ -104,7 +104,17 @@ function initCarousels() {
         }
       })
 
-      cards.forEach(c => c.classList.toggle('selected', c === best));
+      //cards.forEach(c => c.classList.toggle('selected', c === best));
+
+      cards.forEach(c => {
+        const isSelected = c === best;
+        c.classList.toggle('selected', isSelected);
+
+        if (isSelected) {
+          const title = c.dataset.title;
+          getContentData(title).then(renderDisplay);
+        }
+      });
     }
 
     track.addEventListener('scroll', updateSelected);
@@ -163,6 +173,50 @@ function updateCardWidths() {
     console.log("Computed cardW:", cardW);
   });
 }
+
+
+async function getJSON() { // Load the entire JSON File
+  const response = await fetch("./media/data.json");
+  return response.json();
+}
+
+async function getContentData(contentTitle) { // Get all fields for a given title
+  const data = await getJSON();
+
+  const item = data.items.find(item => item.title === contentTitle);
+
+  return item;
+}
+
+
+function renderDisplay(item) {
+  if (!item) {
+
+    document.getElementById("display-title").textContent = "Not found";
+    document.getElementById("display-thumb").src = "";
+    document.getElementById("display-rating").textContent = "";
+
+    return;
+  }
+
+  console.log(item)
+
+  document.getElementById("display-title").textContent = item.title;
+
+  const thumb = document.getElementById("display-thumb");
+  console.log("Thumbnail" + item.thumbnail);
+  thumb.src = item.thumbnail || ""; // if no thumbnail
+  thumb.alt = item.title;
+
+  const ratingElement = document.getElementById("display-rating");
+
+  if (typeof item.rating === "number") {
+    ratingElement.innerHTML = "⭐".repeat(Math.round(item.rating)) + ` <small>(${item.rating}/5)</small>`; // for now
+  } else {
+    ratingElement.textContent = "No rating";
+  }
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
   updateCardWidths();

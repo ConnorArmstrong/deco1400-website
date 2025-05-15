@@ -30,8 +30,10 @@
 
         <!-- the scroll‐area -->
         <div class="carousel">
-          <div class="card">Initial</div>
-          <div class="card">1</div>
+          <div class="card" data-title="The King in Yellow">
+            <img src="./media/books/covers/King_in_yellow.jpg" alt="The King in Yellow">
+          </div>
+          <div class="card" data-title="2">1</div>
           <div class="card">2</div>
           <div class="card">3</div>
           <div class="card">4</div>
@@ -52,6 +54,12 @@
         <button class="carousel-arrow next">❯</button>
       </div>
     </section>
+
+    <section id="content-display" class="content-section">
+   <h2 id="display-title">Select a book or movie</h2>
+   <img id="display-thumb" src="" alt="Thumbnail" />
+   <div id="display-rating"></div>
+ </section>
 
     <!-- ─── Movies CAROUSEL ─────────────────────────────────────── -->
     <section class="content-section movies">
@@ -84,7 +92,7 @@
   </main>
 
   <script src="js/carousel.js"></script>
-  <script src="js/data-testing.js"></script>
+  <!-- <script src="js/data-testing.js"></script> -->
 
 </body>
 </html>
