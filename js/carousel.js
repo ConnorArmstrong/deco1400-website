@@ -214,11 +214,8 @@ function renderDisplay(item, container) {
   titleHeading.textContent = item.title;
 
   // 2) Meta: rating - date – status – times
-
-  const stars = typeof item.rating === 'number'
-    ? makeRatingString(item.rating, 0) : '';
-
-  metaData.textContent = `${stars} – ${item.date} – ${item.status} – ${item.amount} Times`;
+  const metaText = makeMetaString(item.rating, item.date, item.status, item.amount);
+  metaData.textContent = metaText;
 
   // 3) Summary box
   const sum = item.summary || {};
@@ -236,7 +233,6 @@ function renderDisplay(item, container) {
       <p>${txt}</p>
       <p><strong>Platform Rating:</strong> ${autoStars}</p>
     `;
-
 
   // 4) Cover image
   coverImage.src = item.thumbnail || "";
@@ -258,6 +254,27 @@ function makeRatingString(rating, n) {
   const ratingn = ` (${rating}/5)` + rating_num
 
   return stars + ratingn;
+}
+
+function makeMetaString(rating, date, status, amount) {
+  const stars = typeof rating === 'number' // if rating: stars else: ""
+  ? makeRatingString(rating, 0) : '';
+
+  // rating - date – Completed – times
+  // rating - date – In Progress
+  // Planned – date
+
+  // The final string depends on status - No rating or Amount if planned, No amount if in progress
+  if (status === "Completed") {
+    return `${stars} – ${date} – ${status} – ${amount} Times`;
+  } else if (status === "In Progress") {
+    return `${stars} – ${date} – ${status}`;
+  } else if (status === "Planned") {
+    return `${status} – ${date}`;
+  } else {
+    console.warn("Error: No status for populated content element");
+    return "";
+  }
 }
 
 
