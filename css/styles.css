@@ -264,7 +264,7 @@ main {
 }
 
 
-
+/* Display Container */
 .display-container {
   display: flex;
   gap: 1rem;

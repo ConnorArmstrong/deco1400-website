@@ -235,7 +235,7 @@ function renderDisplay(item, container) {
   const autoCount = sum.ratingN != null ? ` (${sum.ratingN})` : '';
 
   autoSummary.innerHTML = `
-      <p><strong>Summary retrieved from</strong> ${src}:</p>
+      <p><strong>Summary retrieved from</strong> <a href=#>${src}</a>:</p>
       <p>${txt}</p>
       <p><strong>Platform Rating:</strong> ${autoStars}${autoCount}</p>
     `;
