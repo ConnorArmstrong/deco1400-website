@@ -271,18 +271,19 @@ main {
   margin-top: 1.5rem;
 }
 
-/* info on left, cover on right */
 .display-title,
 .display-meta,
 .display-summary {
   flex: 1;
 }
 
+/* TODO: Will change */
 .display-cover img {
   display: block;
   max-width: 200px;
   height: auto;
 }
+
 
 /* Responsive Tweaks */
 @media (max-width: 768px) {

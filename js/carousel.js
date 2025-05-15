@@ -4,7 +4,7 @@ function initCarousels() {
     const prev  = container.querySelector('.prev');
     const next  = container.querySelector('.next');
     
-    const realCards = Array.from(track.querySelectorAll('.card'));
+    const realCards = Array.from(track.querySelectorAll('.card')); // the original set
     const buffer = 3; // The amount of clones on either end for smooth looping traversal
 
     track.querySelectorAll('.card.clone').forEach(c => c.remove()); // clear previous
@@ -58,7 +58,7 @@ function initCarousels() {
       });
     });
 
-    // arrow navigation with wrap-around
+    // arrow navigation TODO: Not working with wrap around
     prev.addEventListener('click', () => {
       const selected = track.querySelector('.card.selected');
       const real_idx = realCards.indexOf(selected);
@@ -146,7 +146,7 @@ function initCarousels() {
   });
 }
 
-
+// Determine the correct width for the cards in the carousel
 function updateCardWidths() {
   document.querySelectorAll('.carousel-container').forEach(container => {
     const track = container.querySelector('.carousel');
@@ -173,13 +173,14 @@ function updateCardWidths() {
   });
 }
 
-
-async function getJSON() { // Load the entire JSON File
+// Load the entire JSON File
+async function getJSON() { 
   const response = await fetch("./media/data.json");
   return response.json();
 }
 
-async function getContentData(contentTitle) { // Get all fields for a given title
+// Get all fields for a given title
+async function getContentData(contentTitle) { 
   const data = await getJSON();
 
   const item = data.items.find(item => item.title === contentTitle);
@@ -187,15 +188,15 @@ async function getContentData(contentTitle) { // Get all fields for a given titl
   return item;
 }
 
-
+// Directly render the data for a given item and container
 function renderDisplay(item, container) {
 
-  const section = container.closest('.content-section');
+  const section = container.closest('.content-section'); // specified container
 
-  const titleHeading = section.querySelector('.display-title');
-  const metaData = section.querySelector('.display-meta');
-  const autoSummary = section.querySelector('.display-summary');
-  const coverImage = section.querySelector('.display-thumb'); 
+  const titleHeading = section.querySelector('.display-title'); // title
+  const metaData = section.querySelector('.display-meta'); // metadata
+  const autoSummary = section.querySelector('.display-summary'); // autosummary section
+  const coverImage = section.querySelector('.display-thumb');  // cover image/thumbnail
 
   if (!item) {
     // reset fields
@@ -234,6 +235,7 @@ function renderDisplay(item, container) {
 
   const autoCount = sum.ratingN != null ? ` (${sum.ratingN})` : '';
 
+  // directly write in autosummary
   autoSummary.innerHTML = `
       <p><strong>Summary retrieved from</strong> <a href=#>${src}</a>:</p>
       <p>${txt}</p>
