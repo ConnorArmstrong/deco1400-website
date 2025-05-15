@@ -27,7 +27,6 @@
       <div class="carousel-container">
         <!-- left arrow -->
         <button class="carousel-arrow prev">❮</button>
-
         <!-- the scroll‐area -->
         <div class="carousel">
           <div class="card" data-title="The King in Yellow">
@@ -53,37 +52,29 @@
         <!-- right arrow -->
         <button class="carousel-arrow next">❯</button>
       </div>
+
+      
+      <div class="display-container">
+        <!-- ─── Left side: info ─────────────────────────────────────── -->
+        <div class="display-info">
+          <h1 class="display-title"></h1>
+
+          <div class="display-meta">
+            <!-- JS will fill: date – status – “X times” -->
+          </div>
+
+          <div class="display-summary">
+            <!-- JS will fill the <p>Summary retrieved…</p> block -->
+          </div>
+        </div>
+
+        <!-- ─── Right side: cover ─────────────────────────────────────── -->
+        <div class="display-cover">
+          <img class="display-thumb" src="" alt="" />
+        </div>
+      </div>
     </section>
 
-  <section id="content-display" class="content-section">
-    <div class="display-wrapper">
-      <!-- ─── Left side: info ─────────────────────────────────────── -->
-      <div class="display-info">
-        <h1 id="display-title"></h1>
-
-        <div id="display-meta">
-          <!-- JS will fill: date – status – “X times” -->
-        </div>
-
-        <div id="display-summary">
-          <!-- JS will fill the <p>Summary retrieved…</p> block -->
-        </div>
-      </div>
-
-      <!-- ─── Right side: cover ─────────────────────────────────────── -->
-      <div class="display-cover">
-        <img id="display-thumb" src="" alt="" />
-      </div>
-    </div>
-  </section>
-
-    <!-- ─── Right: big cover ─────────────────────────────────────── -->
-    <div class="display-cover">
-      <img src="media/thumbnails/king-in-yellow.jpg" alt="The King in Yellow" />
-    </div>
-
-  </div>
-</section>
 
     <!-- ─── Movies CAROUSEL ─────────────────────────────────────── -->
     <section class="content-section movies">
@@ -94,7 +85,9 @@
 
         <!-- the scroll‐area -->
         <div class="carousel">
-          <div class="card"></div>
+          <div class="card" data-title="Walden">
+            <img src="./media/movies/covers/960px-150dpiWalden_A1_Poster.jpg" alt="Walden">
+          </div>
           <div class="card test-blank"></div>
           <div class="card test-blank"></div>
           <div class="card test-blank"></div>        
@@ -111,6 +104,27 @@
         <!-- right arrow -->
         <button class="carousel-arrow next">❯</button>
       </div>
+
+      <div class="display-container">
+        <!-- ─── Left side: info ─────────────────────────────────────── -->
+        <div class="display-info">
+          <h1 class="display-title"></h1>
+
+          <div class="display-meta">
+            <!-- JS will fill: date – status – “X times” -->
+          </div>
+
+          <div class="display-summary">
+            <!-- JS will fill the <p>Summary retrieved…</p> block -->
+          </div>
+        </div>
+
+        <!-- ─── Right side: cover ─────────────────────────────────────── -->
+        <div class="display-cover">
+          <img class="display-thumb" src="" alt="" />
+        </div>
+      </div>
+
     </section>
 
   </main>

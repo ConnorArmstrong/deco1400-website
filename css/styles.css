@@ -263,6 +263,27 @@ main {
   right: 0.5rem;
 }
 
+
+
+.display-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* info on left, cover on right */
+.display-title,
+.display-meta,
+.display-summary {
+  flex: 1;
+}
+
+.display-cover img {
+  display: block;
+  max-width: 200px;
+  height: auto;
+}
+
 /* Responsive Tweaks */
 @media (max-width: 768px) {
   .card {

@@ -111,7 +111,7 @@ function initCarousels() {
 
         if (isSelected) {
           const title = c.dataset.title;
-          getContentData(title).then(renderDisplay);
+          getContentData(title).then(item => renderDisplay(item, container));
         }
       });
     }
@@ -188,54 +188,62 @@ async function getContentData(contentTitle) { // Get all fields for a given titl
 }
 
 
-function renderDisplay(item) {
+function renderDisplay(item, container) {
+
+  const section = container.closest('.content-section');
+
+  const titleHeading = section.querySelector('.display-title');
+  const metaData = section.querySelector('.display-meta');
+  const autoSummary = section.querySelector('.display-summary');
+  const coverImage = section.querySelector('.display-thumb'); 
+
   if (!item) {
     // reset fields
-    document.getElementById("display-title").textContent = "Not Found";
-    document.getElementById("display-thumb").src = "";
-    document.getElementById("display-thumb").alt = "";
-    document.getElementById("display-meta").textContent = "";
-    document.getElementById("display-summary").textContent = "";
-    document.getElementById("display-summary").innerHTML = "";
+    titleHeading.textContent = "";
+    metaData.textContent = "";
+    autoSummary.textContent = "";
+    autoSummary.innerHTML = "";
+    coverImage.src = "";
+    coverImage.alt = "";
+
     return;
   }
 
   // 1) Title
-  document.getElementById("display-title").textContent = item.title;
+  titleHeading.textContent = item.title;
 
   // 2) Meta: rating - date – status – times
 
-  rating = "⭐".repeat(Math.round(item.rating)) + ` (${item.rating}/5)`;
+  const stars = typeof item.rating === 'number'
+    ? '⭐'.repeat(Math.round(item.rating))
+    : '';
 
-  document.getElementById("display-meta").textContent =
-    `${rating} - ${item.date} – ${item.status} – ${item.amount} Times`;
+  const ratingText = item.rating != null
+    ? ` (${item.rating}/5)`
+    : '';
+
+  metaData.textContent = `${stars}${ratingText} – ${item.date} – ${item.status} – ${item.amount} Times`;
 
   // 3) Summary box
   const sum = item.summary || {};
   const src = sum.source || "Unknown";
   const txt = sum.text   || "No summary available.";
-  const stars = 
-    typeof sum.platformRating === "number"
-      ? "⭐".repeat(Math.round(sum.platformRating)) + ` <small>(${item.rating}/5)</small>`
-      : "";
-  const cnt = sum.ratingN != null ? `(${sum.ratingN})` : "";
+  const autoStars = typeof sum.platformRating === 'number'
+    ? '⭐'.repeat(Math.round(sum.platformRating))
+    : '';
 
-  document.getElementById("display-summary").innerHTML = `
-    <p>
-      <strong>Summary retrieved from</strong>
-      <a href="#">${src}</a>:
-    </p>
-    <p>${txt}</p>
-    <p>
-      <strong>Platform Rating:</strong>
-      ${stars} | ${cnt}
-    </p>
-  `;
+  const autoCount = sum.ratingN != null ? ` (${sum.ratingN})` : '';
+
+  autoSummary.innerHTML = `
+      <p><strong>Summary retrieved from</strong> ${src}:</p>
+      <p>${txt}</p>
+      <p><strong>Platform Rating:</strong> ${autoStars}${autoCount}</p>
+    `;
+
 
   // 4) Cover image
-  const img = document.getElementById("display-thumb");
-  img.src = item.thumbnail || "";
-  img.alt = item.title;
+  coverImage.src = item.thumbnail || "";
+  coverImage.alt = item.title;
 }
 
 
