@@ -182,7 +182,6 @@ async function getJSON() {
 // Get all fields for a given title
 async function getContentData(contentTitle) { 
   const data = await getJSON();
-
   const item = data.items.find(item => item.title === contentTitle);
 
   return item;
@@ -190,13 +189,14 @@ async function getContentData(contentTitle) {
 
 // Directly render the data for a given item and container
 function renderDisplay(item, container) {
-
   const section = container.closest('.content-section'); // specified container
 
   const titleHeading = section.querySelector('.display-title'); // title
   const metaData = section.querySelector('.display-meta'); // metadata
   const autoSummary = section.querySelector('.display-summary'); // autosummary section
   const coverImage = section.querySelector('.display-thumb');  // cover image/thumbnail
+  const tags = section.querySelector('.display-tags'); // list of tags
+  const series = section.querySelector('.display-series'); // Series
 
   if (!item) {
     // reset fields
@@ -206,6 +206,8 @@ function renderDisplay(item, container) {
     autoSummary.innerHTML = "";
     coverImage.src = "";
     coverImage.alt = "";
+    tags.textContent = "";
+    series.textContent = "";
 
     return;
   }
@@ -237,6 +239,18 @@ function renderDisplay(item, container) {
   // 4) Cover image
   coverImage.src = item.thumbnail || "";
   coverImage.alt = item.title;
+
+  // 5) Tags
+
+  const tagText = makeTagString(item.tags);
+  tags.style.whiteSpace = "pre"; // allow \n for div
+  tags.textContent = tagText; 
+
+  // 6) Series
+
+  const seriesText = makeSeriesString(item.series);
+  series.style.whiteSpace = "pre"; // allow \n for div
+  series.textContent = seriesText;
 }
 
 function makeRatingString(rating, n) {
@@ -277,6 +291,26 @@ function makeMetaString(rating, date, status, amount) {
   }
 }
 
+function makeTagString(tags) {
+  if (tags.length === 0) {
+    return "";
+  }
+  
+  let tag_string = "";
+  tags.forEach(x => tag_string += `[${x}]  `);
+
+  return "Tags:\n" + tag_string.trim();
+}
+
+function makeSeriesString(seriesTitle) {
+  if (typeof seriesTitle !== "string" || seriesTitle === "") {
+    return "";
+  }
+
+  let title = `[${seriesTitle}]\n\n`;
+
+  return "Series:\n" + title;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   updateCardWidths();
