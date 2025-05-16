@@ -87,7 +87,8 @@ function initCarousels() {
       const gap   = parseFloat(style.getPropertyValue('gap'));
       return cardW + gap;
     }
-
+    
+    // Find the Centred Card and mark it as selected 
     function updateSelected() {
       const {left, width} = track.getBoundingClientRect();
       const centreX = left + width/2;
@@ -105,10 +106,12 @@ function initCarousels() {
 
       //cards.forEach(c => c.classList.toggle('selected', c === best));
 
+      // toggle selected and unselected cards
       cards.forEach(c => {
         const isSelected = c === best;
         c.classList.toggle('selected', isSelected);
 
+        // Set the content section to show information regarding the selected item
         if (isSelected) {
           const title = c.dataset.title;
           getContentData(title).then(item => renderDisplay(item, container));
@@ -198,8 +201,7 @@ function renderDisplay(item, container) {
   const tags = section.querySelector('.display-tags'); // list of tags
   const series = section.querySelector('.display-series'); // Series
 
-  if (!item) {
-    // reset fields
+  if (!item) { // reset fields if the item is empty
     titleHeading.textContent = "";
     metaData.textContent = "";
     autoSummary.textContent = "";
@@ -211,6 +213,8 @@ function renderDisplay(item, container) {
 
     return;
   }
+
+  // For now we assume that if the item has a title, the rest of the form is correct
 
   // 1) Title
   titleHeading.textContent = item.title;
@@ -262,7 +266,6 @@ function makeRatingString(rating, n) {
   const empty_stars = '✰'.repeat(empty_stars_n);
 
   const stars = full_stars + empty_stars;
-
   const rating_num = n !== 0 ? `(${n})` : "";
 
   const ratingn = ` (${rating}/5)` + rating_num
@@ -278,7 +281,7 @@ function makeMetaString(rating, date, status, amount) {
   // rating - date – In Progress
   // Planned – date
 
-  // The final string depends on status - No rating or Amount if planned, No amount if in progress
+  // The string depends on Status - No rating/Amount if planned, No amount if in progress
   if (status === "Completed") {
     return `${stars} – ${date} – ${status} – ${amount} Times`;
   } else if (status === "In Progress") {
@@ -307,11 +310,12 @@ function makeSeriesString(seriesTitle) {
     return "";
   }
 
-  let title = `[${seriesTitle}]\n\n`;
+  let title = `[${seriesTitle}]\n\n`; // for now
 
   return "Series:\n" + title;
 }
 
+// on index.html startup
 document.addEventListener('DOMContentLoaded', () => {
   updateCardWidths();
   initCarousels();
