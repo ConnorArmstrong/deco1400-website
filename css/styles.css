@@ -16,6 +16,7 @@
   --radius: 0.5rem;
 
   --selected-scale: 1.2;
+  --section-min-height: 500px;
 }
 
 html, body {
@@ -30,7 +31,7 @@ body {
 }
 
 main {
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 1rem;
 }
 
 *,
@@ -118,8 +119,37 @@ main {
   padding: 0rem 1rem 1rem 1rem;
   margin-bottom: 1rem;
   border-radius: var(--radius);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-narrow);  
+  overflow: hidden;
 }
-   
+
+.content-section > h1 {
+  flex: 1 1 100%;
+  margin: 0 0 1rem;
+}
+
+/* Books (order: carousel → info) */
+.content-section.books > .carousel-container {
+  order: 1;
+  flex: 2 1 0;
+}
+.content-section.books > .display-container {
+  order: 2;
+  flex: 1 1 0;
+}
+
+/* Movies (order: info → carousel) */
+.content-section.movies > .display-container {
+  order: 1;
+  flex: 1 1 0;
+}
+.content-section.movies > .carousel-container {
+  order: 2;
+  flex: 2 1 0;
+}
+
 .content-section h1 {
   font-size: 2rem;
   margin-bottom: var(--gap-half);
@@ -127,12 +157,13 @@ main {
   display: inline-block;
   border-bottom: 2px solid var(--accent);
   color: var(--text);
+  overflow: hidden;
 }
    
 /* Carousel */
 .carousel-container {
+  display: flex;
   position: relative;
-  margin-top: var(--gap-narrow);
   background-color: var(--area);
   border-radius: var(--radius);
 
@@ -140,6 +171,9 @@ main {
 
   overflow-x: hidden;
   overflow-y: visible;
+  align-items: center;
+  flex: 0 0 60%;
+  min-width: 300px;
 }
 
 .carousel {
@@ -156,8 +190,10 @@ main {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
 
-  gap: var(--gap-narrow);
+  gap: var(--gap-half);
   padding-block: 0;
+
+  flex: 1 1 auto;
 
   scroll-padding-inline: var(--gap-half);
 }
@@ -268,7 +304,10 @@ main {
 .display-container {
   display: flex;
   gap: 1rem;
-  margin-top: 1.5rem;
+  padding: 0.5rem;
+  flex: 0 0 40%;
+  background-color: var(--area);
+  border-radius: var(--radius);
 }
 
 .display-title,
@@ -280,17 +319,13 @@ main {
 /* TODO: Will change */
 .display-cover img {
   display: block;
-  max-width: 200px;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+  aspect-ratio: 1.5/1;
+  max-width: 250px;
 }
 
-
-/* Responsive Tweaks */
-@media (max-width: 768px) {
-  .card {
-    flex: 0 0 80%;
-  }
-  .carousel-arrow {
-    display: none;
-  }
+.display-info h1{
+  margin-top: 0em;
+  text-align: center; 
 }

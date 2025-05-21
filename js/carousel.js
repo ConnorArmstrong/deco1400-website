@@ -176,6 +176,29 @@ function updateCardWidths() {
   });
 }
 
+
+/// TODO: Implement Maybe?
+function equaliseContentSections() {
+  const sections = document.querySelectorAll('.content-section.books, content-section.movies');
+
+  // reset heights to find the natural height of each
+  sections.forEach(s => { 
+    s.style.height = '';
+    s.style.overflow = '';
+  });
+
+  const heights = Array.from(sections).map( s => s.getBoundingClientRect().height);
+
+  const maxH = Math.max(...heights);
+  
+
+  // apply to both the taller height
+  sections.forEach(s => {
+     s.style.height = maxH + 'px';
+     s.style.overflow = 'hidden';
+  });
+}
+
 // Load the entire JSON File
 async function getJSON() { 
   const response = await fetch("./media/data.json");
@@ -324,3 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCarousels();
   });
 });
+
+window.addEventListener('load', equaliseContentSections);
+
+//min-height: var(--section-min-height);

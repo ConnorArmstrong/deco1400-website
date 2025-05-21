@@ -35,7 +35,7 @@
       "rating": null,
       "amount": 0,
       "status": "Planned",
-      "series": "Trees and Such",
+      "series": null,
       "tags": [
         "Documentary",
         "Arty",
@@ -51,6 +51,28 @@
       "questions": {
         "question": "Why?",
         "answer": "Cover."
+      }
+    },
+    {
+      "title": "Hooked",
+      "date": "2025-05-15",
+      "contentType": "Book",
+      "thumbnail": "media\\books\\covers\\960px-All_in_a_Lifetime_(1941)_cover.jpg",
+      "rating": 2.5,
+      "amount": 7,
+      "status": "Completed",
+      "series": null,
+      "tags": [],
+      "summary": {
+        "source": "Hard Cover",
+        "text": "Turns out this wasn't a book part of my initial library collection.",
+        "platformRating": 1.2,
+        "ratingN": 11
+      },
+      "userText": "",
+      "questions": {
+        "question": "",
+        "answer": ""
       }
     }
   ]
