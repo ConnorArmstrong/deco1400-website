@@ -20,6 +20,7 @@
         <label for="itemSelect">Select Item:</label>
         <select id="itemSelect"></select>
         <button id="newItemBtn">➕ New Item</button>
+        <button id="loadBtn">🔄 Load Data</button>
     </div>
 
     <form id="editorForm">
@@ -138,6 +139,17 @@
             populateDropdown();
         }
 
+        async function loadFromDisk() {
+            const response = await fetch("./media/data.json");
+            const json = await response.json();
+            data = json.items;
+            localStorage.setItem("mediaData", JSON.stringify(data));
+            currentIndex = 0;
+            populateDropdown();
+            populateForm(data[0]);
+            alert("Data re-loaded from disk!");
+        }
+
         function downloadBackup() {
             const blob = new Blob([JSON.stringify({ items: data }, null, 2)], { type: "application/json" });
             const url = URL.createObjectURL(blob);
@@ -192,6 +204,8 @@
         });
 
         document.getElementById("newItemBtn").addEventListener("click", createNewItem);
+
+        document.getElementById("loadBtn").addEventListener("click", loadFromDisk);
 
         // Load and initialize
         loadInitialData().then(items => {

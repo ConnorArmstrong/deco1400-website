@@ -249,7 +249,7 @@ function renderDisplay(item, container) {
   // 3) Summary box
   const sum = item.summary || {};
   const src = sum.source || "Unknown";
-  const txt = sum.text   || "No summary available.";
+  const txt = makeSummaryString(sum.text);
   const autoCount = sum.ratingN != null ? sum.ratingN : 0;
 
   const autoStars = typeof sum.platformRating === 'number'
@@ -315,6 +315,20 @@ function makeMetaString(rating, date, status, amount) {
     console.warn("Error: No status for populated content element");
     return "";
   }
+}
+
+function makeSummaryString(summary_text) {
+  if (!summary_text) {
+    return "No Summary Available"
+  }
+
+  const text_length = summary_text.length;
+
+  if (text_length > 300) {
+    return summary_text.slice(0, 300) + "...";
+  }
+
+  return summary_text
 }
 
 function makeTagString(tags) {
