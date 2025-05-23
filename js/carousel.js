@@ -39,7 +39,31 @@ function initCarousels() {
 
     // center a chosen card
     function centerCard(card) {
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      console.log(`Centering card: ${card}`)
+      // Find the scrolling elements
+      const container = card.closest('.carousel-container');
+      
+      if (!container) {
+        console.error("No container found (?)");
+        return
+      }
+
+      const track = container.querySelector('.carousel');
+      const currentScroll = track.scrollLeft;
+
+      const cardRect = card.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+
+      const cardCenterX = cardRect.left + cardRect.width / 2;
+      const containerCenterX = containerRect.left + containerRect.width/2;
+
+      const deltaX = cardCenterX - containerCenterX;
+      const targetScroll = Math.round(currentScroll + deltaX);
+
+      track.scrollTo({
+        left: Math.round(targetScroll),
+        behavior: 'smooth'
+      });
     }
 
     // click on a card to scroll and select
@@ -61,23 +85,31 @@ function initCarousels() {
     // arrow navigation TODO: Not working with wrap around
     prev.addEventListener('click', () => {
       const selected = track.querySelector('.card.selected');
-      const real_idx = realCards.indexOf(selected);
-
-      if (real_idx === 0) {
-        centerCard(realCards.length[-1]);
-      } else {
-        track.scrollBy({left: -scrollAmount(), behavior: 'smooth'});
+      const idx = realCards.indexOf(selected);
+      if (idx === -1) {
+        console.warn("Trying to navigate to non-existant card");
+        return;
       }
+
+      // if at 0 wrap to last else idx - 1
+      const targetCard = idx === 0 ? realCards[realCards.length - 1] : realCards[idx - 1];
+
+      centerCard(targetCard);
     });
     next.addEventListener('click', () => {
       const selected = track.querySelector('.card.selected');
-      const real_idx = realCards.indexOf(selected);
-
-      if (real_idx === 0) {
-        centerCard(realCards.length[-1]);
-      } else {
-        track.scrollBy({left: scrollAmount(), behavior: 'smooth'});
+      const idx = realCards.indexOf(selected);
+      if (idx === -1) {
+        console.warn("Trying to navigate to non-existant card");
+        return;
       }
+
+      // if at finalcard wrap to start else idx + 1
+      const targetCard = idx === realCards.length - 1 
+        ? realCards[0] 
+        : realCards[idx + 1];
+
+      centerCard(targetCard);
     });
   
     // how much to scroll on each arrow click 

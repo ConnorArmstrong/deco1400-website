@@ -118,7 +118,7 @@ main {
   background-color: var(--surface);
   padding: 0rem 1rem 1rem 1rem;
   padding-inline: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: var(--gap-half);
   border-radius: var(--radius);
   gap: var(--gap-narrow);
   overflow: hidden;
