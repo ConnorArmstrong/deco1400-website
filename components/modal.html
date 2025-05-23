@@ -4,7 +4,8 @@
   <div class="modal-backdrop"></div>
   <div class="modal-content">
     <button class="modal-close" aria-label="Close modal">×</button>
-    <form id="modal-form">
+    <form id="modal-form" novalidate>
+        <div id="formError" class="form-error" aria-live="assertive"></div>
         <div class="modal-body">
         <!-- Left: Upload Cover -->
         <div class="modal-col modal-col--left">
@@ -18,20 +19,23 @@
         <!-- Right: Form Fields -->
         <div class="modal-col modal-col--right">
             <div class="form-group">
-            <label for="mediaType">Type:</label>
-            <select id="mediaType" name="mediaType">
-                <option value="">Book</option>
+            <label for="mediaType" class="required">Type</label>
+            <select id="mediaType" name="mediaType" required>
+                <option value="">-- Select Content Type --</option>
+                <option value="book">Book</option>
                 <option value="movie">Movie</option>
             </select>
+            <small class="error" aria-live="polite"></small>
             </div>
 
             <div class="form-group">
-            <label for="titleInput">Title:</label>
-            <input type="text" id="titleInput" name="title" placeholder="Enter title…">
+            <label for="titleInput" class="required">Title</label>
+            <input type="text" id="titleInput" name="title" placeholder="Enter title…" required>
+            <small class="error" aria-live="polite"></small>
             </div>
 
             <div class="form-group">
-            <button type="button" id="autoFillBtn" disabled>Auto Fill</button>
+            <button type="button" id="autoFillBtn" disabled title="Please select Type and enter Title first">Auto Fill</button>
             </div>
 
             <div class="form-group">
@@ -53,7 +57,7 @@
 
         <!-- Footer Actions -->
         <div class="modal-footer">
-            <button type="button" id="resetBtn">Reset ⟳</button>
+            <button type="reset" id="resetBtn">Reset ⟳</button>
             <button type="button" id="cancelBtn">Cancel ×</button>
             <button type="submit" id="applyBtn">Apply →</button>
         </div>
