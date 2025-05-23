@@ -1,5 +1,18 @@
+function applyModalStyling() {
+    if (document.getElementById('modal-styles')) return;
+    const link = document.createElement('link');
+
+    link.id = 'modal-styles';
+    link.rel = 'stylesheet';
+    link.href = './css/modalpopup.css'
+
+    document.head.appendChild(link);
+}
+
 async function loadPopupModal() {
     try {
+        applyModalStyling();
+
         const resp = await fetch('./components/modal.html');
 
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -45,6 +58,9 @@ function initModal() {
 
     backdrop.addEventListener('click', close);
     closeBtn.addEventListener('click', close);
+    cancelBtn.addEventListener('click', close);
+
+    applyBtn.addEventListener('click', close); // TODO: For now
 
     window.addEventListener('keydown', e => {
         if (e.key === 'Escape' && modal.classList.contains('open')) {
@@ -52,6 +68,10 @@ function initModal() {
         }
     });
 
+    resetBtn.addEventListener('click', () => {
+        const form = modal.querySelector('form');
+        if (form) form.reset();
+    });
 
     // form handling/validation
     uploadArea.addEventListener('click', () => coverInput.click());

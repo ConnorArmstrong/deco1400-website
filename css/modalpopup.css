@@ -1,0 +1,114 @@
+/* GLOBAL MODAL */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;              /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* when open, show it as a flex‐box */
+.modal.open {
+  display: flex;
+}
+
+/* the dark transparent backdrop */
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+/* the white/dark “dialog” box */
+.modal-content {
+  position: relative;
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  z-index: 1;                  /* on top of backdrop */
+}
+
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed var(--text-muted);
+  color: var(--text-muted);
+  font-size: 2rem;
+  border-radius: var(--radius);
+  padding: 2rem;
+  cursor: pointer;
+  background-color: var(--surface);
+  transition: background-color 0.2s ease;
+  aspect-ratio: 1/1.5;
+}
+
+.upload-area:hover {
+  background-color: var(--area);
+}
+
+.upload-area .upload-icon {
+  font-size: 2.5rem;
+}
+
+.upload-area p {
+  margin-top: var(--gap-half);
+  font-size: 1rem;
+}
+
+/* When we replace the icon with an actual image: */
+.upload-area img {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+
+/* close “×” button */
+.modal-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* two‐column layout inside the modal body */
+.modal-body {
+  display: flex;
+  gap: 2rem;
+}
+.modal-col--left {
+  flex: 0 0 40%;
+}
+.modal-col--right {
+  flex: 1;
+}
+
+.modal-col--right .form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: .5rem;
+}
+
+
+/* footer buttons */
+.modal-footer {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
