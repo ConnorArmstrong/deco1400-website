@@ -1,0 +1,61 @@
+<!-- Add Content Modal Popup-->
+
+<div id="globalModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+  <div class="modal-backdrop"></div>
+  <div class="modal-content">
+    <button class="modal-close" aria-label="Close modal">×</button>
+
+    <div class="modal-body">
+      <!-- Left: Upload Cover -->
+      <div class="modal-col modal-col--left">
+        <div class="upload-area" onclick="document.getElementById('coverInput').click()">
+          <span class="upload-icon">＋</span>
+          <p>Upload Cover Image</p>
+          <input type="file" id="coverInput" accept="image/*" hidden>
+        </div>
+      </div>
+
+      <!-- Right: Form Fields -->
+      <div class="modal-col modal-col--right">
+        <div class="form-group">
+          <label for="mediaType">Type:</label>
+          <select id="mediaType" name="mediaType">
+            <option value="">Book</option>
+            <option value="movie">Movie</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="titleInput">Title:</label>
+          <input type="text" id="titleInput" name="title" placeholder="Enter title…">
+        </div>
+
+        <div class="form-group">
+          <button type="button" id="autoFillBtn" disabled>Auto Fill</button>
+        </div>
+
+        <div class="form-group">
+          <label>Series:</label>
+          <button type="button" id="addSeriesBtn">Add Series +</button>
+        </div>
+
+        <div class="form-group">
+          <label>Tags:</label>
+          <div class="tags-container">
+            <span class="tag-chip">tag_1 <button type="button" class="remove-tag" aria-label="Remove tag">×</button></span>
+            <span class="tag-chip">tag_2 <button type="button" class="remove-tag" aria-label="Remove tag">×</button></span>
+            <!-- …more tags… -->
+            <button type="button" id="addTagBtn">Add Tag +</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Actions -->
+    <div class="modal-footer">
+      <button type="button" id="resetBtn">Reset ⟳</button>
+      <button type="button" id="cancelBtn">Cancel ×</button>
+      <button type="submit" id="applyBtn">Apply →</button>
+    </div>
+  </div>
+</div>
