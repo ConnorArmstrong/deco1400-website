@@ -62,7 +62,11 @@
       "amount": 7,
       "status": "Completed",
       "series": null,
-      "tags": [],
+      "tags": [
+        "Old",
+        "Cool Cover",
+        "Report"
+      ],
       "summary": {
         "source": "Hard Cover",
         "text": "Turns out this wasn't a book part of my initial library collection.",
