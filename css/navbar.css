@@ -2,7 +2,7 @@
 /* Navigation Bar */
 
 .navbar {
-  background-color: var(--surface);
+  background-color: var(--navbarbg);
   display: flex;
   justify-content: space-between;
   align-items: center;

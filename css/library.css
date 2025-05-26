@@ -2,6 +2,10 @@
 /*  Library‐page layout overrides / additions                */
 /* ───────────────────────────────────────────────────────── */
 
+body {
+  overflow-y: hidden;
+}
+
 .library {
   display: flex;
   flex-direction: column;
@@ -17,6 +21,7 @@
   gap: var(--gap-half);
   background: var(--bg);
   padding: var(--gap-half);
+  padding-left: 0;
   border-radius: var(--radius);
 }
 
@@ -42,7 +47,7 @@
 }
 
 .action-btn {
-  background: var(--surface);
+  background: var(--bg);
   border: none;
   padding: var(--gap-narrow);
   border-radius: var(--radius);
@@ -57,10 +62,17 @@
 .icon {
   background-color: var(--area);  /* lighter behind the words */
   color: var(--text);
-  padding: 0em var(--gap-half);
+  padding: 1em;
   border-radius: var(--radius);
   line-height: 1;
+  font-size: 1.25em;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.btn-text {
   font-size: 2em;
+  padding-left: 0.25em;
 }
 
 .action-btn:hover {
@@ -76,8 +88,11 @@
 
 .item-count {
   margin: 0;
+  padding: var(--gap-narrow);
   font-size: 0.9rem;
   color: var(--text-muted);
+  background-color: var(--surface);
+  border-radius: var(--radius);
 }
 
 /* ── Card Grid ─────────────────────────────────────────── */
@@ -86,6 +101,7 @@
   display: grid;
   gap: var(--gap-narrow);
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  background-color: var(--area);
 }
 
 /* ── Individual Card ───────────────────────────────────── */
@@ -98,10 +114,15 @@
   flex-direction: column;
 }
 
+.card:hover {
+    scale: 1.1;
+}
+
 .card img {
   width: 100%;
   height: auto;
   object-fit: cover;
+  aspect-ratio: 1/1.5;
 }
 
 .card-info {
@@ -140,6 +161,6 @@
 
 .card-tags {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 0.5rem;
   color: var(--text-muted);
 }

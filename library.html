@@ -15,59 +15,57 @@
 
 <body>
   <div id="nav-placeholder"></div>
-  <script src="js/nav-loader.js"></script>
-
+ 
   <!-- page-specific content -->
-  <main>
-    <main class="library">
+  <main class="library">
   <!-- SEARCH + ACTIONS BAR -->
-  <div class="search-bar">
-    <input
-      class="search-input"
-      type="text"
-      placeholder="🔍 Search Here"
-    />
-    <div class="search-actions">
-      <button class="action-btn sort-btn">
-        <span class="icon">⇅</span>
-        <span class="btn-text">Sort</span>
-      </button>
-      <button class="action-btn filter-btn">
-        <span class="icon">…</span>
-        <span class="btn-text">Filter</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- ITEM COUNT -->
-  <p class="item-count">
-    Currently showing 16 Items from 10 Books and 6 Movies
-  </p>
-
-  <!-- GRID OF CARDS -->
-  <div class="card-grid">
-    <!-- Example Card -->
-    <div class="card">
-      <img
-        src="https://covers.openlibrary.org/b/id/8231851-L.jpg"
-        alt="Cujo cover"
+    <div class="search-bar">
+      <input
+        class="search-input"
+        type="text"
+        placeholder="🔍 Search Here"
       />
-      <div class="card-info">
-        <h3 class="card-title">Cujo</h3>
-        <p class="card-meta">
-          📚 Book <span class="date">11/1/25</span>
-          <span class="status completed">Completed</span>
-        </p>
-        <p class="card-tags">Tags: [Stephen King] [Classic]</p>
+      <div class="search-actions">
+        <button class="action-btn sort-btn">
+          <span class="icon">⇅</span>
+          <span class="btn-text">Sort</span>
+        </button>
+        <button class="action-btn filter-btn">
+          <span class="icon">…</span>
+          <span class="btn-text">Filter</span>
+        </button>
       </div>
     </div>
 
-    <!-- duplicate .card … up to 16 items -->
-  </div>
-</main>
-    
-  </main>
+    <!-- ITEM COUNT -->
+    <p class="item-count">
+      Currently showing 16 Items from 10 Books and 6 Movies
+    </p>
 
+    <!-- GRID OF CARDS -->
+    <div class="card-grid">
+      <!-- Example Card -->
+      <div class="card">
+        <img
+          src="https://covers.openlibrary.org/b/id/8231851-L.jpg"
+          alt="Cujo cover"
+        />
+        <div class="card-info">
+          <h3 class="card-title">Cujo</h3>
+          <p class="card-meta">
+            📚 Book <span class="date">11/1/25</span>
+            <span class="status completed">Completed</span>
+          </p>
+          <p class="card-tags">Tags: [Stephen King] [Classic]</p>
+        </div>
+      </div>
+
+      <!-- duplicate .card … up to 16 items -->
+    </div>
+  </main>
+    
+
+  <script src="js/nav-loader.js"></script>
   <script src="js/library-page.js"></script>
   <script src="js/modal-loader.js"></script>
 
