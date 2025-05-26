@@ -1,8 +1,3 @@
-// library-page.js
-
-/**
- * Applies the library-specific stylesheet (if not already applied).
- */
 function applyLibraryStyling() {
   if (document.getElementById('library-styles')) return;
   const link = document.createElement('link');
@@ -12,9 +7,7 @@ function applyLibraryStyling() {
   document.head.appendChild(link);
 }
 
-/**
- * Initializes the library: fetches data, sets up UI, and renders cards with combined search & sort.
- */
+
 async function initLibrary() {
   try {
     const resp = await fetch('./media/data.json');
@@ -37,7 +30,7 @@ async function initLibrary() {
       sortDesc: false // false = ascending, true = descending
     };
 
-    // Create sort menu (always visible)
+    // Create the sort menu
     const sortMenu = document.createElement('ul');
     sortMenu.className = 'sort-menu';
     sortMenu.style.display = 'none'; // Sort Menu Hidden by Default
@@ -51,6 +44,9 @@ async function initLibrary() {
       const li = document.createElement('li');
       li.textContent = opt.label;
       li.dataset.value = opt.value;
+      if (opt.value === state.sortMethod) {
+        li.classList.add('active', state.sortDesc ? 'desc' : 'asc');
+      }
       sortMenu.appendChild(li);
     });
     actionsWrap.insertBefore(sortMenu, filterBtn);
@@ -62,13 +58,32 @@ async function initLibrary() {
     });
     // Prevent clicking inside menu from closing it
     sortMenu.addEventListener('click', e => e.stopPropagation());
-    // Optionally close menu when clicking outside
 
+    // Handle selecting or toggling a sort option
+    sortMenu.addEventListener('click', e => {
+      if (e.target.tagName !== 'LI') return;
+      const val = e.target.dataset.value;
+      if (state.sortMethod === val) {
+        state.sortDesc = !state.sortDesc;
+      } else {
+        state.sortMethod = val;
+        state.sortDesc = false;
+      }
+      sortBtn.classList.toggle('asc', !state.sortDesc);
+      sortBtn.classList.toggle('desc', state.sortDesc);
+      updateView();
+      // update classes on menu items
+      sortMenu.querySelectorAll('li').forEach(li => {
+        li.classList.remove('active', 'asc', 'desc');
+        if (li.dataset.value === state.sortMethod) {
+          li.classList.add('active', state.sortDesc ? 'desc' : 'asc');
+        }
+      });
+    });
 
-
-    // Core update: filter, sort, render, update UI
+    // Core update: filter, sort, render, update
     function updateView() {
-      let list = items.slice();
+      let list = items.slice(); // copy the list
       // apply search filter
       if (state.searchTerm) {
         const term = state.searchTerm;
@@ -77,7 +92,7 @@ async function initLibrary() {
           item.tags.some(tag => tag.toLowerCase().includes(term))
         );
       }
-      // apply book-only filter
+      // apply book-only filter - TODO: For now
       if (state.showOnlyBooks) {
         list = list.filter(item => item.contentType === 'Book');
       }
@@ -89,34 +104,31 @@ async function initLibrary() {
       } else if (state.sortMethod === 'rating') {
         list.sort((a, b) => (b.rating || 0) - (a.rating || 0));
       }
-      // render
+      // reverse if descending order
+      if (state.sortDesc) list.reverse();
+
+      // render the remaining cards in order
       renderCards(list, cardGrid, itemCountArea);
+
       // highlight active sort
       sortMenu.querySelectorAll('li').forEach(li => {
         li.classList.toggle('active', li.dataset.value === state.sortMethod);
       });
     }
 
-    // Event: search input
+    // search input
     searchInput.addEventListener('input', e => {
       state.searchTerm = e.target.value.trim().toLowerCase();
       updateView();
     });
 
-    // Event: filter button toggles book-only
+    // filter button toggles book-only
     filterBtn.addEventListener('click', () => {
       state.showOnlyBooks = !state.showOnlyBooks;
       updateView();
     });
 
-    // Event: sort menu clicks
-    sortMenu.addEventListener('click', e => {
-      if (e.target.tagName !== 'LI') return;
-      state.sortMethod = e.target.dataset.value;
-      updateView();
-    });
-
-    // Initial render
+    // Initial state
     updateView();
 
   } catch (err) {
