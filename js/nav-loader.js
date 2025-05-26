@@ -2,6 +2,7 @@
 const placeholder = document.getElementById('nav-placeholder');
 fetch('./components/navbar.html')
   .then(res => {
+    applyNavStyling();
     if (!res.ok) throw new Error(res.status);
     return res.text();
   })
@@ -11,3 +12,15 @@ fetch('./components/navbar.html')
   })
   .catch(err => console.error('Nav load failed:', err));
 //});
+
+
+function applyNavStyling() { // apply nav styling BEFORE the navbar is loaded in
+    if (document.getElementById('nav-styles')) return;
+    const link = document.createElement('link');
+
+    link.id = 'nav-styles';
+    link.rel = 'stylesheet';
+    link.href = './css/navbar.css'
+
+    document.head.appendChild(link);
+}
