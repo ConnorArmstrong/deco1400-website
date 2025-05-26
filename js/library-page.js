@@ -52,7 +52,7 @@ function renderCards(list, grid, countArea) {
     list.forEach(item => {
         const card = document.createElement('div');
         card.className = 'card';
-        // For now
+        // For now - will make it like the carousel
         card.innerHTML = `
           <img src="${item.thumbnail}" alt="${item.title} cover" />
           <div class="card-info">
@@ -60,7 +60,7 @@ function renderCards(list, grid, countArea) {
             <p class="card-meta">
               ${item.contentType === 'Book' ? '📚' : '🎬'} ${item.contentType}
               <span class="date">${item.date}</span>
-              <span class="status ${item.status.toLowerCase()}">
+              <span class="status ${item.status}">
                 ${item.status}
               </span>
             </p>
