@@ -1,0 +1,145 @@
+/* ───────────────────────────────────────────────────────── */
+/*  Library‐page layout overrides / additions                */
+/* ───────────────────────────────────────────────────────── */
+
+.library {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-narrow);
+  min-height: var(--section-min-height);
+}
+
+/* ── Search Bar ─────────────────────────────────────────── */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-half);
+  background: var(--bg);
+  padding: var(--gap-half);
+  border-radius: var(--radius);
+}
+
+.search-input {
+  flex: 1;
+  background: var(--area);
+  border: none;
+  padding: var(--gap-narrow);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 1.1rem;
+  border-color: var(--text-muted);
+  border-width: 2em;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-actions {
+  display: flex;
+  gap: var(--gap-half);
+}
+
+.action-btn {
+  background: var(--surface);
+  border: none;
+  padding: var(--gap-narrow);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.icon {
+  background-color: var(--area);  /* lighter behind the words */
+  color: var(--text);
+  padding: 0em var(--gap-half);
+  border-radius: var(--radius);
+  line-height: 1;
+  font-size: 2em;
+}
+
+.action-btn:hover {
+  background: var(--overlay);
+  color: var(--accent-hover);
+}
+
+.action-btn:hover .btn-text {
+  background-color: var(--overlay);
+}
+
+/* ── Item Count ────────────────────────────────────────── */
+
+.item-count {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ── Card Grid ─────────────────────────────────────────── */
+
+.card-grid {
+  display: grid;
+  gap: var(--gap-narrow);
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+/* ── Individual Card ───────────────────────────────────── */
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.card-info {
+  padding: var(--gap-half) var(--gap-narrow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-half);
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.card-meta {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text);
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-half);
+}
+
+.date {
+  font-style: italic;
+}
+
+.status {
+  font-weight: 500;
+}
+
+.status.completed {
+  color: var(--accent);
+}
+
+.card-tags {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}

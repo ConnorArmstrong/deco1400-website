@@ -384,8 +384,21 @@ function makeSeriesString(seriesTitle) {
   return "Series:\n" + title;
 }
 
+
+function applyHomeStyling() {
+    if (document.getElementById('home-styles')) return;
+    const link = document.createElement('link');
+
+    link.id = 'home-styles';
+    link.rel = 'stylesheet';
+    link.href = './css/home.css'
+
+    document.head.appendChild(link);
+}
+
 // on index.html startup
 document.addEventListener('DOMContentLoaded', () => {
+  applyHomeStyling();
   updateCardWidths();
   initCarousels();
   window.addEventListener('resize', () => {
@@ -394,6 +407,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-window.addEventListener('load', equaliseContentSections);
+//window.addEventListener('load', equaliseContentSections); TODO: Will fix
 
 //min-height: var(--section-min-height);
