@@ -185,7 +185,7 @@ function initCarousels() {
 function updateCardWidths() {
   document.querySelectorAll('.carousel-container').forEach(container => {
     const track = container.querySelector('.carousel');
-    const gap = parseFloat(getComputedStyle(track).getPropertyValue('gap'));
+    const gap = parseFloat(getComputedStyle(track).getPropertyValue('gap')) || 0;
     const W = track.clientWidth;
 
     const MIN_CARD_WIDTH = 110; // Minimum width of a card
@@ -408,5 +408,3 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //window.addEventListener('load', equaliseContentSections); TODO: Will fix
-
-//min-height: var(--section-min-height);

@@ -138,22 +138,46 @@ async function initLibrary() {
   }
 }
 
+function formatDate(dateString) {
+  const opts = { day: 'numeric', month: 'short', year: '2-digit' };
+  return new Date(dateString)
+    .toLocaleDateString('en-AU', opts);  // eg "26 May 2025"
+}
+
 
 function renderCards(list, grid, area) {
   grid.innerHTML = '';
+  
   list.forEach(item => {
     const card = document.createElement('div');
     card.className = 'card';
+
+    let ratingHTML = '';
+    if (typeof item.rating === 'number') {
+      const rounded = Math.round(item.rating);
+      const fullStars = '⭐'.repeat(rounded);
+      const emptyStars = '✰'.repeat(5 - rounded);
+      ratingHTML = `${fullStars}${emptyStars} (${item.rating}/5)`;
+    }
+
+    const niceDate = formatDate(item.date);
+
     card.innerHTML = `
       <img src="${item.thumbnail}" alt="${item.title} cover" />
       <div class="card-info">
         <h3 class="card-title">${item.title}</h3>
         <p class="card-meta">
-          ${item.contentType === 'Book' ? '📚' : '🎬'}
-          <span class="date">${item.date}</span>
+          <span class="type">${item.contentType === 'Book' ? '📚' : '🎬'}</span>
+          <span class="date">${niceDate}</span>
           <span class="status ${item.status.toLowerCase()}">${item.status}</span>
+          
         </p>
-
+        ${ ratingHTML ? `<p class="card-rating">${ratingHTML}</p>` : '' }
+        
+        ${item.series
+          ? `<p class="card-series">Series: [${item.series}]</p>`
+          : ''
+        }
 
         <p class="card-tags">
           Tags: ${item.tags.map(t => `[${t}]`).join(' ')}

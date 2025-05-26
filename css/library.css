@@ -117,6 +117,10 @@ body {
   box-shadow: 0.5em;
 }
 
+.card-title {
+    text-align: center;
+}
+
 .card:hover {
     scale: 1.1;
 }
@@ -132,22 +136,30 @@ body {
   padding: var(--gap-half) var(--gap-narrow);
   display: flex;
   flex-direction: column;
-  gap: var(--gap-half);
+  flex: 1;
+  gap: 0.25em;
+}
+
+.card-info p {
+  margin: 0;
 }
 
 .card-title {
   margin: 0;
   font-size: 1rem;
+  font-weight: bold;
   line-height: 1.2;
 }
 
 .card-meta {
   margin: 0;
+  margin-bottom: 1em;
   font-size: 0.8rem;
   color: var(--text);
   display: flex;
   align-items: baseline;
   gap: var(--gap-half);
+  text-align: center;
 }
 
 .date {
@@ -155,15 +167,32 @@ body {
 }
 
 .status {
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .status.completed {
-  color: var(--accent);
+  color: lightgreen;
+}
+
+.status.planned {
+  color: orange;
+}
+
+.card-rating {
+  text-align: center;
+  margin: 0 0 0.5em 0;
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+
+.card-series {
+  margin-top: auto;
+  font-size: 0.6rem;
+  color: var(--text-muted);
 }
 
 .card-tags {
-  margin: 0;
+  margin-top: auto;
   font-size: 0.5rem;
   color: var(--text-muted);
 }
@@ -200,18 +229,16 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
-
-/* Append the arrow, but keep it transparent by default */
 .sort-menu li.active::after {
-  content: ' ↑';               /* default ascending arrow */
+  content: ' ↑';               
   margin-left: 0.25rem;
-  color: var(--accent);        /* ascending = accent color */
+  color: var(--accent);        
 }
 
 /* If in descending mode, swap arrow and color */
 .sort-menu li.active.desc::after {
   content: ' ↓';
-  color: var(--accent-hover);  /* descending = accent-hover color */
+  color: var(--accent-hover);  
 }
 
 /* Hover states */
@@ -220,20 +247,19 @@ body {
   color: var(--text);
 }
 
-/* default (neutral) */
 .sort-btn .icon {
   color: var(--text-muted);
   transition: color 0.2s;
 }
 
-/* when you’ve applied an “asc” class to the sort button */
+/* Ascending Sort */
 .sort-btn.asc .icon {
-  color: var(--accent);        /* e.g. blue */
+  color: var(--accent);       
 }
 
-/* when you’ve applied a “desc” class to the sort button */
+/* Descending Sort */
 .sort-btn.desc .icon {
-  color: var(--accent-hover);  /* e.g. pink */
+  color: var(--accent-hover);
 }
 
 .sort-menu li,
