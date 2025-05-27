@@ -80,7 +80,7 @@ function createFilterPanel(searchBar, filterBtn, onApply) {
 
     <div class="filter-actions">
       <button class="reset-btn">Reset ⟳</button>
-      <button class="clear-btn">Clear ×</button>
+      <button class="clear-btn">Cancel ×</button>
       <button class="apply-btn">Apply →</button>
     </div>`
     
@@ -113,11 +113,17 @@ function createFilterPanel(searchBar, filterBtn, onApply) {
     onApply();
   });
 
-
+  panel.querySelector('.clear-btn').addEventListener('click', () => { // 
+    panel.style.display    = 'none';
+    backdrop.style.display = 'none';
+    onApply();
+  });
 
   return panel;
 }
 
+
+// sets up the page and handles which books and movies are shown
 async function initLibrary() {
   try {
     const resp = await fetch('./media/data.json');
@@ -143,9 +149,6 @@ async function initLibrary() {
       filterThreshold: 0, // minimum rating to be shown (inclusive);
       filterSeries: '', // what series a content belongs to ('' -> no series)
     };
-
-
-
 
     // Create the sort menu
     const sortMenu = document.createElement('ul');
@@ -352,7 +355,7 @@ async function initLibrary() {
       updateView();
     });
 
-
+    // Reset both the state and the content saved in the filters
     function resetFilters() {
       // Series
       seriesInput.value = '';
@@ -376,15 +379,14 @@ async function initLibrary() {
 
     const resetBtn = filterPanel.querySelector('.reset-btn');
     const clearBtn = filterPanel.querySelector('.clear-btn');
+    const backdrop =filterPanel.querySelector('.backdrop');
 
-    resetBtn.addEventListener('click', () => {
+    resetBtn.addEventListener('click', () => { // reset simply resets the filters
       resetFilters();
     });
 
-    clearBtn.addEventListener('click', () => {
+    clearBtn.addEventListener('click', () => { // clear resets the filters AND closes
       resetFilters();
-      panel.style.display    = 'none';
-      backdrop.style.display = 'none';
     });
 
     // Initial state
