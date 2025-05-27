@@ -35,14 +35,17 @@ function createFilterPanel(searchBar, filterBtn, onApply) {
       <!-- Series -->
       <div class="filter-section">
         <label for="series-input">Series:</label>
-        <input
-          type="text"
-          id="series-input"
-          class="series-input"
-          placeholder="e.g. Harry Potter"
-          list="series-list"
-        />
-        <datalist id="series-list"></datalist> 
+        <div class="series-wrapper">
+          <input
+            type="text"
+            id="series-input"
+            class="series-input"
+            placeholder="e.g. Harry Potter"
+            list="series-list"
+          />
+          <datalist id="series-list"></datalist>
+          <button type="button" class="clear-series-btn" title="Clear">×</button>
+        </div>
       </div>
 
       <!-- Type dropdown -->
@@ -211,8 +214,16 @@ async function initLibrary() {
     });
 
     const seriesInput = filterPanel.querySelector('.series-input');
+    const clearSeriesBtn = filterPanel.querySelector('.clear-series-btn');
+
     seriesInput.addEventListener('input', e => {
       state.filterSeries = e.target.value.trim().toLowerCase();
+      updateView();
+    });
+
+    clearSeriesBtn.addEventListener('click', () => {
+      seriesInput.value = '';
+      state.filterSeries = '';
       updateView();
     });
 

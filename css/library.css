@@ -248,7 +248,7 @@ body {
 }
 
 .sort-btn .icon {
-  color: var(--text-muted);
+  color: var(--text);
   transition: color 0.2s;
 }
 
@@ -262,9 +262,11 @@ body {
   color: var(--accent-hover);
 }
 
+/* Dont select the text when pressing button */
 .sort-menu li,
 .action-btn,
 .sort-btn,
+.filter-section,
 .filter-btn {
   user-select: none;           /* standard */
   -webkit-user-select: none;   /* Safari */
@@ -302,28 +304,13 @@ body {
   flex: 1 1 200px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 2em;;
 }
 
 .filter-section label {
   margin-bottom: 0.25rem;
   font-weight: 500;
   color: var(--text-muted);
-}
-
-.series-input {
-  width: 100%;
-  padding: .75rem 1rem;
-  font-size: 1rem;
-  border: 1px solid var(--text-muted);
-  background: var(--area);
-  color: var(--text);
-  border-radius: var(--radius);
-  outline: none;
-  appearance: none;
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  background-size: .8em;
-  margin-bottom: var(--gap-half);
 }
 
 .tag-input { display: flex; flex-wrap: wrap; gap: 0.5rem; }
@@ -374,4 +361,59 @@ body {
 .rating-threshold span.filled,
 .rating-threshold span[data-value] {
  color: orange;
+}
+
+.filter-actions button {
+  font-weight: bold;
+  background-color: var(--area);
+}
+
+.filter-actions button:hover {
+  background: var(--overlay);
+  color: var(--accent-hover);
+}
+
+.series-wrapper {
+  position: relative;
+  width: 100%;
+  display: inline-block;
+}
+
+.series-input {
+  width: 100%;
+  padding: .75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--text-muted);
+  background: var(--area);
+  color: var(--text);
+  border-radius: var(--radius);
+  outline: none;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: .8em;
+  margin-bottom: var(--gap-half);
+  box-sizing: border-box;
+}
+
+
+.clear-series-btn {
+  position: absolute;
+  right: 0.5rem;         
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1; 
+  border: none;
+  background: transparent;
+  font-size: 1.25rem;    
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.clear-series-btn:hover {
+  color: var(--accent-hover);
 }
