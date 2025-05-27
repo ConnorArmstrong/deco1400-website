@@ -145,6 +145,8 @@ async function initLibrary() {
     };
 
 
+
+
     // Create the sort menu
     const sortMenu = document.createElement('ul');
     sortMenu.className = 'sort-menu';
@@ -348,6 +350,41 @@ async function initLibrary() {
     searchInput.addEventListener('input', e => {
       state.searchTerm = e.target.value.trim().toLowerCase();
       updateView();
+    });
+
+
+    function resetFilters() {
+      // Series
+      seriesInput.value = '';
+      state.filterSeries = '';
+
+      // Type
+      typeSelect.value = '';
+      state.filterType = '';
+
+      // Status
+      statusSelect.value = '';
+      state.filterStatus = '';
+
+      // Rating threshold
+      state.filterThreshold = 0;
+      renderThresholdStars();
+
+      // re‐run the filter
+      updateView();
+    }
+
+    const resetBtn = filterPanel.querySelector('.reset-btn');
+    const clearBtn = filterPanel.querySelector('.clear-btn');
+
+    resetBtn.addEventListener('click', () => {
+      resetFilters();
+    });
+
+    clearBtn.addEventListener('click', () => {
+      resetFilters();
+      panel.style.display    = 'none';
+      backdrop.style.display = 'none';
     });
 
     // Initial state

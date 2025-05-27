@@ -377,6 +377,7 @@ body {
   position: relative;
   width: 100%;
   display: inline-block;
+   margin-bottom: var(--gap-half);
 }
 
 .series-input {
@@ -392,7 +393,6 @@ body {
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: .8em;
-  margin-bottom: var(--gap-half);
   box-sizing: border-box;
 }
 
