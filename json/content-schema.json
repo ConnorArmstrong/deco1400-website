@@ -80,8 +80,12 @@
         },
 
         "questions": {
-            "type": "object",
-            "properties": {
+            "type": "array",
+            "description": "A list of question/answer pairs",
+            "items": {
+                "type": "object",
+                "required": ["question","answer"],
+                "properties": {
                 "question": {
                     "type": "string",
                     "description": "A given question"
@@ -90,7 +94,9 @@
                     "type": "string",
                     "description": "A given corresponding text answer"
                 }
-            }
-        }
+                }
+            },
+            "minItems": 0
+         }
     }
 }
