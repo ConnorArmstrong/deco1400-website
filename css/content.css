@@ -1,20 +1,18 @@
-/* make <main> a 2×2 grid with named areas */
 main {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: 35% 65%;
+  grid-template-rows: 40% 60%;
   grid-template-areas:
     "meta user"
     "summary qa";
-  gap: var(--gap-narrow);
-  padding: var(--gap-narrow);
+  gap: 1rem 1.5rem;
+  padding: 1rem 2em;
 }
 
-/* common “card” look for each panel */
 main > section {
   background: var(--surface);
   border-radius: var(--radius);
-  padding: var(--gap-half);
+  padding: var(--gap-narrow);
   color: var(--text);
 }
 
@@ -24,34 +22,76 @@ main > section {
 .summary     { grid-area: summary; }
 .q-and-a     { grid-area: qa; }
 
-/* little utility for tag-pills */
-.tag {
-  display: inline-block;
-  background: var(--overlay);
-  padding: 0.2rem 0.5rem;
-  margin: 0.2rem 0.2rem 0 0;
-  border-radius: var(--radius);
-  font-size: 0.85rem;
+.detail-meta .meta-info #item-title,
+.user-notes h3,
+.summary h3,
+.q-and-a h3 {
+  margin-top: 0;
 }
 
+
+/* ----- Detail Meta (Top Left) -----*/
 
 .detail-meta {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--gap-half);
   align-items: flex-start;
+  width: 100%;
+  text-align: center;
 }
 
-/* make sure the image doesn’t get squashed */
+
 .detail-meta #thumb {
-  /* or whatever fixed width you like */
   height: auto;
   border-radius: var(--radius);
+  max-height: 400px;
 }
 
 /* the right column will auto-flow the text */
 .detail-meta .meta-info {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-half);
+  gap: 0;
+}
+
+.meta-info #item-title {
+    font-weight: bold;
+    font-size: 2em;
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    margin-bottom: 0em;
+
+}
+
+.meta-line span:not(:empty) + span:not(:empty)::before {
+  content: " – ";
+  color: var(--text-muted);
+}
+
+
+
+.meta-line .status.completed {
+  color: lightgreen;
+}
+.meta-line .status.in-progress {
+  color: orange;
+}
+
+.meta-line .status {
+    font-weight: bold;
+}
+
+.detail-meta .meta-info p.series,
+.detail-meta .meta-info p.tags {
+  text-align: left;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--overlay);
+  padding: 0.2rem 0.5rem;
+  margin: 0.2rem 0.5rem 0 0;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
 }

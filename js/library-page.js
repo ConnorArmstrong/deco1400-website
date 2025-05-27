@@ -412,6 +412,7 @@ function renderCards(list, grid, area) {
   list.forEach(item => {
     const card = document.createElement('div');
     card.className = 'card';
+    card.style.cursor = 'pointer';
 
     let ratingHTML = '';
     if (typeof item.rating === 'number') {
@@ -445,6 +446,12 @@ function renderCards(list, grid, area) {
         </p>
       </div>
     `;
+
+    card.addEventListener('click', () => {
+      const qs = encodeURIComponent(item.title);
+      window.location.href = `/content.html?title=${qs}`;
+    });
+
     grid.appendChild(card);
   });
   updateItemCount(list, area);
