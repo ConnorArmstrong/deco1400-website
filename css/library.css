@@ -287,7 +287,6 @@ body {
   padding: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   z-index: 100;
-  border: 2px dashed hotpink;
 }
 
 /* flex grid for the filter fields */
@@ -311,7 +310,22 @@ body {
   color: var(--text-muted);
 }
 
-/* style your tag-list / selects / rating as you like */
+.series-input {
+  width: 100%;
+  padding: .75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--text-muted);
+  background: var(--area);
+  color: var(--text);
+  border-radius: var(--radius);
+  outline: none;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: .8em;
+  margin-bottom: var(--gap-half);
+}
+
 .tag-input { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .tag { background: var(--tag-bg); padding: 0.25rem 0.5rem; border-radius: 0.25rem; }
 
@@ -338,4 +352,26 @@ body {
   width: 100vw; height: 100vh;
   background: rgba(0,0,0,0.6);
   z-index: 90;              /* just below the panel */
+}
+
+.filter-section select {
+  width: 100%;
+  padding: .75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--text-muted);
+  background: var(--area);
+  color: var(--text);
+  border-radius: var(--radius);
+  outline: none;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: .8em;
+  margin-bottom: var(--gap-half);
+}
+
+
+.rating-threshold span.filled,
+.rating-threshold span[data-value] {
+ color: orange;
 }

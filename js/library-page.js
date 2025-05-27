@@ -34,8 +34,15 @@ function createFilterPanel(searchBar, filterBtn, onApply) {
 
       <!-- Series -->
       <div class="filter-section">
-        <label>Series:</label>
-        <button class="add-series-btn">Add Series +</button>
+        <label for="series-input">Series:</label>
+        <input
+          type="text"
+          id="series-input"
+          class="series-input"
+          placeholder="e.g. Harry Potter"
+          list="series-list"
+        />
+        <datalist id="series-list"></datalist> 
       </div>
 
       <!-- Type dropdown -->
@@ -127,7 +134,11 @@ async function initLibrary() {
     const state = {
       searchTerm: '', // Whats in the Search Bar
       sortMethod: 'az', // default
-      sortDesc: false // false = ascending, true = descending
+      sortDesc: false, // false = ascending, true = descending
+      filterType: '', // ''/'book'/'movie'
+      filterStatus: '', // ''/'planned'/'completed'/'in progress'
+      filterThreshold: 0, // minimum rating to be shown (inclusive);
+      filterSeries: '', // what series a content belongs to ('' -> no series)
     };
 
 
@@ -185,6 +196,83 @@ async function initLibrary() {
     // create filter panel
     const filterPanel = createFilterPanel(searchBar, filterBtn, updateView);
 
+    // create a list of all series and tags
+    const allSeries = Array.from(new Set(
+      items.map(item => item.series || '').filter(s => s.trim().length > 0)
+    ));
+
+    const seriesDatalist = filterPanel.querySelector('#series-list');
+
+    // add each series as an <option>
+    allSeries.forEach(seriesName => {
+      const opt = document.createElement('option');
+      opt.value = seriesName;
+      seriesDatalist.appendChild(opt);
+    });
+
+    const seriesInput = filterPanel.querySelector('.series-input');
+    seriesInput.addEventListener('input', e => {
+      state.filterSeries = e.target.value.trim().toLowerCase();
+      updateView();
+    });
+
+    const typeSelect = filterPanel.querySelector('.type-select');
+      typeSelect.addEventListener('change', e => {
+      state.filterType = e.target.value;
+      updateView();                       
+    });
+
+    const statusSelect = filterPanel.querySelector('.status-select');
+      statusSelect.addEventListener('change', e => {
+      state.filterStatus = e.target.value;
+      updateView();                       
+    });
+
+    const ratingContainer = filterPanel.querySelector('.rating-threshold');
+
+    ratingContainer.innerHTML = '';
+
+    function renderThresholdStars() {
+      ratingContainer.querySelectorAll('span').forEach(star => {
+        const v = Number(star.dataset.value);
+        star.textContent = v <= state.filterThreshold ? '★' : '☆';
+      })
+    }
+
+    // show the rating threshold
+    for (let i = 1; i <= 5; i++) {
+      const star = document.createElement('span');
+      star.dataset.value = i;
+      star.style.cursor = 'pointer';
+      star.style.fontSize = '2em';
+      star.textContent = '☆';
+
+      // on hover light up the relevant stars
+      star.addEventListener('mouseover', () => {
+        ratingContainer.querySelectorAll('span').forEach(s => {
+          const v = Number(s.dataset.value);
+          s.textContent = v <= i ? '★' : '☆';
+        });
+      });
+
+      // undo when mouse leaves
+      star.addEventListener('mouseout', renderThresholdStars);
+
+      star.addEventListener('click', () => {
+        if (state.filterThreshold === i) {
+          state.filterThreshold = 0; // unselect if selected
+        } else {
+          state.filterThreshold = i; // select if not selected
+        }
+        renderThresholdStars();
+        updateView();
+      });
+
+      ratingContainer.appendChild(star);
+    }
+
+    renderThresholdStars();
+
     // Core update: filter, sort, render, update
     function updateView() {
       let list = items.slice(); // copy the list
@@ -194,6 +282,34 @@ async function initLibrary() {
         list = list.filter(item =>
           item.title.toLowerCase().includes(term) ||
           item.tags.some(tag => tag.toLowerCase().includes(term))
+        );
+      }
+
+      // filter based on selected state
+      if (state.filterType) {
+        list = list.filter(item =>
+          item.contentType === state.filterType
+        );
+      }
+
+      // filter based on the selected status
+      if (state.filterStatus) {
+        list = list.filter(item => 
+          item.status.toLowerCase() === state.filterStatus
+        );
+      }
+      
+      // filter based on specified threshold
+      if (state.filterThreshold) {
+        list = list.filter(item =>
+          (item.rating || 0) >= state.filterThreshold
+        );
+      }
+
+      // Filter based on Series
+      if (state.filterSeries) {
+        list = list.filter(item =>
+          item.series && item.series.toLowerCase().includes(state.filterSeries)
         );
       }
 
