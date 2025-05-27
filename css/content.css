@@ -1,0 +1,57 @@
+/* make <main> a 2×2 grid with named areas */
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "meta user"
+    "summary qa";
+  gap: var(--gap-narrow);
+  padding: var(--gap-narrow);
+}
+
+/* common “card” look for each panel */
+main > section {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: var(--gap-half);
+  color: var(--text);
+}
+
+/* assign each panel to its grid-area */
+.detail-meta { grid-area: meta; }
+.user-notes  { grid-area: user; }
+.summary     { grid-area: summary; }
+.q-and-a     { grid-area: qa; }
+
+/* little utility for tag-pills */
+.tag {
+  display: inline-block;
+  background: var(--overlay);
+  padding: 0.2rem 0.5rem;
+  margin: 0.2rem 0.2rem 0 0;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+}
+
+
+.detail-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--gap-half);
+  align-items: flex-start;
+}
+
+/* make sure the image doesn’t get squashed */
+.detail-meta #thumb {
+  /* or whatever fixed width you like */
+  height: auto;
+  border-radius: var(--radius);
+}
+
+/* the right column will auto-flow the text */
+.detail-meta .meta-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-half);
+}
