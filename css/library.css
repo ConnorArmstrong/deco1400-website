@@ -1,6 +1,4 @@
-/* ───────────────────────────────────────────────────────── */
-/*  Library‐page layout overrides / additions                */
-/* ───────────────────────────────────────────────────────── */
+/*  Library‐page layout ────────────────────────────── */
 
 body {
   overflow-y: hidden;
@@ -23,6 +21,8 @@ body {
   padding: var(--gap-half);
   padding-left: 0;
   border-radius: var(--radius);
+  position: relative;
+  z-index: 95; /* Aove the backdrop but below the panel */
 }
 
 .search-input {
@@ -270,4 +270,72 @@ body {
   -webkit-user-select: none;   /* Safari */
   -moz-user-select: none;      /* Firefox */
   -ms-user-select: none;       /* IE10+ */
+}
+
+
+
+/* Filter Panel */
+/* the floating panel */
+.filter-panel {
+  position: absolute;
+  top: 100%;       /* just below the search-bar */
+  left: 0;
+  right: 0;
+  margin-top: 0.5rem;
+  background: var(--surface);  
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 100;
+  border: 2px dashed hotpink;
+}
+
+/* flex grid for the filter fields */
+.filter-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* each section can flex to fit */
+.filter-section {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-section label {
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* style your tag-list / selects / rating as you like */
+.tag-input { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag { background: var(--tag-bg); padding: 0.25rem 0.5rem; border-radius: 0.25rem; }
+
+/* bottom action buttons */
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.filter-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+}
+
+.filter-backdrop {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.6);
+  z-index: 90;              /* just below the panel */
 }

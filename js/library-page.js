@@ -8,6 +8,106 @@ function applyLibraryStyling() {
 }
 
 
+// this had to get abstracted out of the init library function for clarity
+function createFilterPanel(searchBar, filterBtn, onApply) {
+  console.log("Creating Filter Panel");
+  // build the panel
+  const panel = document.createElement('div');
+  panel.className = 'filter-panel';
+  
+  // hide by default
+  panel.style.display = 'none';
+
+  // messy but it works. maybe.
+  panel.innerHTML = `
+    <div class="filter-content">
+      <!-- Tags (you can swap this out for your tag-picker component) -->
+      <div class="filter-section">
+        <label>Tags:</label>
+        <div class="tag-input">
+          <!-- example static tags; you’ll want to render your own -->
+          <span class="tag">tag_1 ×</span>
+          <span class="tag">tag_2 ×</span>
+          <button class="add-tag-btn">Add Tag +</button>
+        </div>
+      </div>
+
+      <!-- Series -->
+      <div class="filter-section">
+        <label>Series:</label>
+        <button class="add-series-btn">Add Series +</button>
+      </div>
+
+      <!-- Type dropdown -->
+      <div class="filter-section">
+        <label>Type:</label>
+        <select class="type-select">
+          <option value="">Any</option>
+          <option value="Book">Book</option>
+          <option value="Movie">Movie</option>
+        </select>
+      </div>
+
+      <!-- Status dropdown -->
+      <div class="filter-section">
+        <label>Status:</label>
+        <select class="status-select">
+          <option value="">Any</option>
+          <option value="planned">Planned</option>
+          <option value="in progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+
+      <!-- Rating threshold -->
+      <div class="filter-section">
+        <label>Rating Threshold:</label>
+        <div class="rating-threshold">
+          ☆☆☆☆☆
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-actions">
+      <button class="reset-btn">Reset ⟳</button>
+      <button class="clear-btn">Clear ×</button>
+      <button class="apply-btn">Apply →</button>
+    </div>`
+    
+  searchBar.appendChild(panel);
+
+  const backdrop = document.createElement('div');
+  backdrop.className = 'filter-backdrop';
+  backdrop.style.display = 'none';
+  document.body.appendChild(backdrop);
+
+  // prevent clicks inside the search-bar (input, sort, panel…) from closing
+  searchBar.addEventListener('click', e => e.stopPropagation());
+
+  filterBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    backdrop.style.display = backdrop.style.display === 'none' ? 'block' : 'none';
+    console.log(`${panel.style.display}`);
+  });
+  panel.addEventListener('click', e => e.stopPropagation()); // so clicking the panel doesnt close it 
+  
+  document.addEventListener('click', () => { // clicking outside closes
+    panel.style.display = 'none';
+    backdrop.style.display = 'none';
+  });
+
+   panel.querySelector('.apply-btn').addEventListener('click', () => {
+    panel.style.display    = 'none';
+    backdrop.style.display = 'none';
+    onApply();
+  });
+
+
+
+  return panel;
+}
+
 async function initLibrary() {
   try {
     const resp = await fetch('./media/data.json');
@@ -16,6 +116,7 @@ async function initLibrary() {
 
     // Cache DOM elements
     const searchInput = document.querySelector('.search-input');
+    const searchBar  = document.querySelector('.search-bar');
     const filterBtn = document.querySelector('.filter-btn');
     const sortBtn = document.querySelector('.sort-btn')
     const cardGrid = document.querySelector('.card-grid');
@@ -24,11 +125,11 @@ async function initLibrary() {
 
     // State: search term, filter toggle, sort method
     const state = {
-      searchTerm: '',
-      showOnlyBooks: false,
+      searchTerm: '', // Whats in the Search Bar
       sortMethod: 'az', // default
       sortDesc: false // false = ascending, true = descending
     };
+
 
     // Create the sort menu
     const sortMenu = document.createElement('ul');
@@ -81,6 +182,9 @@ async function initLibrary() {
       });
     });
 
+    // create filter panel
+    const filterPanel = createFilterPanel(searchBar, filterBtn, updateView);
+
     // Core update: filter, sort, render, update
     function updateView() {
       let list = items.slice(); // copy the list
@@ -92,10 +196,7 @@ async function initLibrary() {
           item.tags.some(tag => tag.toLowerCase().includes(term))
         );
       }
-      // apply book-only filter - TODO: For now
-      if (state.showOnlyBooks) {
-        list = list.filter(item => item.contentType === 'Book');
-      }
+
       // apply sort
       if (state.sortMethod === 'az') {
         list.sort((a, b) => a.title.localeCompare(b.title));
@@ -122,12 +223,6 @@ async function initLibrary() {
       updateView();
     });
 
-    // filter button toggles book-only
-    filterBtn.addEventListener('click', () => {
-      state.showOnlyBooks = !state.showOnlyBooks;
-      updateView();
-    });
-
     // Initial state
     updateView();
 
@@ -139,9 +234,9 @@ async function initLibrary() {
 }
 
 function formatDate(dateString) {
-  const opts = { day: 'numeric', month: 'short', year: '2-digit' };
+  const opts = { day: 'numeric', month: 'numeric', year: '2-digit' };
   return new Date(dateString)
-    .toLocaleDateString('en-AU', opts);  // eg "26 May 2025"
+    .toLocaleDateString('en-AU', opts);  // eg "15/5/25"
 }
 
 

@@ -398,7 +398,7 @@ function applyHomeStyling() {
 
 // on index.html startup
 document.addEventListener('DOMContentLoaded', () => {
-  applyHomeStyling();
+  //applyHomeStyling();
   updateCardWidths();
   initCarousels();
   window.addEventListener('resize', () => {
