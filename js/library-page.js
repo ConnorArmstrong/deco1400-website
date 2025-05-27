@@ -447,9 +447,9 @@ function renderCards(list, grid, area) {
       </div>
     `;
 
-    card.addEventListener('click', () => {
-      const qs = encodeURIComponent(item.title);
-      window.location.href = `/content.html?title=${qs}`;
+    card.addEventListener('click', () => { // clicking the card goes to its content page
+      const qs = encodeURIComponent(item.title); // handles spaces etc automatically
+      window.location.href = `content.html?title=${qs}`; // redirect
     });
 
     grid.appendChild(card);

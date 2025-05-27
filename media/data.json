@@ -22,10 +22,20 @@
         "ratingN": 82
       },
       "userText": "Hello World!",
-      "questions": {
-        "question": "How did this make you feel?",
-        "answer": "It made me feel good :)"
-      }
+      "questions": [
+        { 
+          "question": "How did this make you feel?",
+          "answer": "It made me feel good :)"
+        },
+        {
+         "question": "Which character stood out most?",
+          "answer": "The King himself—his presence was uncanny."
+        },
+        {
+         "question": "Would you read more Chambers?",
+         "answer": "Definitely, I’m intrigued by his style."
+        }
+      ]
     },
     {
       "title": "Walden",
@@ -48,10 +58,20 @@
         "ratingN": 12
       },
       "userText": "Looks kinda weird. But the cover is cool, and the cinematography is a vibe.",
-      "questions": {
-        "question": "Why?",
-        "answer": "Cover."
-      }
+      "questions": [
+        { 
+          "question": "How did this make you feel?",
+          "answer": "It made me feel bad :)"
+        },
+        {
+         "question": "Which character stood out most?",
+          "answer": "The Wood was kind Crazy. Trees are Wild."
+        },
+        {
+         "question": "Would you read more?",
+         "answer": "Definitely, it means I cut more trees down."
+        }
+      ]
     },
     {
       "title": "Hooked",
@@ -74,10 +94,7 @@
         "ratingN": 11
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     },
     {
       "title": "Jellyfish",
@@ -100,10 +117,7 @@
         "ratingN": 100
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     },
     {
       "title": "Cujo",
@@ -125,10 +139,7 @@
         "ratingN": 100
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     },
     {
       "title": "Of Mice and Men",
@@ -150,10 +161,7 @@
         "ratingN": 0
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     },
     {
       "title": "Rivers and Mountains",
@@ -175,10 +183,7 @@
         "ratingN": 1
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     },
     {
       "title": "The Endless Summer",
@@ -201,10 +206,7 @@
         "ratingN": 1
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     },
     {
       "title": "Stars were Shining",
@@ -226,10 +228,7 @@
         "ratingN": 0
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     },
     {
       "title": "Jaws (Novel)",
@@ -251,10 +250,7 @@
         "ratingN": 100
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     },
     {
       "title": "Salem's Lot",
@@ -276,10 +272,7 @@
         "ratingN": 1
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     },
     {
       "title": "Sweet Coccoon",
@@ -302,10 +295,7 @@
         "ratingN": 0
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     },
     {
       "title": "Catch It!",
@@ -328,10 +318,7 @@
         "ratingN": 0
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     },
     {
       "title": "Tarzan",
@@ -354,10 +341,7 @@
         "ratingN": 1
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     },
     {
       "title": "Frankenstein",
@@ -380,10 +364,7 @@
         "ratingN": 102
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     },
     {
       "title": "Daniel '16",
@@ -405,10 +386,7 @@
         "ratingN": 2
       },
       "userText": "",
-      "questions": {
-        "question": "",
-        "answer": ""
-      }
+      "questions": []
     }
   ]
 }

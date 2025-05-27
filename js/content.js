@@ -1,10 +1,11 @@
-async function loadContent() {
+async function loadContent(title) {
     const resp = await fetch('/media/data.json');
     const {items} = await resp.json();
 
-    // Find a given piece of content
-
-    const title = "Walden"; //TODO: For now
+    if (title === '') { // for now!
+        console.warn("No Title Provided?");
+        title = "The King in Yellow";
+    }
 
     const item = items.find(i => i.title === title);
     if (!item) {
@@ -76,7 +77,6 @@ async function loadContent() {
         }
     }
 
-    //document.getElementById('item-series').textContent = item.series || '+';
     const seriesEl = document.getElementById('item-series');
     seriesEl.innerHTML = '';
     const pill = document.createElement('span');
@@ -92,10 +92,44 @@ async function loadContent() {
         pill.textContent = t;
         tagsEl.appendChild(pill);
     });
+
+    // ─── 1) USER NOTES ──────────────────────────────
+    // assumes <section class="user-notes"><p>…</p></section>
+    const userNotesEl = document.querySelector('.user-notes p');
+    userNotesEl.textContent = item.userText || 'Start Writing Here...';
+
+    // ─── 2) SUMMARY PANEL ───────────────────────────
+    // update heading with source
+    const summaryHeader = document.querySelector('.summary h3');
+    summaryHeader.textContent = `Summary (${item.summary.source})`;
+
+    // first <p> → summary text
+    const [summaryTextEl, summaryPlatformEl] =
+        document.querySelectorAll('.summary p');
+    summaryTextEl.textContent = item.summary.text;
+
+    // second <p> → platform rating + count
+    summaryPlatformEl.innerHTML =
+        `<strong>Platform Rating:</strong> ${item.summary.platformRating} ` +
+        `(${item.summary.ratingN})`;
+
+    // ─── 3) Q&A PANEL ───────────────────────────────
+    // assumes .q-and-a .question contains a <strong> and a <p>
+    const qaStrong = document.querySelector('.q-and-a .question strong');
+    const qaAnswer = document.querySelector('.q-and-a .question p');
+    qaStrong.textContent = item.questions.question;
+    qaAnswer.textContent = item.questions.answer;
 }
 
 
 
+
 document.addEventListener('DOMContentLoaded', async () => {
-    loadContent();
+    // pull the ?title= ...
+    const params = new URLSearchParams(window.location.search);
+    const rawTitle = params.get('title') || '';
+    // decode it
+    const title = decodeURIComponent(rawTitle);
+
+    loadContent(title);
 });
