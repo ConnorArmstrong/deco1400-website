@@ -115,10 +115,18 @@ async function loadContent(title) {
 
     // ─── 3) Q&A PANEL ───────────────────────────────
     // assumes .q-and-a .question contains a <strong> and a <p>
-    const qaStrong = document.querySelector('.q-and-a .question strong');
-    const qaAnswer = document.querySelector('.q-and-a .question p');
-    qaStrong.textContent = item.questions.question;
-    qaAnswer.textContent = item.questions.answer;
+    const qaSection = document.querySelector('.q-and-a');
+    qaSection.innerHTML = '<h3>Q&amp;A</h3>';  // reset
+
+    item.questions.forEach(({ question, answer }) => {
+    const div = document.createElement('div');
+    div.className = 'question';
+    div.innerHTML = `
+        <strong>${question}</strong>
+        <p>${answer}</p>
+    `;
+    qaSection.appendChild(div);
+    });
 }
 
 

@@ -102,8 +102,9 @@ body {
   display: grid;
   gap: var(--gap-narrow);
   grid-template-columns: repeat(8, 1fr);
-  padding: 1.5em;
+  padding: 1.25em;
   background-color: var(--area);
+  border-radius: var(--radius);
 }
 
 /* ── Individual Card ───────────────────────────────────── */

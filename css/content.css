@@ -30,7 +30,7 @@ main > section {
 }
 
 
-/* ----- Detail Meta (Top Left) -----*/
+/* ---- Content Meta Details | TOP LEFT ---- */
 
 .detail-meta {
   display: grid;
@@ -46,6 +46,7 @@ main > section {
   height: auto;
   border-radius: var(--radius);
   max-height: 400px;
+  min-height: 100px;
 }
 
 /* the right column will auto-flow the text */
@@ -94,4 +95,49 @@ main > section {
   margin: 0.2rem 0.5rem 0 0;
   border-radius: var(--radius);
   font-size: 0.85rem;
+}
+
+/* ---- User Text | Top RIGHT ---- */
+
+.user-notes p {
+    background-color: var(--area);
+    min-height: 100px;
+    border-radius: var(--radius);
+    padding: var(--gap-narrow);
+}
+
+
+/* ---- AutoSummary | BOTTOM LEFT ---- */
+
+.summary {
+  border: 3px dashed var(--text-muted);
+  border-radius: var(--radius);
+  padding: var(--gap-narrow);
+  text-overflow: ellipsis;
+
+  /* slightly “faded” text */
+  color: var(--text);
+  opacity: 0.8;
+}
+
+/* ---- Q AND A | BOTTOM RIGHT ---- */
+
+
+.q-and-a .question {
+  margin-bottom: var(--gap-narrow);
+}
+
+.q-and-a .question > strong {
+  display: block;
+  background: var(--surface);
+  padding: var(--gap-half);
+  border-radius: var(--radius);
+  margin-bottom: 0.25rem;
+}
+
+.q-and-a .question > p {
+  background: var(--area);
+  padding: var(--gap-half);
+  border-radius: var(--radius);
+  margin: 0;
 }
