@@ -11,7 +11,7 @@ export async function getData(useStorage = true) {
   if (useStorage) {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
-      console.log(`stored: ${stored}`);
+      //console.log(`stored: ${stored}`);
       try {
         return JSON.parse(stored);
       } catch (e) {
@@ -23,7 +23,7 @@ export async function getData(useStorage = true) {
 
   // no valid cache, so fetch and cache it
   const data = await loadJSONData();
-  console.log('read:', JSON.stringify(data));
+  //console.log('read:', JSON.stringify(data));
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   return data;
 }
@@ -32,9 +32,12 @@ export function clearJSONCache() {
   localStorage.removeItem(STORAGE_KEY);
 }
 
+// Set local storage to the data.json file
 export async function refreshData() {
     const data = await loadJSONData();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    console.log("Refreshed Local Storage to data.json state");
+    return true;
 }
 
 // internal helper: pull the raw object (no fetch)
@@ -60,11 +63,46 @@ function _updateItem(title, mutator) {
 }
 
 
-
+// update user text for title with given text
 export function updateUserText(title, newText) {
-    console.log(`Updating ${title} User Text...`)
+    console.log(`Updating ${title} User Text to ${newText}`);
   _updateItem(title, item => {
     item.userText = newText;
   });
+}
+
+// add question for 
+export function addQuestion(title, question, answer = '') {
+  _updateItem(title, item => {
+    // ensure there's an array to push into
+    if (!Array.isArray(item.questions)) {
+      item.questions = [];
+    }
+    item.questions.push({ question, answer });
+  });
+  console.log(`Adding Question "${question}" with Answer "${answer}" for ${title}`);
+}
+
+// return the item for a given title
+export async function getItem(title) {
+    const { items } = await getData();
+
+    const item = items.find(i => i.title === title);
+    if (!item) {
+        console.error('Cannot Find Content');
+        return;
+    }
+
+    return item;
+}
+
+export function updateQuestionAnswer(title, qIndex, newAnswer) {
+  _updateItem(title, item => {
+    if (!Array.isArray(item.questions) || qIndex < 0 || qIndex >= item.questions.length) {
+      throw new Error(`Invalid question index ${qIndex} for "${title}"`);
+    }
+    item.questions[qIndex].answer = newAnswer;
+  });
+  console.log(`Updated ${title} Question ${qIndex} to: "${newAnswer}"`);
 }
 

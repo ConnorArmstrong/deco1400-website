@@ -1,3 +1,5 @@
+import { refreshData } from './utils.js'; // for storage actions
+
 function applyModalStyling() {
     if (document.getElementById('modal-styles')) return;
     const link = document.createElement('link');
@@ -198,3 +200,17 @@ function initModal() {
 }
 
 window.addEventListener('DOMContentLoaded', loadPopupModal)
+
+
+// probably not the correct place to put this but it applies to all pages
+window.addEventListener('keydown', e => { // Alt + Shift + R refreshes localstorage
+  if (e.altKey && e.shiftKey && e.code === 'KeyR') {
+    e.preventDefault();    // stop any default action just in case
+    refreshData().then(() => {
+        const url = new URL(window.location.href);
+        // this will either add “_” or overwrite it if it was there
+        url.searchParams.set('_', Date.now());
+        window.location.href = url.toString(); // force a cache override
+    });
+  }
+});

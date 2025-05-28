@@ -1,4 +1,4 @@
-import { getData, updateUserText } from './utils.js';
+import { addQuestion, getData, updateUserText, updateQuestionAnswer } from './utils.js';
 
 async function loadContent(title) {
     const { items } = await getData();
@@ -14,13 +14,15 @@ async function loadContent(title) {
         return;
     }
 
+    await checkQuestions(item);
+
     document.getElementById('thumb').src = item.thumbnail.replace(/\\/g, '/');
     document.getElementById('item-title').textContent = item.title;
 
     const metaRoot = document.getElementById('item-meta');
     const [ratingEl, dateEl, statusEl, amountEl] = metaRoot.querySelectorAll('span');
 
-      // reset text and classes
+    // reset text and classes
     ratingEl.textContent = '';
     dateEl.textContent   = '';
     statusEl.textContent = '';
@@ -95,7 +97,6 @@ async function loadContent(title) {
     });
 
     // ─── 1) USER NOTES ──────────────────────────────
-    // assumes <section class="user-notes"><p>…</p></section>
     const notesEl = document.getElementById('user-notes-textarea');
     notesEl.value = item.userText || '';
     notesEl.addEventListener('blur', () => {
@@ -117,20 +118,89 @@ async function loadContent(title) {
         `<strong>Platform Rating:</strong> ${item.summary.platformRating} ` +
         `(${item.summary.ratingN})`;
 
+        
     // ─── 3) Q&A PANEL ───────────────────────────────
     // assumes .q-and-a .question contains a <strong> and a <p>
     const qaSection = document.querySelector('.q-and-a');
     qaSection.innerHTML = '<h3>Q&amp;A</h3>';  // reset
 
-    item.questions.forEach(({ question, answer }) => {
-    const div = document.createElement('div');
-    div.className = 'question';
-    div.innerHTML = `
-        <strong>${question}</strong>
-        <p>${answer}</p>
-    `;
-    qaSection.appendChild(div);
+    item.questions.forEach(({ question, answer }, i) => {
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.innerHTML = `
+            <strong>${question}</strong>
+            <textarea
+            class="answer-input"
+            data-index="${i}"
+            placeholder="Your answer…"
+            >${answer}</textarea>
+        `;
+        qaSection.appendChild(div);
+        const textarea = div.querySelector('.answer-input');
+        // Save on blur
+        textarea.addEventListener('blur', () => {
+            updateQuestionAnswer(title, i, textarea.value);
+        });
     });
+
+    const allTextAreas = document.querySelectorAll('textarea');
+    allTextAreas.forEach(txt => {
+        autoGrow(txt);
+        txt.addEventListener('input', () => autoGrow(txt));
+    })
+
+
+
+    // global keybinding for saving everything
+    window.addEventListener('keydown', e => {
+        const isSave = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's';
+        if (!isSave) return;
+
+        e.preventDefault();
+
+        // save user notes
+        updateUserText(title, notesEl.value);
+
+        // save every QA textarea
+        document.querySelectorAll('.answer-input').forEach(txt => {
+            const idx = Number(txt.dataset.index);
+            updateQuestionAnswer(title, idx, txt.value);
+        });
+
+        console.log('All content saved!');
+    });
+
+}
+
+
+// if an element has no questions associated, load 3 random questions from questions.txt
+async function checkQuestions(item) {
+    // if there are no questions add them
+    let questions = item.questions;
+
+    console.log(questions);
+
+    if (!Array.isArray(questions) || questions.length == 0) {
+        const resp = await fetch('/media/questions.txt');
+        const text = await resp.text();
+
+        //split into lines
+        const lines = text.split('\n').map(l => l.trim()).filter(l => l); // filters non-empty
+        const picks = []
+        while (picks.length < 3 && lines.length) { // avoids infinite loop on empty lines
+            const i = Math.floor(Math.random() * lines.length);
+            picks.push(lines.splice(i, 1)[0]); // Add the question to picks
+        }
+        questions = picks.map(q => {
+            addQuestion(item.title, q);
+        })
+    }
+}
+
+// function to increase the height of a text area to fit content
+function autoGrow(el) {
+    el.style.height = 'auto'; // set it to the default height for the content
+    el.style.height = el.scrollHeight + 'px'; // grow to fit
 }
 
 

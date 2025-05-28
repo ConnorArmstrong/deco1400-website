@@ -106,7 +106,7 @@ main > section {
   padding: var(--gap-narrow);
 }
 
-.user-notes textarea {
+textarea {
   width: 100%;
   background-color: var(--area);
   min-height: 150px;
@@ -117,8 +117,17 @@ main > section {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   resize: vertical;
+  overflow: hidden;
   box-sizing: border-box;
+
 }
+
+.q-and-a textarea {
+  min-height: 1em;
+  resize: none;
+}
+
+
 
 
 /* ---- AutoSummary | BOTTOM LEFT ---- */
