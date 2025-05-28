@@ -136,3 +136,43 @@ export function getUser() {
 }
 
 // ------------------- DARK MODE / LIGHT MODE -----------------------
+
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    const toggle = document.querySelector('#theme-toggle');
+
+    if (toggle) {
+       toggle.textContent = theme === 'dark' ? '☀️' : '🌙'; // switch icons 
+    }
+}
+
+function getSavedTheme() {
+    return localStorage.getItem(THEME_KEY);
+}
+
+function saveTheme(theme) {
+    localStorage.setItem(THEME_KEY, theme);
+}
+
+function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme' || 'dark');
+    const next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    saveTheme(next);
+}
+
+export function initThemeToggle() {
+    // apply stored or default theme
+    const saved = getSavedTheme() || 'dark';
+    applyTheme(saved);
+
+    // find the toggle
+    const toggle = document.querySelector('#theme-toggle');
+    if (!toggle) return console.warn("Could not find toggle");
+
+    // on click flip theme:
+    toggle.addEventListener('click', e => {
+        e.preventDefault();
+        toggleTheme();
+    })
+}

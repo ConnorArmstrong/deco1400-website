@@ -9,6 +9,7 @@ fetch('./components/navbar.html')
   .then(html => {
     placeholder.innerHTML = html;
     placeholder.style.opacity = '1'; // WIP: Currently to stop the Navbar snapping as it loads in
+    document.dispatchEvent(new Event('nav-loaded')); // this is for the initThemeToggle
   })
   .catch(err => console.error('Nav load failed:', err));
 //});

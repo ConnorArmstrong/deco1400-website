@@ -1,4 +1,4 @@
-import { refreshData } from './utils.js'; // for storage actions
+import { refreshData, initThemeToggle } from './utils.js'; // for storage actions
 
 function applyModalStyling() {
     if (document.getElementById('modal-styles')) return;
@@ -196,8 +196,9 @@ function initModal() {
     console.log("Modal Initialised!");
 }
 
-window.addEventListener('DOMContentLoaded', loadPopupModal)
+window.addEventListener('DOMContentLoaded', loadPopupModal);
 
+document.addEventListener('nav-loaded', initThemeToggle);
 
 // probably not the correct place to put this but it applies to all pages
 window.addEventListener('keydown', e => { // Alt + Shift + R refreshes localstorage
