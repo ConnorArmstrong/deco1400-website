@@ -1,4 +1,5 @@
-const STORAGE_KEY = "media-data";
+const STORAGE_KEY = "media-data"; // key for media data
+const LOGIN_KEY = "login" // key for login session
 
 
 // ------------------- STORAGE/DATA HANDLING -----------------------
@@ -111,3 +112,19 @@ export function updateQuestionAnswer(title, qIndex, newAnswer) {
 
 // ------------------- LOGIN HANDLING -----------------------
 
+// login just saves username
+function setSessionStatus(username) {
+    localStorage.setItem(LOGIN_KEY, username);
+}
+
+export function logIn(username) {
+    setSessionStatus(username);
+}
+
+export function logOut() {
+    setSessionStatus("");
+}
+
+export function checkedLoggedIn() {
+    return localStorage.getItem(LOGIN_KEY) !== "";
+}
