@@ -1,5 +1,8 @@
 const STORAGE_KEY = "media-data";
 
+
+// ------------------- STORAGE/DATA HANDLING -----------------------
+
 export async function loadJSONData() {
     const resp = await fetch('./media/data.json');
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -65,7 +68,7 @@ function _updateItem(title, mutator) {
 
 // update user text for title with given text
 export function updateUserText(title, newText) {
-    console.log(`Updating ${title} User Text to ${newText}`);
+    console.log(`Updating ${title} User Text to "${newText}"`);
   _updateItem(title, item => {
     item.userText = newText;
   });
@@ -103,6 +106,8 @@ export function updateQuestionAnswer(title, qIndex, newAnswer) {
     }
     item.questions[qIndex].answer = newAnswer;
   });
-  console.log(`Updated ${title} Question ${qIndex} to: "${newAnswer}"`);
+  console.log(`Updated ${title} Question ${qIndex} Answer to: "${newAnswer}"`);
 }
+
+// ------------------- LOGIN HANDLING -----------------------
 

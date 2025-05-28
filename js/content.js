@@ -1,4 +1,4 @@
-import { addQuestion, getData, updateUserText, updateQuestionAnswer } from './utils.js';
+import { addQuestion, getData, updateUserText, updateQuestionAnswer, getItem } from './utils.js';
 
 async function loadContent(title) {
     const { items } = await getData();
@@ -15,6 +15,7 @@ async function loadContent(title) {
     }
 
     await checkQuestions(item);
+
 
     document.getElementById('thumb').src = item.thumbnail.replace(/\\/g, '/');
     document.getElementById('item-title').textContent = item.title;
@@ -118,7 +119,7 @@ async function loadContent(title) {
         `<strong>Platform Rating:</strong> ${item.summary.platformRating} ` +
         `(${item.summary.ratingN})`;
 
-        
+
     // ─── 3) Q&A PANEL ───────────────────────────────
     // assumes .q-and-a .question contains a <strong> and a <p>
     const qaSection = document.querySelector('.q-and-a');
@@ -191,9 +192,12 @@ async function checkQuestions(item) {
             const i = Math.floor(Math.random() * lines.length);
             picks.push(lines.splice(i, 1)[0]); // Add the question to picks
         }
-        questions = picks.map(q => {
+        const newQAs = picks.map(q => { // creates a list of the new questions AND MUTATES local storage
             addQuestion(item.title, q);
+            return { question: q, answer: '' };
         })
+
+        item.questions = newQAs;
     }
 }
 
