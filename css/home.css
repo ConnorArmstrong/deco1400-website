@@ -1,3 +1,6 @@
+
+/* Intro Sections */
+
 .intro {
   background-color: var(--surface);
   border-radius: var(--radius);
@@ -10,6 +13,16 @@
   color: var(--text);
   font-weight: bold;
   font-size: 1.5rem;
+}
+
+.intro #usernameDisplay {
+  text-decoration: underline;
+  text-decoration-color: var(--accent-hover);
+  font-weight: bold;
+}
+
+.intro #mediaBrand {
+  color: var(--accent);
 }
 
 
@@ -33,7 +46,6 @@
     "heading heading"
     "carousel display";
 }
-
 
 .content-section > h1 {
   grid-area: heading;

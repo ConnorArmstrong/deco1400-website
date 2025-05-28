@@ -132,7 +132,6 @@ textarea {
   border: 3px dashed var(--text-muted);
   border-radius: var(--radius);
   padding: var(--gap-narrow);
-  text-overflow: ellipsis;
   color: var(--text);
   opacity: 0.8;
 }

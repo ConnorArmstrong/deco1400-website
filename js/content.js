@@ -157,7 +157,6 @@ async function loadContent(title) {
     })
 
 
-
     // global keybinding for saving everything
     window.addEventListener('keydown', e => {
         const isSave = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's';
@@ -214,7 +213,6 @@ function autoGrow(el) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log(checkedLoggedIn())
     if (!checkedLoggedIn()) {
         window.location.href = 'login.html';
         return;

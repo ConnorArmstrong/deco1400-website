@@ -6,7 +6,8 @@ const THEME_KEY = "theme"; // key for dark mode/light mode
 // ------------------- STORAGE/DATA HANDLING -----------------------
 
 export async function loadJSONData() {
-    const resp = await fetch('./media/data.json');
+    const resp = await fetch('media/data.json', {cache: 'no-store'}); // no-store to fix caching issues
+    // I cannot stress how long it took me to find out thats why things werent working
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const items = await resp.json();
     return items;
@@ -28,7 +29,7 @@ export async function getData(useStorage = true) {
 
   // no valid cache, so fetch and cache it
   const data = await loadJSONData();
-  //console.log('read:', JSON.stringify(data));
+  console.log('read:', JSON.stringify(data));
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   return data;
 }
@@ -40,10 +41,18 @@ export function clearJSONCache() {
 // Set local storage to the data.json file and log user out
 export async function refreshData() {
     const data = await loadJSONData();
+    localStorage.setItem("testing", data);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     console.log("Refreshed Local Storage to data.json state");
-    logOut();
+    //logOut();
     return true;
+}
+
+export async function resetData() {
+  const data = await loadJSONData();
+  console.log(data);
+  localStorage.setItem("testing", JSON.stringify(data));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
 // internal helper: pull the raw object (no fetch)
@@ -124,11 +133,11 @@ export function logIn(username) {
 }
 
 export function logOut() {
-    setSessionStatus("");
+    localStorage.removeItem(LOGIN_KEY)
 }
 
 export function checkedLoggedIn() {
-    return localStorage.getItem(LOGIN_KEY) !== "";
+    return !(localStorage.getItem(LOGIN_KEY) === null);
 }
 
 export function getUser() {

@@ -128,7 +128,7 @@
   color: var(--text);
   border-radius: var(--radius);
   outline: none;
-  appearance: none;              /* remove native arrow */
+  appearance: none;              /* remove arrow */
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: .8em;
@@ -159,7 +159,7 @@
 }
 
 #autoFillBtn:not(:disabled) {
-  background: var(--area);
+  background: var(--accent);
   color: var(--text);
   border: 1px solid var(--text);
   cursor: pointer;
@@ -253,7 +253,7 @@ input:invalid, select:invalid {
   height: 1em;     /* reserve space */
   color: var(--error-color, #e74c3c);
   font-size: .85rem;
-  margin-top: .25rem;
+  margin-top: 0rem;
 }
 
 /* form‐level banner */

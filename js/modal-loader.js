@@ -201,17 +201,17 @@ window.addEventListener('DOMContentLoaded', loadPopupModal);
 document.addEventListener('nav-loaded', initThemeToggle);
 
 // probably not the correct place to put this but it applies to all pages
-window.addEventListener('keydown', e => { // Alt + Shift + R refreshes localstorage
+window.addEventListener('keydown', async e => { // Alt + Shift + R refreshes localstorage
   if (e.altKey && e.shiftKey && e.code === 'KeyR') {
     e.preventDefault();    // stop any default action just in case
-    refreshData().then(() => {
+    refreshData().then(async () => { // reset the locaal storage
         /*        
         const url = new URL(window.location.href);
         // this will either add “_” or overwrite it if it was there
         url.searchParams.set('_', Date.now());
         window.location.href = url.toString(); // force a cache override 
         */
-
+        await new Promise(res => setTimeout(res, 1000));
         window.location.href = 'login.html';
     });
   }

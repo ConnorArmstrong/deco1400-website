@@ -17,11 +17,11 @@
       ],
       "summary": {
         "source": "HardCover",
-        "text": "The King in Yellow is a book of short stories by American Writer Robert W. Chambers, first published in 1895.",
+        "text": "The King in Yellow is a book of short stories by American Writer Robert W. Chambers, first published in 1895. The book is named after a play with the same title which recurs as a motif through some of the stories.",
         "platformRating": 3.2,
         "ratingN": 82
       },
-      "userText": "Hello World!",
+      "userText": "Hello World! This saves betwen loads...",
       "questions": [
         { 
           "question": "How did this make you feel?",
@@ -29,7 +29,7 @@
         },
         {
          "question": "Which character stood out most?",
-          "answer": "The King himself—his presence was uncanny."
+          "answer": "The King himself—his presence was uncanny. Cool Hey!"
         },
         {
          "question": "Would you read more Chambers?",
