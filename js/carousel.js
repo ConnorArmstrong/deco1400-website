@@ -1,5 +1,8 @@
 import { getUser, checkedLoggedIn, getData } from './utils.js';
 
+// this is by far my messiest JS File
+// Apologies
+
 function initCarousels() {
   document.querySelectorAll('.carousel-container').forEach(container => {
     const username = getUser();

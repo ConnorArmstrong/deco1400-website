@@ -211,7 +211,6 @@
   align-items: center;
   gap: 1rem;
   margin-top: 1.5rem;
-  /* remove justify-content: flex-end; */
 }
 
 .modal-footer button {

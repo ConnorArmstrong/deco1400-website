@@ -41,7 +41,6 @@ main > section {
   text-align: center;
 }
 
-
 .detail-meta #thumb {
   height: auto;
   border-radius: var(--radius);
@@ -49,7 +48,6 @@ main > section {
   min-height: 100px;
 }
 
-/* the right column will auto-flow the text */
 .detail-meta .meta-info {
   display: flex;
   flex-direction: column;
@@ -69,8 +67,6 @@ main > section {
   content: " – ";
   color: var(--text-muted);
 }
-
-
 
 .meta-line .status.completed {
   color: lightgreen;
@@ -106,6 +102,7 @@ main > section {
   padding: var(--gap-narrow);
 }
 
+/* All text areas styled the same */
 textarea {
   width: 100%;
   background-color: var(--area);
@@ -128,28 +125,26 @@ textarea {
 }
 
 
-
-
 /* ---- AutoSummary | BOTTOM LEFT ---- */
 
+/* Styled Similar to Home Page */
 .summary {
   border: 3px dashed var(--text-muted);
   border-radius: var(--radius);
   padding: var(--gap-narrow);
   text-overflow: ellipsis;
-
-  /* slightly “faded” text */
   color: var(--text);
   opacity: 0.8;
 }
 
-/* ---- Q AND A | BOTTOM RIGHT ---- */
 
+/* ---- Q AND A | BOTTOM RIGHT ---- */
 
 .q-and-a .question {
   margin-bottom: var(--gap-narrow);
 }
 
+/* Question */
 .q-and-a .question > strong {
   display: block;
   background: var(--surface);
@@ -158,6 +153,7 @@ textarea {
   margin-bottom: 0.25rem;
 }
 
+/* Answer */
 .q-and-a .question > p {
   background: var(--area);
   padding: var(--gap-half);

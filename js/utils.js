@@ -137,6 +137,13 @@ export function getUser() {
 
 // ------------------- DARK MODE / LIGHT MODE -----------------------
 
+/* 
+If a poor soul reads this I apologise for how this section seems completely
+different from above, but I realise that this is necessary to keep modal.js clean. 
+
+But really... modal.js has no right to be handling that. My bad.
+*/
+
 function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     const toggle = document.querySelector('#theme-toggle');
@@ -161,6 +168,7 @@ function toggleTheme() {
     saveTheme(next);
 }
 
+// apply theme and then handle toggle
 export function initThemeToggle() {
     // apply stored or default theme
     const saved = getSavedTheme() || 'dark';

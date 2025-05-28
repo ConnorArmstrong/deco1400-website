@@ -275,9 +275,9 @@ body {
   -ms-user-select: none;       /* IE10+ */
 }
 
+/* ── Filter Panel ───────────────────────────────────── */
 
 
-/* Filter Panel */
 /* the floating panel */
 .filter-panel {
   position: absolute;
@@ -358,7 +358,6 @@ body {
   margin-bottom: var(--gap-half);
 }
 
-
 .rating-threshold span.filled,
 .rating-threshold span[data-value] {
  color: orange;
@@ -396,7 +395,6 @@ body {
   background-size: .8em;
   box-sizing: border-box;
 }
-
 
 .clear-series-btn {
   position: absolute;

@@ -1,11 +1,12 @@
-/* reset & base */
+/* realistically doesnt fit with the rest of the webpages */
+/* but necessary for the design */
 body, html { 
     width:100%; 
     height:100%; 
     overflow:hidden; 
 }
 
-/* container for all the floating imgs */
+/* container for all the floating thumbnails */
 .bg {
   position: fixed;
   top:0; left:0;
