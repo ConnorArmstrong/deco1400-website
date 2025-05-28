@@ -207,10 +207,14 @@ window.addEventListener('keydown', e => { // Alt + Shift + R refreshes localstor
   if (e.altKey && e.shiftKey && e.code === 'KeyR') {
     e.preventDefault();    // stop any default action just in case
     refreshData().then(() => {
+        /*        
         const url = new URL(window.location.href);
         // this will either add “_” or overwrite it if it was there
         url.searchParams.set('_', Date.now());
-        window.location.href = url.toString(); // force a cache override
+        window.location.href = url.toString(); // force a cache override 
+        */
+
+        window.location.href = 'login.html';
     });
   }
 });

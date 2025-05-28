@@ -1,4 +1,4 @@
-import { getData } from './utils.js';
+import { getData, checkedLoggedIn } from './utils.js';
 
 function applyLibraryStyling() {
   if (document.getElementById('library-styles')) return;
@@ -471,6 +471,10 @@ function updateItemCount(list, area) {
 
 // Start up
 document.addEventListener('DOMContentLoaded', () => {
+  if (!checkedLoggedIn()) {
+    window.location.href = 'login.html';
+    return;
+  }
   applyLibraryStyling();
   initLibrary();
 });

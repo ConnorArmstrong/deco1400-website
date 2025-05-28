@@ -36,11 +36,12 @@ export function clearJSONCache() {
   localStorage.removeItem(STORAGE_KEY);
 }
 
-// Set local storage to the data.json file
+// Set local storage to the data.json file and log user out
 export async function refreshData() {
     const data = await loadJSONData();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     console.log("Refreshed Local Storage to data.json state");
+    logOut();
     return true;
 }
 
@@ -127,4 +128,8 @@ export function logOut() {
 
 export function checkedLoggedIn() {
     return localStorage.getItem(LOGIN_KEY) !== "";
+}
+
+export function getUser() {
+    return localStorage.getItem(LOGIN_KEY);
 }

@@ -24,3 +24,7 @@ function applyNavStyling() { // apply nav styling BEFORE the navbar is loaded in
 
     document.head.appendChild(link);
 }
+
+window.handleLogout = () => {
+  localStorage.setItem("login", "");
+}

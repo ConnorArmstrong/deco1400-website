@@ -1,4 +1,4 @@
-import { addQuestion, getData, updateUserText, updateQuestionAnswer, getItem } from './utils.js';
+import { addQuestion, getData, updateUserText, updateQuestionAnswer, checkedLoggedIn } from './utils.js';
 
 async function loadContent(title) {
     const { items } = await getData();
@@ -15,7 +15,6 @@ async function loadContent(title) {
     }
 
     await checkQuestions(item);
-
 
     document.getElementById('thumb').src = item.thumbnail.replace(/\\/g, '/');
     document.getElementById('item-title').textContent = item.title;
@@ -207,8 +206,13 @@ function autoGrow(el) {
     el.style.height = el.scrollHeight + 'px'; // grow to fit
 }
 
-
 document.addEventListener('DOMContentLoaded', async () => {
+    console.log(checkedLoggedIn())
+    if (!checkedLoggedIn()) {
+        window.location.href = 'login.html';
+        return;
+    }
+
     // pull the ?title= ...
     const params = new URLSearchParams(window.location.search);
     const rawTitle = params.get('title') || '';

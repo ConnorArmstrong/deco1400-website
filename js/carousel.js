@@ -1,5 +1,12 @@
+import { getUser, checkedLoggedIn } from './utils.js';
+
 function initCarousels() {
   document.querySelectorAll('.carousel-container').forEach(container => {
+    const username = getUser();
+    const welcomeElement = document.getElementById('usernameDisplay');
+    welcomeElement.textContent = username;
+
+
     const track = container.querySelector('.carousel');
     const prev  = container.querySelector('.prev');
     const next  = container.querySelector('.next');
@@ -398,6 +405,11 @@ function applyHomeStyling() {
 
 // on index.html startup
 document.addEventListener('DOMContentLoaded', () => {
+  if (!checkedLoggedIn()) {
+    window.location.href = 'login.html';
+    return;
+  }
+
   //applyHomeStyling();
   updateCardWidths();
   initCarousels();
