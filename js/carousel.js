@@ -275,10 +275,19 @@ function renderDisplay(item, container) {
     return;
   }
 
+  // for redirects to content for the specific title
+  const qs = encodeURIComponent(item.title);
+  const url = `/content.html?title=${qs}`;
+
   // For now we assume that if the item has a title, the rest of the form is correct
 
   // 1) Title
   titleHeading.textContent = item.title;
+  titleHeading.style.cursor = 'pointer';
+  titleHeading.onclick = () => {
+    window.location.href = url;
+  };
+
 
   // 2) Meta: rating - date – status – times
   const metaText = makeMetaString(item.rating, item.date, item.status, item.amount);
@@ -304,6 +313,10 @@ function renderDisplay(item, container) {
   // 4) Cover image
   coverImage.src = item.thumbnail || "";
   coverImage.alt = item.title;
+  coverImage.style.cursor = 'pointer';
+  coverImage.onclick = () => {
+    window.location.href = url;
+  };
 
   // 5) Tags
 
