@@ -1,4 +1,4 @@
-import { getUser, checkedLoggedIn, getData } from './utils.js';
+import { getUser, checkedLoggedIn, getData, getItem } from './utils.js';
 
 // this is by far my messiest JS File
 // Apologies
@@ -154,7 +154,7 @@ function initCarousels() {
             showAddReviewPrompt(sectionContainer);
           } else {
           const title = c.dataset.title;
-          getContentData(title).then(item => renderDisplay(item, container));
+          getItem(title).then(item => renderDisplay(item, container));
           }
         }
       });
@@ -240,19 +240,6 @@ function equaliseContentSections() {
   });
 }
 
-// Load the entire JSON File
-async function getJSON() { 
-  const response = await fetch("./media/data.json");
-  return response.json();
-}
-
-// Get all fields for a given title
-async function getContentData(contentTitle) { 
-  const data = await getJSON();
-  const item = data.items.find(item => item.title === contentTitle);
-
-  return item;
-}
 
 // Directly render the data for a given item and container
 function renderDisplay(item, container) {

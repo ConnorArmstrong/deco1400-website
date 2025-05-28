@@ -41,13 +41,13 @@ export function clearJSONCache() {
 // Set local storage to the data.json file and log user out
 export async function refreshData() {
     const data = await loadJSONData();
-    localStorage.setItem("testing", data);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     console.log("Refreshed Local Storage to data.json state");
     //logOut();
     return true;
 }
 
+// for testing data cachin :(
 export async function resetData() {
   const data = await loadJSONData();
   console.log(data);
@@ -86,7 +86,7 @@ export function updateUserText(title, newText) {
   });
 }
 
-// add question for 
+// add question for a given title - specified a default answer but it could also be a template response for a given question maybe?
 export function addQuestion(title, question, answer = '') {
   _updateItem(title, item => {
     // ensure there's an array to push into
@@ -111,35 +111,41 @@ export async function getItem(title) {
     return item;
 }
 
+// for a given title and question index, update hte answer
 export function updateQuestionAnswer(title, qIndex, newAnswer) {
   _updateItem(title, item => {
-    if (!Array.isArray(item.questions) || qIndex < 0 || qIndex >= item.questions.length) {
-      throw new Error(`Invalid question index ${qIndex} for "${title}"`);
+    if (!Array.isArray(item.questions) || qIndex < 0 || qIndex >= item.questions.length) { //  this has been flagged once
+      throw new Error(`Invalid question index ${qIndex} for "${title}"`); // so I'm scared of removing it and not knowing why something breaks
     }
     item.questions[qIndex].answer = newAnswer;
   });
   console.log(`Updated ${title} Question ${qIndex} Answer to: "${newAnswer}"`);
 }
 
+
 // ------------------- LOGIN HANDLING -----------------------
 
-// login just saves username
+// internal helper - login just saves username
 function setSessionStatus(username) {
     localStorage.setItem(LOGIN_KEY, username);
 }
 
+// note no password
 export function logIn(username) {
     setSessionStatus(username);
 }
 
+// once it was "" as the default logout but this was error prone
 export function logOut() {
     localStorage.removeItem(LOGIN_KEY)
 }
 
+// return if the user is logged in
 export function checkedLoggedIn() {
     return !(localStorage.getItem(LOGIN_KEY) === null);
 }
 
+// return the username
 export function getUser() {
     return localStorage.getItem(LOGIN_KEY);
 }

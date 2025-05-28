@@ -1,5 +1,6 @@
 import { refreshData, initThemeToggle } from './utils.js'; // for storage actions
 
+// simple albeit redundant way to separate modal css
 function applyModalStyling() {
     if (document.getElementById('modal-styles')) return;
     const link = document.createElement('link');
@@ -11,6 +12,7 @@ function applyModalStyling() {
     document.head.appendChild(link);
 }
 
+// fetch the modal.html component and load it - this is done for all major pages
 async function loadPopupModal() {
     try {
         applyModalStyling();
