@@ -1,6 +1,7 @@
+import { getData, updateUserText } from './utils.js';
+
 async function loadContent(title) {
-    const resp = await fetch('/media/data.json');
-    const {items} = await resp.json();
+    const { items } = await getData();
 
     if (title === '') { // for now!
         console.warn("No Title Provided?");
@@ -95,8 +96,11 @@ async function loadContent(title) {
 
     // ─── 1) USER NOTES ──────────────────────────────
     // assumes <section class="user-notes"><p>…</p></section>
-    const userNotesEl = document.querySelector('.user-notes p');
-    userNotesEl.textContent = item.userText || 'Start Writing Here...';
+    const notesEl = document.getElementById('user-notes-textarea');
+    notesEl.value = item.userText || '';
+    notesEl.addEventListener('blur', () => {
+        updateUserText(title, notesEl.value);
+    });
 
     // ─── 2) SUMMARY PANEL ───────────────────────────
     // update heading with source
@@ -128,8 +132,6 @@ async function loadContent(title) {
     qaSection.appendChild(div);
     });
 }
-
-
 
 
 document.addEventListener('DOMContentLoaded', async () => {

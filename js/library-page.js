@@ -1,3 +1,5 @@
+import { getData } from './utils.js';
+
 function applyLibraryStyling() {
   if (document.getElementById('library-styles')) return;
   const link = document.createElement('link');
@@ -126,9 +128,13 @@ function createFilterPanel(searchBar, filterBtn, onApply) {
 // sets up the page and handles which books and movies are shown
 async function initLibrary() {
   try {
+    /* 
     const resp = await fetch('./media/data.json');
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const { items } = await resp.json();
+    */
+
+    const { items } = await getData();
 
     // Cache DOM elements
     const searchInput = document.querySelector('.search-input');
@@ -379,7 +385,6 @@ async function initLibrary() {
 
     const resetBtn = filterPanel.querySelector('.reset-btn');
     const clearBtn = filterPanel.querySelector('.clear-btn');
-    const backdrop =filterPanel.querySelector('.backdrop');
 
     resetBtn.addEventListener('click', () => { // reset simply resets the filters
       resetFilters();
@@ -449,7 +454,7 @@ function renderCards(list, grid, area) {
 
     card.addEventListener('click', () => { // clicking the card goes to its content page
       const qs = encodeURIComponent(item.title); // handles spaces etc automatically
-      window.location.href = `content.html?title=${qs}`; // redirect
+      window.location.href = `/content.html?title=${qs}`; // redirect
     });
 
     grid.appendChild(card);

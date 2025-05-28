@@ -100,10 +100,24 @@ main > section {
 /* ---- User Text | Top RIGHT ---- */
 
 .user-notes p {
-    background-color: var(--area);
-    min-height: 100px;
-    border-radius: var(--radius);
-    padding: var(--gap-narrow);
+  background-color: var(--area);
+  min-height: 100px;
+  border-radius: var(--radius);
+  padding: var(--gap-narrow);
+}
+
+.user-notes textarea {
+  width: 100%;
+  background-color: var(--area);
+  min-height: 150px;
+  padding: var(--gap-narrow);
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  resize: vertical;
+  box-sizing: border-box;
 }
 
 

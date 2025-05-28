@@ -157,8 +157,8 @@
       "summary": {
         "source": "",
         "text": "Why do people rate this so highly?",
-        "platformRating": null,
-        "ratingN": 0
+        "platformRating": 0,
+        "ratingN": 2
       },
       "userText": "",
       "questions": []
