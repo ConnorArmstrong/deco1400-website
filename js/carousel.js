@@ -1,4 +1,4 @@
-import { getUser, checkedLoggedIn } from './utils.js';
+import { getUser, checkedLoggedIn, getData } from './utils.js';
 
 function initCarousels() {
   document.querySelectorAll('.carousel-container').forEach(container => {
@@ -118,17 +118,11 @@ function initCarousels() {
 
       centerCard(targetCard);
     });
-  
-    // how much to scroll on each arrow click 
-    function scrollAmount() {
-      const style = getComputedStyle(track);
-      const cardW = parseFloat(style.getPropertyValue('--card-width'));
-      const gap   = parseFloat(style.getPropertyValue('gap'));
-      return cardW + gap;
-    }
     
     // Find the Centred Card and mark it as selected 
     function updateSelected() {
+      const section = container.closest('.content-section');
+      section.querySelectorAll('.add-review-overlay').forEach(el => el.remove());
       const {left, width} = track.getBoundingClientRect();
       const centreX = left + width/2;
 
@@ -152,8 +146,13 @@ function initCarousels() {
 
         // Set the content section to show information regarding the selected item
         if (isSelected) {
+          const sectionContainer = c.closest('.carousel-container');
+          if (c.classList.contains('add-card')) {
+            showAddReviewPrompt(sectionContainer);
+          } else {
           const title = c.dataset.title;
           getContentData(title).then(item => renderDisplay(item, container));
+          }
         }
       });
     }
@@ -391,24 +390,74 @@ function makeSeriesString(seriesTitle) {
   return "Series:\n" + title;
 }
 
+function showAddReviewPrompt(container) {
+  const section = container.closest('.content-section');
+  const displayContainer = section.querySelector('.display-container');
 
-function applyHomeStyling() {
-    if (document.getElementById('home-styles')) return;
-    const link = document.createElement('link');
+  // remove any existing overlay
+  section.querySelectorAll('.add-review-overlay')
+    .forEach(el => el.remove());
 
-    link.id = 'home-styles';
-    link.rel = 'stylesheet';
-    link.href = './css/home.css'
+  // run your existing “clear but preserve” reset
+  renderDisplay(null, container);
 
-    document.head.appendChild(link);
+  // build the overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'add-review-overlay';
+
+  overlay.innerHTML = `
+    <div class="card add-card" data-modal-open>
+      <span>＋</span>
+      <small>Add Review</small>
+    </div>
+  `;
+
+  // append it over the display‐container
+  displayContainer.appendChild(overlay);
 }
 
+async function populateCarousels() {
+  const data = await getData();
+
+  document.querySelectorAll('.content-section').forEach(section => {
+    const isBookSection = section.classList.contains('books');
+    const type = isBookSection ? 'Book' : 'Movie';
+
+    const track = section.querySelector('.carousel');
+    track.innerHTML = ''; // clear placeholders
+
+    const items = data.items.filter(i => i.contentType === type).slice(0, 7);
+
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.dataset.title = item.title;
+
+      const img = document.createElement('img');
+      img.src = item.thumbnail;
+      img.alt = item.title;
+
+      card.appendChild(img);
+      track.appendChild(card)
+    });
+
+    // re add the Add Review Card
+    const addCard = document.createElement('div');
+    addCard.className = 'card add-card';
+    addCard.innerHTML = `<span>＋</span><small>Add Review</small>`;
+    track.appendChild(addCard);
+  });
+}
+
+
 // on index.html startup
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   if (!checkedLoggedIn()) {
     window.location.href = 'login.html';
     return;
   }
+
+  await populateCarousels();
 
   //applyHomeStyling();
   updateCardWidths();

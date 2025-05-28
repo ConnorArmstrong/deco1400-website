@@ -1,5 +1,6 @@
 const STORAGE_KEY = "media-data"; // key for media data
 const LOGIN_KEY = "login" // key for login session
+const THEME_KEY = "theme"; // key for dark mode/light mode
 
 
 // ------------------- STORAGE/DATA HANDLING -----------------------
@@ -133,3 +134,5 @@ export function checkedLoggedIn() {
 export function getUser() {
     return localStorage.getItem(LOGIN_KEY);
 }
+
+// ------------------- DARK MODE / LIGHT MODE -----------------------

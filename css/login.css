@@ -42,7 +42,7 @@ body, html {
   margin: auto;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(30,30,60,0.95);
+  background: var(--surface);
   border-radius: var(--radius);
   padding: 2rem;
   text-align: center;
@@ -55,6 +55,8 @@ body, html {
   margin-bottom: 0.25rem;
   color: var(--text);
   font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
 }
 
 .login-card .subtitle {

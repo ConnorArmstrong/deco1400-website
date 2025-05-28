@@ -14,6 +14,9 @@ async function loadContent(title) {
         return;
     }
 
+    const newTitle = `MyMedia — ${title}`;
+    document.title = newTitle;
+
     await checkQuestions(item);
 
     document.getElementById('thumb').src = item.thumbnail.replace(/\\/g, '/');
@@ -64,13 +67,17 @@ async function loadContent(title) {
 
         // rating (both Completed & In Progress)
         if (typeof item.rating === 'number') {
-        const rounded   = Math.round(item.rating);
-        const fullStars = '⭐'.repeat(rounded);
-        const emptyStars= '✰'.repeat(5 - rounded);
-        ratingEl.textContent =
-            `${fullStars}${emptyStars} (${item.rating}/5)`;
-        }
+            const rounded = Math.round(item.rating);
+            const fullStars = '★'.repeat(rounded);
+            const emptyStars = '☆'.repeat(5 - rounded);
+            ratingEl.innerHTML = 
+            `<span class="stars">${fullStars}${emptyStars}</span> <span class="rating-text">(${item.rating}/5)</span>`;
 
+            // Style the stars
+            const starsSpan = ratingEl.querySelector('.stars');
+            starsSpan.style.fontSize = '1.2em';
+            starsSpan.style.color = 'orange';
+        }
         // amount only for Completed
         if (item.status === 'Completed') {
         amountEl.textContent =

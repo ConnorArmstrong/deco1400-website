@@ -81,8 +81,8 @@ function createFilterPanel(searchBar, filterBtn, onApply) {
     </div>
 
     <div class="filter-actions">
-      <button class="reset-btn">Reset ⟳</button>
       <button class="clear-btn">Cancel ×</button>
+      <button class="reset-btn">Reset ⟳</button>
       <button class="apply-btn">Apply →</button>
     </div>`
     

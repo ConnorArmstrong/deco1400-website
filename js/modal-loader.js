@@ -38,10 +38,7 @@ function initModal() {
 
     // Buttons
     const closeBtn = modal.querySelector('.modal-close');
-    const resetBtn = modal.querySelector('#resetBtn');
-    const applyBtn = modal.querySelector('#applyBtn');
     const cancelBtn = modal.querySelector('#cancelBtn');
-    const openers = document.querySelectorAll('[data-modal-open]');
 
     // Cover Image
     let coverInput = modal.querySelector('#coverInput');
@@ -56,12 +53,13 @@ function initModal() {
     const autoFillBtn = modal.querySelector('#autoFillBtn');
 
     // open the modal functionality
-    openers.forEach(btn => {
-        btn.addEventListener('click', e=> {
-            e.preventDefault();
-            modal.classList.add('open');
-            modal.setAttribute('aria-hidden', 'false');
-        });
+    // this was changed from iterating through all buttons with the label 
+    document.addEventListener('click', e => {
+        const opener = e.target.closest('[data-modal-open]');
+        if (!opener) return;
+        e.preventDefault();
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
     });
 
     function close() {
@@ -84,7 +82,6 @@ function initModal() {
             close();
         }
     });
-
 
     function handleCoverChange() {
         const file = coverInput.files[0];
