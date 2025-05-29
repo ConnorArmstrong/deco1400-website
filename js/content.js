@@ -3,21 +3,21 @@ import { addQuestion, getData, updateUserText, updateQuestionAnswer, checkedLogg
 async function loadContent(title) {
     const { items } = await getData();
 
-    if (title === '') { // for now!
-        console.warn("No Title Provided?");
+    if (title === '') { // for now - initial working prototype
+        console.warn("No Title Provided/Found - Defaulting to the King in Yellow");
         title = "The King in Yellow";
     }
 
     const item = items.find(i => i.title === title);
     if (!item) {
-        console.warn('Cannot Find Content');
+        console.error(`Cannot Find Content with title: ${title}`);
         return;
     }
 
-    const newTitle = `MyMedia — ${title}`;
-    document.title = newTitle;
+    const pageTitle = `MyMedia — ${title}`; // Set the page title (in the tab) to the title of the content
+    document.title = pageTitle;
 
-    await checkQuestions(item);
+    await checkQuestions(item); // check to ensure there are questions loaded - else load them from media/questions.txt
 
     document.getElementById('thumb').src = item.thumbnail.replace(/\\/g, '/');
     document.getElementById('item-title').textContent = item.title;
@@ -65,7 +65,7 @@ async function loadContent(title) {
         item.status.toLowerCase().replace(/\s+/g,'-')
         );
 
-        // rating (both Completed & In Progress)
+        // rating (both Completed and In Progress)
         if (typeof item.rating === 'number') {
             const rounded = Math.round(item.rating);
             const fullStars = '★'.repeat(rounded);
@@ -103,31 +103,31 @@ async function loadContent(title) {
         tagsEl.appendChild(pill);
     });
 
-    // ─── 1) USER NOTES ──────────────────────────────
+    // ---- USER NOTES ----
     const notesEl = document.getElementById('user-notes-textarea');
     notesEl.value = item.userText || '';
     notesEl.addEventListener('blur', () => {
         updateUserText(title, notesEl.value);
     });
 
-    // ─── 2) SUMMARY PANEL ───────────────────────────
+    // ---- SUMMARY PANEL ----
     // update heading with source
     const summaryHeader = document.querySelector('.summary h3');
     summaryHeader.textContent = `Summary (${item.summary.source})`;
 
-    // first <p> → summary text
+    // first <p> is summary text
     const [summaryTextEl, summaryPlatformEl] =
         document.querySelectorAll('.summary p');
     summaryTextEl.textContent = item.summary.text;
 
-    // second <p> → platform rating + count
+    // second <p> is platform rating + count
     summaryPlatformEl.innerHTML =
         `<strong>Platform Rating:</strong> ${item.summary.platformRating} ` +
         `(${item.summary.ratingN})`;
 
 
-    // ─── 3) Q&A PANEL ───────────────────────────────
-    // assumes .q-and-a .question contains a <strong> and a <p>
+    // ---- 3) Q and A PANEL ----
+    // .q-and-a .question is a <strong> and a <p>
     const qaSection = document.querySelector('.q-and-a');
     qaSection.innerHTML = '<h3>Q&amp;A</h3>';  // reset
 
@@ -150,32 +150,29 @@ async function loadContent(title) {
         });
     });
 
+    // make all textarea inputs grow when content fills the space
     const allTextAreas = document.querySelectorAll('textarea');
     allTextAreas.forEach(txt => {
         autoGrow(txt);
         txt.addEventListener('input', () => autoGrow(txt));
     })
 
-
     // global keybinding for saving everything
     window.addEventListener('keydown', e => {
         const isSave = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's';
         if (!isSave) return;
-
         e.preventDefault();
 
         // save user notes
         updateUserText(title, notesEl.value);
 
-        // save every QA textarea
+        // save every QA textarea - low key redundant but it felt important
         document.querySelectorAll('.answer-input').forEach(txt => {
             const idx = Number(txt.dataset.index);
             updateQuestionAnswer(title, idx, txt.value);
         });
-
         console.log('All content saved!');
     });
-
 }
 
 
@@ -183,8 +180,6 @@ async function loadContent(title) {
 async function checkQuestions(item) {
     // if there are no questions add them
     let questions = item.questions;
-
-    console.log(questions);
 
     if (!Array.isArray(questions) || questions.length == 0) {
         const resp = await fetch('/media/questions.txt');
@@ -202,7 +197,7 @@ async function checkQuestions(item) {
             return { question: q, answer: '' };
         })
 
-        item.questions = newQAs;
+        item.questions = newQAs; // sets the local item to contain the new questions so it shows without reloading
     }
 }
 

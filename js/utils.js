@@ -1,3 +1,8 @@
+// This is a shared utils file that handles all functions dealing with local storage
+// this was necessary when checking if data was loaded/needed to be read from file
+// export in the function declaration means it is public - either used by another file or was used at some point
+
+// Constant Keys for all types of LocalStorage Use:
 const STORAGE_KEY = "media-data"; // key for media data
 const LOGIN_KEY = "login" // key for login session
 const THEME_KEY = "theme"; // key for dark mode/light mode
@@ -5,6 +10,7 @@ const THEME_KEY = "theme"; // key for dark mode/light mode
 
 // ------------------- STORAGE/DATA HANDLING -----------------------
 
+// load data.json and return it
 export async function loadJSONData() {
     const resp = await fetch('media/data.json', {cache: 'no-store'}); // no-store to fix caching issues
     // I cannot stress how long it took me to find out thats why things werent working
@@ -13,6 +19,7 @@ export async function loadJSONData() {
     return items;
 }
 
+// either use the saved local storage data, or load the data.json and save it to local storage
 export async function getData(useStorage = true) {
   if (useStorage) {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -34,20 +41,19 @@ export async function getData(useStorage = true) {
   return data;
 }
 
-export function clearJSONCache() {
+export function clearJSONCache() { // less important now but very useful for debugging
   localStorage.removeItem(STORAGE_KEY);
 }
 
-// Set local storage to the data.json file and log user out
+// Set local storage to the data.json file
 export async function refreshData() {
     const data = await loadJSONData();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     console.log("Refreshed Local Storage to data.json state");
-    //logOut();
     return true;
 }
 
-// for testing data cachin :(
+// for testing data caching :(
 export async function resetData() {
   const data = await loadJSONData();
   console.log(data);
@@ -55,7 +61,10 @@ export async function resetData() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
-// internal helper: pull the raw object (no fetch)
+// The following are for updating specific parts of an items json:
+// All public mutating functions should print to console
+
+// internal helper: pull the raw object
 function _loadRaw() {
   const str = localStorage.getItem(STORAGE_KEY);
   return str ? JSON.parse(str) : { items: [] };
@@ -80,7 +89,7 @@ function _updateItem(title, mutator) {
 
 // update user text for title with given text
 export function updateUserText(title, newText) {
-    console.log(`Updating ${title} User Text to "${newText}"`);
+  console.log(`Updating ${title} User Text to "${newText}"`);
   _updateItem(title, item => {
     item.userText = newText;
   });
@@ -154,11 +163,13 @@ export function getUser() {
 
 /* 
 If a poor soul reads this I apologise for how this section seems completely
-different from above, but I realise that this is necessary to keep modal.js clean. 
+different from above, but realise that this is necessary to keep modal.js clean. 
 
-But really... modal.js has no right to be handling that. My bad.
+But really... modal.js has no right to be handling other global events.
+My bad.
 */
 
+// internal helper: sets the theme and toggles the nav icon
 function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     const toggle = document.querySelector('#theme-toggle');
@@ -168,14 +179,17 @@ function applyTheme(theme) {
     }
 }
 
+// internal helper: return the theme saved in local storage
 function getSavedTheme() {
     return localStorage.getItem(THEME_KEY);
 }
 
+// internal helper: save the them in local storage - internal so it always is a correct value
 function saveTheme(theme) {
     localStorage.setItem(THEME_KEY, theme);
 }
 
+// internal helper: swap between themes - note this assumes two themes always (which is the case)
 function toggleTheme() {
     const current = document.documentElement.getAttribute('data-theme' || 'dark');
     const next = current === 'dark' ? 'light' : 'dark';
@@ -183,7 +197,7 @@ function toggleTheme() {
     saveTheme(next);
 }
 
-// apply theme and then handle toggle
+// The only public theme function - applies saved or default theme then adds the toggle event listener
 export function initThemeToggle() {
     // apply stored or default theme
     const saved = getSavedTheme() || 'dark';

@@ -88,14 +88,16 @@ function createFilterPanel(searchBar, filterBtn, onApply) {
     
   searchBar.appendChild(panel);
 
+  // backdrop covers the screen to dim
   const backdrop = document.createElement('div');
   backdrop.className = 'filter-backdrop';
   backdrop.style.display = 'none';
   document.body.appendChild(backdrop);
 
-  // prevent clicks inside the search-bar (input, sort, panel…) from closing
+  // prevent clicks inside the search-bar (input, sort, panel) from closing
   searchBar.addEventListener('click', e => e.stopPropagation());
 
+  // toggle filter popup on filter button click
   filterBtn.addEventListener('click', e => {
     e.stopPropagation();
     panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
@@ -109,7 +111,7 @@ function createFilterPanel(searchBar, filterBtn, onApply) {
     backdrop.style.display = 'none';
   });
 
-   panel.querySelector('.apply-btn').addEventListener('click', () => {
+  panel.querySelector('.apply-btn').addEventListener('click', () => {
     panel.style.display    = 'none';
     backdrop.style.display = 'none';
     onApply();
@@ -128,7 +130,7 @@ function createFilterPanel(searchBar, filterBtn, onApply) {
 // sets up the page and handles which books and movies are shown
 async function initLibrary() {
   try {
-    /* 
+    /*  Initial: Replaced with utils.js
     const resp = await fetch('./media/data.json');
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const { items } = await resp.json();
@@ -146,6 +148,7 @@ async function initLibrary() {
     const actionsWrap = document.querySelector('.search-actions');
 
     // State: search term, filter toggle, sort method
+    // Updating anything on this page modifies the state which is then used to re-render
     const state = {
       searchTerm: '', // Whats in the Search Bar
       sortMethod: 'az', // default
@@ -161,7 +164,7 @@ async function initLibrary() {
     sortMenu.className = 'sort-menu';
     sortMenu.style.display = 'none'; // Sort Menu Hidden by Default
 
-    const options = [
+    const options = [ // Methods of Sorting: Alphabetical, Date, Rating
       { value: 'az',     label: 'A-Z' },
       { value: 'recent', label: 'Most Recent' },
       { value: 'rating', label: 'Rating' }
@@ -182,7 +185,7 @@ async function initLibrary() {
       e.stopPropagation();
       sortMenu.style.display = sortMenu.style.display === 'none' ? 'block' : 'none';
     });
-    // Prevent clicking inside menu from closing it
+    // Prevent clicking inside sort menu closing it
     sortMenu.addEventListener('click', e => e.stopPropagation());
 
     // Handle selecting or toggling a sort option
@@ -254,6 +257,7 @@ async function initLibrary() {
 
     ratingContainer.innerHTML = '';
 
+    // shwow the correct amount of stars
     function renderThresholdStars() {
       ratingContainer.querySelectorAll('span').forEach(star => {
         const v = Number(star.dataset.value);
@@ -295,9 +299,9 @@ async function initLibrary() {
 
     renderThresholdStars();
 
-    // Core update: filter, sort, render, update
+    // Core Update: filter -> sort -> render
     function updateView() {
-      let list = items.slice(); // copy the list
+      let list = items.slice(); // copy the item list so modifying it doesnt delete
       // apply search filter
       if (state.searchTerm) {
         const term = state.searchTerm;
@@ -384,7 +388,7 @@ async function initLibrary() {
     }
 
     const resetBtn = filterPanel.querySelector('.reset-btn');
-    const clearBtn = filterPanel.querySelector('.clear-btn');
+    const clearBtn = filterPanel.querySelector('.clear-btn'); // this got renamed to cancel at some point but refactoring is hard
 
     resetBtn.addEventListener('click', () => { // reset simply resets the filters
       resetFilters();
@@ -397,20 +401,20 @@ async function initLibrary() {
     // Initial state
     updateView();
 
-  } catch (err) {
+  } catch (err) { // Errors here represent some catastrophic issue
     console.error('Failed to load library data:', err);
     document.querySelector('.card-grid').innerHTML =
       `<p class="error">Could not load your library.</p>`;
   }
 }
 
-function formatDate(dateString) {
+function formatDate(dateString) { // make the date look nice
   const opts = { day: 'numeric', month: 'numeric', year: '2-digit' };
   return new Date(dateString)
     .toLocaleDateString('en-AU', opts);  // eg "15/5/25"
 }
 
-
+// add the cards to the grid in html for css rendering
 function renderCards(list, grid, area) {
   grid.innerHTML = '';
   
@@ -452,7 +456,7 @@ function renderCards(list, grid, area) {
       </div>
     `;
 
-    card.addEventListener('click', () => { // clicking the card goes to its content page
+    card.addEventListener('click', () => { // clicking the card goes to its specific content page
       const qs = encodeURIComponent(item.title); // handles spaces etc automatically
       window.location.href = `/content.html?title=${qs}`; // redirect
     });
@@ -462,6 +466,7 @@ function renderCards(list, grid, area) {
   updateItemCount(list, area);
 }
 
+// displays how many items, (and books/movies), are currently shown
 function updateItemCount(list, area) {
   const books  = list.filter(i => i.contentType === 'Book').length;
   const movies = list.filter(i => i.contentType === 'Movie').length;

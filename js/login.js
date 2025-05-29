@@ -1,7 +1,7 @@
 import { logIn, checkedLoggedIn } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // If we already have a session, skip the login screen
+  // If we already have a login in local storage, skip the login screen
   if (checkedLoggedIn()) {
     window.location.href = 'index.html';
     return;
@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setupLogIn();
 });
+
+// This finds all image paths in the given directory
 async function listCovers(dirUrl) {
     const res = await fetch(dirUrl);
     const html = await res.text();
@@ -53,11 +55,11 @@ async function setupLogIn() {
         img.style.opacity = opacity;
         img.style.filter  = `blur(${blur}px)`;
 
-        const direction = Math.random() < 0.5 ? 'floatUp' : 'floatDown';
-        img.style.animationName = direction;
+        const direction = Math.random() < 0.5 ? 'floatUp' : 'floatDown'; // 50-50 chance of going up or down
+        img.style.animationName = direction; // referencing the custom animations defined in css
 
         // random animation duration & delay
-        const dur = 20 + Math.random() * 30;   // 20s–50s
+        const dur = 20 + Math.random() * 30;   // 20s–50s duration
         img.style.animationDuration = `${dur}s`;
         img.style.animationDelay = `-${Math.random() * dur}s`;
 
@@ -65,8 +67,8 @@ async function setupLogIn() {
     }
 
   // LOGIN FORM
-    const form      = document.getElementById('loginForm');
-    const errorMsg  = document.getElementById('errorMsg');
+    const form = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
     const userInput = document.getElementById('username');
     const passInput = document.getElementById('password');
     

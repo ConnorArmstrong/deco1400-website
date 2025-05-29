@@ -1,3 +1,5 @@
+// This might get removed at some point or put in a debug folder
+
 async function getJSON() {
     const response = await fetch("./media/data.json");
     const json = await response.json();
@@ -22,6 +24,5 @@ async function getContentData(contentTitle) {
 
     console.log(contentType)
 }
-
 
 getContentData("The King in Yellow");

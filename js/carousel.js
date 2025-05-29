@@ -2,6 +2,7 @@ import { getUser, checkedLoggedIn, getData, getItem } from './utils.js';
 
 // this is by far my messiest JS File
 // Apologies
+// I have learnt: I am never using carousels again
 
 function initCarousels() {
   document.querySelectorAll('.carousel-container').forEach(container => {
@@ -460,12 +461,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  await populateCarousels();
+  await populateCarousels(); // load in the max amount of cards from data.js
 
   //applyHomeStyling();
   updateCardWidths();
   initCarousels();
-  window.addEventListener('resize', () => {
+  window.addEventListener('resize', () => { // mostly redundant now, css handles more than originally planned
     updateCardWidths();
     initCarousels();
   });

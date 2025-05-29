@@ -34,6 +34,8 @@ async function loadPopupModal() {
     }
 }
 
+// note that in this submission the modal doesn't actually create any data or add anything to data.json/local storage
+// however implementing this could be quite simple
 function initModal() {
     const modal = document.getElementById('globalModal');
     const backdrop = modal.querySelector('.modal-backdrop');
@@ -55,7 +57,8 @@ function initModal() {
     const autoFillBtn = modal.querySelector('#autoFillBtn');
 
     // open the modal functionality
-    // this was changed from iterating through all buttons with the label 
+    // this was changed from iterating through all buttons with data-modal-open label which I thought was cooler
+    // but didnt work when adding buttons AFTER the modal was loaded
     document.addEventListener('click', e => {
         const opener = e.target.closest('[data-modal-open]');
         if (!opener) return;
@@ -108,11 +111,12 @@ function initModal() {
     }
     linkCoverUpload();
 
-
     // cover image handling/validation
     uploadArea.addEventListener('click', () => coverInput.click());
 
-
+    // check to see if there is a type and title
+    // theoretically autofill basically meant you input the bare minimum data to find the book/movie
+    // and the autofill button fills the rest based on API calls but that is out of scope/not implemented
     function updateAutoFill() {
         autoFillBtn.disabled = !(
             titleInput.value.trim() && 
@@ -130,7 +134,7 @@ function initModal() {
         el.classList.toggle('invalid', !!msg);
     }
 
-      // validate a single field
+    // validate a single field
     function validateField(el) {
         if (!el.checkValidity()) {
             if (el.validity.valueMissing) {
@@ -148,7 +152,7 @@ function initModal() {
     titleInput.addEventListener('blur', () => validateField(titleInput));
     mediaType.addEventListener('blur', () => validateField(mediaType));
 
-    // on submit, prevent if invalid & show summary
+    // on submit prevent if invalid and show summary
     form.addEventListener('submit', e => {
         e.preventDefault();
         formError.textContent = '';
@@ -164,7 +168,7 @@ function initModal() {
         return;
         }
 
-        // all good → proceed!
+        // success
         formError.textContent = '';
         console.log("Pretend Something is Happening for now :)")
     });
@@ -198,16 +202,25 @@ function initModal() {
     console.log("Modal Initialised!");
 }
 
-window.addEventListener('DOMContentLoaded', loadPopupModal);
 
-document.addEventListener('nav-loaded', initThemeToggle);
+window.addEventListener('DOMContentLoaded', loadPopupModal); // runs the functions above, note that it is hidden by default
 
-// probably not the correct place to put this but it applies to all pages
-window.addEventListener('keydown', async e => { // Alt + Shift + R refreshes localstorage
+
+
+// THE FOLLOWING ARE SOME GLOBAL FUNCTIONS THAT HAVE BEEN PUT HERE BECAUSE THE MODAL IS ON EVERY MAJOR PAGE
+// this is almost certainly bad practice. apologies.
+
+// initialise the toggle dark/light theme button in the navbar
+document.addEventListener('nav-loaded', initThemeToggle); // need the nav loaded FULLY to find the toggle button
+
+
+// This makes Ctrl + Alt + R "refresh" the local storage. IE. this resets the local storage to the saved data.json file
+// this is important for debugging
+window.addEventListener('keydown', async e => { // Alt + Shift + R refreshes localstorage saved media data to the data.json
   if (e.altKey && e.shiftKey && e.code === 'KeyR') {
     e.preventDefault();    // stop any default action just in case
     refreshData().then(async () => { // reset the locaal storage
-        /*        
+        /* Keeping for now - refresh data never played nice on the content page
         const url = new URL(window.location.href);
         // this will either add “_” or overwrite it if it was there
         url.searchParams.set('_', Date.now());
@@ -218,3 +231,13 @@ window.addEventListener('keydown', async e => { // Alt + Shift + R refreshes loc
     });
   }
 });
+
+// In the future I will also make it so that I can manually download a backup so i can update the data.json file manually
+// maybe like Ctrl + Alt + B or something
+
+/*
+Other global commands could be:
+    - page navigation
+    - delete specific things (ie pieces of content)
+    - in theory a console would be cool for a page like this but very out of scope
+*/
