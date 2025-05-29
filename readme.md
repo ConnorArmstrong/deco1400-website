@@ -95,33 +95,33 @@ This was implemented and tested in *Firefox*. It all should work with other meth
 
 ### js/
 
-- #### **carousel.js**
+#### **carousel.js**
 
 - **index.html** javascript file. Loads and handles the carousels, and displaying information regarding the selected content.
 
-- #### **content.js**
+#### **content.js**
 
 - **content.html** javascript file. Loads and Populates the page, including adding questions and saving text.
 
-- #### **library.js**
+#### **library.js**
 
 - **library.html** javascript file. Loads and Populates the saved content and handles the page state (searching, sorting, filtering).
 
-- #### **login.js**
+#### **login.js**
 
 - **login.html** javascript file. Handles loading the image thumbnails and using them for the background animation. Also handles login form validation and functionality. .
 
-- #### **modal-loader.js**
+#### **modal-loader.js**
 
 - **modal.html** javascript file. Handles Modal opening/closing, form validation and injecting it onto each page. Also unfortunately handles two global events - switching between light and dark theme, and a `Ctrl + Alt + R` keybind to reset the `localStorage` to the `data.json` file default.
 
 - This runs on pages **index.html**, **library.html** and **content.html**.
 
-- #### **nav-loader.js**
+#### **nav-loader.js**
 
 - **navbar.html** javascript file. Handles Navigation Bar loading and injection. This runs on pages **index.html**, **library.html** and **content.html**.
 
-- #### **utils.js**
+#### **utils.js**
 
 - This javascript file handles the `localStorage` interaction. It provides functions relating to loading, saving, caching, reading and updating data stored in the `data.json` file. It also provides functions relating to logging in and managing a username, as well as storing and toggling the light/dark theme.
 
