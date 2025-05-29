@@ -160,8 +160,9 @@ textarea {
   margin: 0;
 }
 
-/*  Phone Break Point - Stack Each Section Vertically*/
 
+
+/*  Phone Break Point - Stack Each Section Vertically*/
 @media (max-width: 600px) {
   main {
     /* switch to one column */
@@ -174,5 +175,19 @@ textarea {
       "qa";
     gap: 1.5rem;
     padding: 1.5rem;
+  }
+
+  /* stack the thumb above the info */
+  .detail-meta {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: var(--gap-half);
+    text-align: center;
+  }
+
+  .detail-meta #thumb {
+    margin: 0 auto var(--gap-half);
+    max-width: 100%;
+    height: auto;
   }
 }

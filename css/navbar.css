@@ -57,3 +57,38 @@
 .nav-links li a span {
   margin-right: 0.5em;
 }
+
+
+/*  Phone Break Point*/
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.5rem 1rem;
+  }
+
+  .brand {
+    margin: 0 0 0.5rem;
+    text-align: center;
+  }
+
+  /* Group left and right links into their own rows */
+  .nav-group,
+  .navbar > ul.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin: 0.25rem 0;
+  }
+
+  .nav-links li a {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: var(--radius);
+    background: rgba(255,255,255,0.1);
+  }
+
+
+}

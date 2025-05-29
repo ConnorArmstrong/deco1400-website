@@ -61,7 +61,7 @@ body {
 }
 
 .icon {
-  background-color: var(--area);  /* lighter behind the words */
+  background-color: var(--area);
   color: var(--text);
   padding: 0.25em;
   border-radius: var(--radius);
@@ -269,10 +269,10 @@ body {
 .sort-btn,
 .filter-section,
 .filter-btn {
-  user-select: none;           /* standard */
-  -webkit-user-select: none;   /* Safari */
-  -moz-user-select: none;      /* Firefox */
-  -ms-user-select: none;       /* IE10+ */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* ── Filter Panel ───────────────────────────────────── */
@@ -281,7 +281,7 @@ body {
 /* the floating panel */
 .filter-panel {
   position: absolute;
-  top: 100%;       /* just below the search-bar */
+  top: 100%;
   left: 0;
   right: 0;
   margin-top: 0.5rem;
@@ -339,7 +339,7 @@ body {
   top: 0; left: 0;
   width: 100vw; height: 100vh;
   background: rgba(0,0,0,0.6);
-  z-index: 90;              /* just below the panel */
+  z-index: 90;
 }
 
 .filter-section select {
@@ -377,7 +377,7 @@ body {
   position: relative;
   width: 100%;
   display: inline-block;
-   margin-bottom: var(--gap-half);
+  margin-bottom: var(--gap-half);
 }
 
 .series-input {
@@ -415,4 +415,16 @@ body {
 
 .clear-series-btn:hover {
   color: var(--accent-hover);
+}
+
+/*  Phone Break Point */
+/*  This doesnt work fully with the filtering*/
+@media (max-width: 600px) {
+  /*  Stack Cards Vertically */
+  .card-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    padding: 1rem;
+    gap: 1rem;
+  }
 }
