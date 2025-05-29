@@ -141,10 +141,10 @@ function setSessionStatus(username) {
 
 // note no password
 export function logIn(username) {
-    setSessionStatus(username);
+    setSessionStatus(username); // also note that form validation does not let username = ""
 }
 
-// once it was "" as the default logout but this was error prone
+// it was once {"login": ""} as the default logout state but this was error prone
 export function logOut() {
     localStorage.removeItem(LOGIN_KEY)
 }

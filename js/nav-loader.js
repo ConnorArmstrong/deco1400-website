@@ -30,5 +30,5 @@ function applyNavStyling() { // apply nav styling BEFORE the navbar is loaded in
 }
 
 window.handleLogout = () => {
-  localStorage.setItem("login", ""); // bad practice but neccessary
+  localStorage.removeItem("login"); // bad practice but neccessary - should use the utils but alas no dom wrapper
 }

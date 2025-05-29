@@ -29,8 +29,8 @@ async function listCovers(dirUrl) {
 async function setupLogIn() {
     const bg = document.querySelector('.bg');
 
-    const bookCovers = await listCovers("/media/books/covers/");
-    const movieCovers = await listCovers("/media/movies/covers/");
+    const bookCovers = await listCovers("/media/books/");
+    const movieCovers = await listCovers("/media/movies/");
 
     const allCovers = [...bookCovers, ...movieCovers];
 
@@ -92,7 +92,7 @@ async function setupLogIn() {
             userInput.focus();
             return;
         }
-
+        
         // validate password
         if (!password) {
             errorMsg.textContent = 'Please enter your password.';
