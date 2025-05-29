@@ -21,6 +21,7 @@
   - [js/](#js)  
   - [json-schemas/](#json-schemas)  
   - [media/](#media)
+- [Issues](#issues)
 - [References](#references)
   - [Cover Images](#cover-images)
 - [Data Files](#data-files)  
@@ -164,6 +165,11 @@ This was implemented and tested in **Firefox**. It all should work with other me
 
 - A list of questions that are randomly selected for content without hard coded questions in `data.json`. Originally it was planned to have different questions for different content status (completed/in progress/planned) but this functionality is not added. Also, currently all questions are text-based open ended questions for journaling. In the future, more categorical or non-text based questions could be added.
 
+
+## Issues
+- Currently mobile responsiveness is properly implemented for **login.html** and **content.html**. **library.html** has functional mobile responsiveness, but with some elements cut off and an inefficient design.
+
+- **index.html** *DOES NOT* have a mobile breakpoint, and shrinking the viewport breaks the page.
 
 
 ## References:

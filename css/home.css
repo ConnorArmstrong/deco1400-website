@@ -51,7 +51,7 @@
   grid-area: heading;
 }
 
-/* Books (order: carousel → info) */
+/* Books (order: carousel -> info) */
 /* BOOKS: carousel in col-1, display in col-2 */
 .content-section.books > .carousel-container { grid-area: carousel; }
 .content-section.books > .display-container  { grid-area: display; }
@@ -116,7 +116,7 @@
   scroll-padding-inline: var(--gap-half);
 }
 
-/*  I do not want a scroll bar - at all */
+/*  I do not want a scroll bar */
 .carousel::-webkit-scrollbar {
   display: none; /* Chrome, Safari, and Opera */
 }
