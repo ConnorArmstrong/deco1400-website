@@ -10,7 +10,6 @@ function initCarousels() {
     const welcomeElement = document.getElementById('usernameDisplay');
     welcomeElement.textContent = username;
 
-
     const track = container.querySelector('.carousel');
     const prev  = container.querySelector('.prev');
     const next  = container.querySelector('.next');

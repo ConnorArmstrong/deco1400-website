@@ -152,9 +152,9 @@ This was implemented and tested in **Firefox**. It all should work with other me
 
 - The main data for MyMedia. This is loaded and stored in `localStorage` to allow for user content to be saved for future use. This data is loaded at startup and read by all major pages. The **Content** page (content.html) can update this information when the user inputs text in either the user text section or the Q and A section. If a piece of content has no listed questions, 3 random questions from **questions.txt** are loaded into the `localStorage` for the given data.
 
-- **IMPORTANT:** pressing `Ctrl + Alt + R` **reloads** the data from `data.json` into `localStorage` resetting updated text. This also resets/refreshes questions loaded in from **content.js** for content that has no hard-coded questions (eg The King in Yellow).
+- **IMPORTANT:** pressing `Ctrl + Alt + R` **reloads** the data from `data.json` into `localStorage` resetting updated text. This also resets/refreshes questions loaded in from **content.js** for content that has no hard-coded questions (eg not The King in Yellow or Walden).
 
-- Note that currently adding new content to the `data.json` file is not handled by the webpage at this time. Only user driven content.
+- Note that currently adding new content to the `data.json` file is not handled by the webpage but extending functionality seems simple enough.
 
 
 #### questions.txt/
@@ -168,7 +168,7 @@ This was implemented and tested in **Firefox**. It all should work with other me
 
 ### Cover Images:
 
-The following table is the list of book and movie covers in the public domain retrieved from [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page) for use as placeholder images:
+The following table is the list of book and movie covers in the public domain retrieved from [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page) for use as placeholder content:
 
 | *File Name*                                                                 | *Content Title*                                                          | *Author/Director/Artist*                              |
 |------------------------------------------------------------------------------|--------------------------------------------------------------------------|-------------------------------------------------------|

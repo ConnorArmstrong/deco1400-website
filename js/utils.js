@@ -109,15 +109,15 @@ export function addQuestion(title, question, answer = '') {
 
 // return the item for a given title
 export async function getItem(title) {
-    const { items } = await getData();
+  const { items } = await getData();
 
-    const item = items.find(i => i.title === title);
-    if (!item) {
-        console.error('Cannot Find Content');
-        return;
-    }
+  const item = items.find(i => i.title === title);
+  if (!item) {
+      console.error('Cannot Find Content');
+      return;
+  }
 
-    return item;
+  return item;
 }
 
 // for a given title and question index, update hte answer
