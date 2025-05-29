@@ -87,74 +87,74 @@ This was implemented and tested in *Firefox*. It all should work with other meth
 
 ### css/
 
-All stylesheets are here, one for each page, each html component and a global `styles.css`
+- All stylesheets are here, one for each page, each html component and a global `styles.css`
 
 ### design-images/
 
-High Fidelity Prototype designs from A1. Used as a rough guide for implementation. Most pages stayed true to these designs.
+- High Fidelity Prototype designs from A1. Used as a rough guide for implementation. Most pages stayed true to these designs.
 
 ### js/
 
-#### **carousel.js**
+- #### **carousel.js**
 
-**index.html** javascript file. Loads and handles the carousels, and displaying information regarding the selected content.
+- **index.html** javascript file. Loads and handles the carousels, and displaying information regarding the selected content.
 
-#### **content.js**
+- #### **content.js**
 
-**content.html** javascript file. Loads and Populates the page, including adding questions and saving text.
+- **content.html** javascript file. Loads and Populates the page, including adding questions and saving text.
 
-#### **library.js**
+- #### **library.js**
 
-**library.html** javascript file. Loads and Populates the saved content and handles the page state (searching, sorting, filtering).
+- **library.html** javascript file. Loads and Populates the saved content and handles the page state (searching, sorting, filtering).
 
-#### **login.js**
+- #### **login.js**
 
-**login.html** javascript file. Handles loading the image thumbnails and using them for the background animation. Also handles login form validation and functionality. .
+- **login.html** javascript file. Handles loading the image thumbnails and using them for the background animation. Also handles login form validation and functionality. .
 
-#### **modal-loader.js**
+- #### **modal-loader.js**
 
-**modal.html** javascript file. Handles Modal opening/closing, form validation and injecting it onto each page. Also unfortunately handles two global events - switching between light and dark theme, and a `Ctrl + Alt + R` keybind to reset the `localStorage` to the `data.json` file default.
+- **modal.html** javascript file. Handles Modal opening/closing, form validation and injecting it onto each page. Also unfortunately handles two global events - switching between light and dark theme, and a `Ctrl + Alt + R` keybind to reset the `localStorage` to the `data.json` file default.
 
-This runs on pages **index.html**, **library.html** and **content.html**.
+- This runs on pages **index.html**, **library.html** and **content.html**.
 
-#### **nav-loader.js**
+- #### **nav-loader.js**
 
-**navbar.html** javascript file. Handles Navigation Bar loading and injection. This runs on pages **index.html**, **library.html** and **content.html**.
+- **navbar.html** javascript file. Handles Navigation Bar loading and injection. This runs on pages **index.html**, **library.html** and **content.html**.
 
-#### **utils.js**
+- #### **utils.js**
 
-This javascript file handles the `localStorage` interaction. It provides functions relating to loading, saving, caching, reading and updating data stored in the `data.json` file. It also provides functions relating to logging in and managing a username, as well as storing and toggling the light/dark theme.
+- This javascript file handles the `localStorage` interaction. It provides functions relating to loading, saving, caching, reading and updating data stored in the `data.json` file. It also provides functions relating to logging in and managing a username, as well as storing and toggling the light/dark theme.
 
 
-### json-schemas/
+- ### json-schemas/
 
-This is mostly unnecessary and was a relative waste of time. These are not referred to in other files, but do provide a general idea of how the data for each content is stored in the `data.json` file
+- This is mostly unnecessary and was a relative waste of time. These are not referred to in other files, but do provide a general idea of how the data for each content is stored in the `data.json` file
 
 - **content-schema.json** - The outline of each specific piece of content with comments and explanations
 - **data-schema.json** - Wrapper for **content-schema**, handling a list of content
 
-### media/
+- ### media/
 
-#### books/
+- #### books/
 
-Contains thumbnails/covers for the books. Note that here there are some unused covers, contained here but not in `data.json`.
+- Contains thumbnails/covers for the books. Note that here there are some unused covers, contained here but not in `data.json`.
 
-#### movies/
+- #### movies/
 
-Contains thumbnails/covers for the movies. Note that here there are some unused covers, contained here but not in `data.json`.
+- Contains thumbnails/covers for the movies. Note that here there are some unused covers, contained here but not in `data.json`.
 
-#### data.json/
+- #### data.json/
 
-The main data for MyMedia. This is loaded and stored in `localStorage` to allow for user content to be saved for future use. This data is loaded at startup and read by all major pages. The **Content** page (content.html) can update this information when the user inputs text in either the user text section or the Q and A section. If a piece of content has no listed questions, 3 random questions from **questions.txt** are loaded into the `localStorage` for the given data.
+- The main data for MyMedia. This is loaded and stored in `localStorage` to allow for user content to be saved for future use. This data is loaded at startup and read by all major pages. The **Content** page (content.html) can update this information when the user inputs text in either the user text section or the Q and A section. If a piece of content has no listed questions, 3 random questions from **questions.txt** are loaded into the `localStorage` for the given data.
 
-**IMPORTANT:** pressing `Ctrl + Alt + R` **reloads** the data from `data.json` into `localStorage` resetting updated text. This also resets/refreshes questions loaded in from **content.js** for content that has no hard-coded questions (eg The King in Yellow).
+- **IMPORTANT:** pressing `Ctrl + Alt + R` **reloads** the data from `data.json` into `localStorage` resetting updated text. This also resets/refreshes questions loaded in from **content.js** for content that has no hard-coded questions (eg The King in Yellow).
 
-Note that currently adding new content to the `data.json` file is not handled by the webpage at this time. Only user driven content.
+- Note that currently adding new content to the `data.json` file is not handled by the webpage at this time. Only user driven content.
 
 
-#### questions.txt/
+- #### questions.txt/
 
-A list of questions that are randomly selected for content without hard coded questions in `data.json`. Originally it was planned to have different questions for different content status (completed/in progress/planned) but this functionality is not added. Also, currently all questions are text-based open ended questions for journaling. In the future, more categorical or non-text based questions could be added.
+- A list of questions that are randomly selected for content without hard coded questions in `data.json`. Originally it was planned to have different questions for different content status (completed/in progress/planned) but this functionality is not added. Also, currently all questions are text-based open ended questions for journaling. In the future, more categorical or non-text based questions could be added.
 
 
 ## Data Files:
