@@ -12,7 +12,6 @@
   - [index.html](#indexhtml)  
   - [library.html](#libraryhtml)  
   - [content.html](#contenthtml)  
-  - [json-testing.html](#json-testinghtml)  
   - [login.html](#loginhtml)  
 - [Project Structure](#project-structure)  
   - [components/](#components)  
@@ -20,24 +19,26 @@
   - [design-images/](#design-images)  
   - [js/](#js)  
   - [json-schemas/](#json-schemas)  
-  - [media/](#media)  
+  - [media/](#media)
+- [References](#references)
+  - [Cover Images](#images)
 - [Data Files](#data-files)  
-- [How It Works](#how-it-works)  
-
 ---
 
 
 ## Overview
 
-MyMedia allows you to add and review books and movies. This is functional and is driven by a `data.json` file and `localStorage`.
+MyMedia allows you to add and review books and movies.
+
+This is currently **functional** and is driven by a `data.json` file and `localStorage`.
 
 
 ## Features
 - See recent content on the **Home Page** carousels
-- Browse all titles on a central **Library** page with Client-side filtering, sorting and tag search
-- View details (cover, summary, rating, tags) on a **Content** page  
-- Simple login check with `localStorage`
-
+- Browse all titles on a central **Library** page with searching, sorting and filtering
+- View details on a **Content** page with fully functional freeform journalling and directed reflective questions
+- Simple **Log In** check with `localStorage`
+- Persistant data storage and visual theme switching
 
 ## Running Locally
 Note that is was run through python's simple http called by:
@@ -61,15 +62,16 @@ This was implemented and tested in *Firefox*. It all should work with other meth
 ### **library.html**  
 - Displays a grid of cards populated from saved items
 - Searching Functionality
-- Sorting functionality (title, rating, date) with ascending/descending
-- Filter panel (tags, status, type)  
+- Sorting functionality (title, rating, date) with ascending/descending order
+- Filter panel (series, status, type, minimum rating)
+- Directs to **Content** page when clicking specific content card
 
 ### **content.html**  
-- Detail view for a single item 
-- Title, cover, metadata, summary, tags, series
+- Detailed view for a single item 
+- Title, cover, metadata, summary, tags (not implemented), series
 - Free form user text input and directed question and answers
 - Fully functioning `localStorage` saving for user input and user answers
-- Content without answers saved loads random questions from `/media/questions.txt` which are then saved, loaded and displayed
+- Content without hard coaded questions loads random questions from `/media/questions.txt` which are then saved, loaded and displayed
 
 ### **login.html**  
 - Basic login form with floating content thumbnails in the background
@@ -157,9 +159,47 @@ This was implemented and tested in *Firefox*. It all should work with other meth
 - A list of questions that are randomly selected for content without hard coded questions in `data.json`. Originally it was planned to have different questions for different content status (completed/in progress/planned) but this functionality is not added. Also, currently all questions are text-based open ended questions for journaling. In the future, more categorical or non-text based questions could be added.
 
 
+
+## References:
+
+
+### Cover Images:
+
+| *File Name*                                                                 | *Content Title*                                                          | *Author/Director/Artist*                              |
+|------------------------------------------------------------------------------|--------------------------------------------------------------------------|-------------------------------------------------------|
+| 713px-And_the_Stars_Were_Shining_-_John_Ashbery.jpg                          | And the Stars Were Shining                                               | John Ashbery                                          |
+| 723px-Jaws_(1974)_front_cover,_first_edition.jpg                             | Jaws                                                                     | Peter Benchly                                         |
+| 743px-Rivers_and_Mountains_(1st_ed.)_-_Ashbery.jpg                            | Rivers and Mountains                                                     | John Ashbery                                          |
+| 749px-'Salem's_Lot_(1975)_front_cover,_first_edition.jpg                     | Salem’s Lot                                                              | Stephen King                                          |
+| 960px-100_Things_Successful_People_Do_-_Hardback_Cover_-_First_Edition_-_by_Nigel_Cumberland.jpg | 100 Things Successful People Do: Little Exercises for Successful Living | Nigel Cumberland                                      |
+| 960px-All_in_a_Lifetime_(1941)_cover.jpg                                     | All in a Lifetime                                                        | Frank Buck, Ferrin Fraser                             |
+| 960px-Cujo_(1981)_front_cover,_first_edition.jpg                             | Cujo                                                                     | Stephen King                                          |
+| 960px-I_Know_Why_the_Caged_Bird_Sings_front_cover,_1969_first_edition.jpg     | I Know Why the Caged Bird Sings                                          | Maya Angelou                                          |
+| 960px-Jungle_tales_of_tarzan.jpg                                             | Jungle Tales of Tarzan                                                   | Edgar Ruce Burroughs                                  |
+| 960px-Of_Mice_and_Men_(1937_1st_ed_dust_jacket).jpg                           | Of Mice and Men                                                          | John Steinbeck                                        |
+| 960px-Popular_Library_116_-_The_Red_House_(George_Agnew_Chamberlain).jpg     | The Red House                                                            | George Agnew Chamberlain                              |
+| 960px-Popular_Library_16_-_The_Dead_Don't_Care_(Jonathan_Latimer).jpg         | The Dead Don’t Care                                                      | Jonathan Latimer                                      |
+| 960px-Popular_Library_33_-_McKee_of_Centre_Street_(Helen_Reilly).jpg          | The McKee of Centre Street                                               | Helen Reilly                                          |
+| 960px-Popular_Library_528_-_Hooked_(Will_Oursler).jpg                         | Hooked (Narcotics: America’s Peril)                                      | Will Oursler and Laurence Dwight Smith                |
+| 960px-Popular_Library_551_-_I_Dive_for_Treasure_(Lt._Harry_E._Rieseberg).jpg  | I Dive for Treasure                                                      | Lt. Harry E. Rieseberg                                |
+| 960px-Popular_Library_G572_-_Portrait_of_Jennie_(Robert_Nathan).jpg           | Portrait of Jennie                                                       | Robert Nathan                                         |
+| 960px-Popular_Library_W1106_-_Father_and_Son_(James_T._Farrell).jpg           | Father and Son                                                           | James T. Farrell                                      |
+| frankenstein-front-cover-4fb8df.jpg                                           | Frankenstein                                                             | Mary W Shelley                                        |
+| King_in_yellow.jpg                                                            | The King in Yellow                                                       | Neely’s Prismatic Library, Robert W. Chambers         |
+| 500px-Final_straw_food_earth_happiness_tour_poster.jpg                        | Final Straw: food, earth, happiness                                      | Partrick Lydon and Suhee Kang                         |
+| 764px-Affiche_sweetcocoon.png                                                 | Sweet Cocoon                                                             | Matéo Bernard, Matthias Bruget, Jonathan Duret        |
+| 960px-150dpiWalden_A1_Poster.jpg                                              | Walden                                                                   | Daniel Zimmerman                                      |
+| 960px-DANIEL_'16_Poster_GR.jpg                                                | Daniel ‘16                                                               | Dimitris Koutsiabasakos                               |
+| 960px-Driven_To_Help_(Film_Poster).png                                        | Driven to Help                                                           | Phil Gioja                                            |
+| 960px-Encounter_in_the_Air.jpg                                                | Encounter in the Air                                                     | Ardit Sadiku                                          |
+| 960px-Jellyfish_poster.jpg                                                    | Jellyfish                                                                | James Gardner                                         |
+| Affiche_Catch_It.jpg                                                          | Catch It                                                                 | Paul Bar, Marion Demaret, Nadège Forner              |
+| the-endless-summer-1966-limited-release-poster-1146dc.jpg                     | The Endless Summer                                                       | Bruce Brown                                           |
+
+
 ## Data Files:
 
-- **/media/data.json**:
+- **/media/data.json** Schema:
 
 ```json
 {
