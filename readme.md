@@ -49,7 +49,7 @@ python -m http.server [port]
 
 in the projects root.
 
-This was implemented and tested in *Firefox*. It all should work with other methods. Fingers crossed.
+This was implemented and tested in **Firefox**. It all should work with other methods. Fingers crossed.
 
 
 ## HTML Pages
@@ -214,7 +214,7 @@ The following table is the list of images retrieved from [Wikimedia Commons](htt
     "properties": {
         "title": {
             "type": "string",
-            "description": "User given title. For now will match with saved image"
+            "description": "User given Title. Also used as the primary key/id"
         },
         "date": {
             "type":"string",
@@ -310,3 +310,7 @@ The following table is the list of images retrieved from [Wikimedia Commons](htt
 }
 
 ```
+
+
+
+> Thank you ❤️

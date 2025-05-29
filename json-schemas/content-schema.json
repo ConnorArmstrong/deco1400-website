@@ -6,7 +6,7 @@
     "properties": {
         "title": {
             "type": "string",
-            "description": "User given title. For now will match with saved image"
+            "description": "User given Title. Also used as the primary key/id"
         },
         "date": {
             "type":"string",
@@ -19,7 +19,7 @@
 
         "thumbnail": {
             "type": "string",
-            "description": "Path to content from starting directory"
+            "description": "Path to cover image from starting directory"
         },
         "rating": {
             "type": ["number", "null"],
