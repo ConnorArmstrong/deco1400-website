@@ -89,7 +89,7 @@ This was implemented and tested in *Firefox*. It all should work with other meth
 
 ### css/
 
-- All stylesheets are here, one for each page, each html component and a global `styles.css`
+- All stylesheets are here, one for each page, each html component and a global `style.css`
 
 ### design-images/
 
