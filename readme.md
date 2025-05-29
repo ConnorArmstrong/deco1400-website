@@ -165,6 +165,8 @@ This was implemented and tested in *Firefox*. It all should work with other meth
 
 ### Cover Images:
 
+The following table is the list of images retrieved from [Wikimedia Commons]("https://commons.wikimedia.org/wiki/Main_Page") for use as placeholder images with free to use licences:
+
 | *File Name*                                                                 | *Content Title*                                                          | *Author/Director/Artist*                              |
 |------------------------------------------------------------------------------|--------------------------------------------------------------------------|-------------------------------------------------------|
 | 713px-And_the_Stars_Were_Shining_-_John_Ashbery.jpg                          | And the Stars Were Shining                                               | John Ashbery                                          |
