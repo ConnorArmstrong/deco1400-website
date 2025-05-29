@@ -167,7 +167,9 @@ This was implemented and tested in **Firefox**. It all should work with other me
 
 
 ## Issues
-- Currently mobile responsiveness is properly implemented for **login.html** and **content.html**. **library.html** has functional mobile responsiveness, but with some elements cut off and an inefficient design.
+- Currently mobile responsiveness is properly implemented for **login.html** and **content.html**.
+
+- **library.html** has functional mobile responsiveness, but with some elements cut off and an inefficient design.
 
 - **index.html** *DOES NOT* have a mobile breakpoint, and shrinking the viewport breaks the page.
 
