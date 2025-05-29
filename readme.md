@@ -50,7 +50,8 @@ python -m http.server [port]
 
 in the project's root.
 
-Please note that on first launch you will be redirected to the login page. You will be required to enter a username **AND** password for form validation purposes. **!!THEY CAN BE ANYTHING!! Apart from an empty string**.
+**!!IMPORTANT!!**
+On first launch you will be redirected to the log in page. Please enter a username and password of your choosing. The username is stored, but the password is simply there to test form validation and show proof of functionality. Thank you.
 
 This was implemented and tested in **Firefox**. It all should work with other methods. Fingers crossed.
 
