@@ -1,4 +1,4 @@
-# MyMedia 📚
+# 📚 MyMedia 
 
 > A simple website for browsing, managing, reviewing and journalling your book and movie collection.
 
@@ -22,7 +22,7 @@
   - [json-schemas/](#json-schemas)  
   - [media/](#media)
 - [References](#references)
-  - [Cover Images](#images)
+  - [Cover Images](#cover-images)
 - [Data Files](#data-files)  
 ---
 
@@ -168,7 +168,7 @@ This was implemented and tested in **Firefox**. It all should work with other me
 
 ### Cover Images:
 
-The following table is the list of images retrieved from [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page) for use as placeholder images with free to use licences:
+The following table is the list of book and movie covers in the public domain retrieved from [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page) for use as placeholder images:
 
 | *File Name*                                                                 | *Content Title*                                                          | *Author/Director/Artist*                              |
 |------------------------------------------------------------------------------|--------------------------------------------------------------------------|-------------------------------------------------------|
@@ -176,7 +176,7 @@ The following table is the list of images retrieved from [Wikimedia Commons](htt
 | 723px-Jaws_(1974)_front_cover,_first_edition.jpg                             | Jaws                                                                     | Peter Benchly                                         |
 | 743px-Rivers_and_Mountains_(1st_ed.)_-_Ashbery.jpg                            | Rivers and Mountains                                                     | John Ashbery                                          |
 | 749px-'Salem's_Lot_(1975)_front_cover,_first_edition.jpg                     | Salem’s Lot                                                              | Stephen King                                          |
-| 960px-100_Things_Successful_People_Do_-_Hardback_Cover_-_First_Edition_-_by_Nigel_Cumberland.jpg | 100 Things Successful People Do: Little Exercises for Successful Living | Nigel Cumberland                                      |
+| 960px-100_Things_Successful_People_Do_Hardback_Cover_by_Nigel_Cumberland.jpg | 100 Things Successful People Do: Little Exercises for Successful Living | Nigel Cumberland                                      |
 | 960px-All_in_a_Lifetime_(1941)_cover.jpg                                     | All in a Lifetime                                                        | Frank Buck, Ferrin Fraser                             |
 | 960px-Cujo_(1981)_front_cover,_first_edition.jpg                             | Cujo                                                                     | Stephen King                                          |
 | 960px-I_Know_Why_the_Caged_Bird_Sings_front_cover,_1969_first_edition.jpg     | I Know Why the Caged Bird Sings                                          | Maya Angelou                                          |
