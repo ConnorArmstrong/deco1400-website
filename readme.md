@@ -132,7 +132,7 @@ This was implemented and tested in *Firefox*. It all should work with other meth
 
 - This is mostly unnecessary and was a relative waste of time. These are not referred to in other files, but do provide a general idea of how the data for each content is stored in the `data.json` file
 
-- **content-schema.json** - The outline of each specific piece of content with comments and explanations
+- **content-schema.json** - The outline of each specific piece of content with comments and explanations. This is shown [here](#data-files)
 - **data-schema.json** - Wrapper for **content-schema**, handling a list of content
 
 ### media/
@@ -146,6 +146,8 @@ This was implemented and tested in *Firefox*. It all should work with other meth
 - Contains thumbnails/covers for the movies. Note that here there are some unused covers, contained here but not in `data.json`.
 
 #### data.json/
+
+- The schema for this is shown [here](#data-files)
 
 - The main data for MyMedia. This is loaded and stored in `localStorage` to allow for user content to be saved for future use. This data is loaded at startup and read by all major pages. The **Content** page (content.html) can update this information when the user inputs text in either the user text section or the Q and A section. If a piece of content has no listed questions, 3 random questions from **questions.txt** are loaded into the `localStorage` for the given data.
 
