@@ -2,6 +2,7 @@
 
 > A simple website for browsing, managing, reviewing and journalling your book and movie collection.
 
+![MyMedia Poster](poster.png)
 
 ## Table of Contents
 
@@ -41,13 +42,13 @@ This is currently **functional** and is driven by a `data.json` file and `localS
 - Persistant data storage and visual theme switching
 
 ## Running Locally
-Note that is was run through python's simple http called by:
+Note that was run through python's http server called by:
 
 ```bash
 python -m http.server [port]
 ```
 
-in the projects root.
+in the project's root.
 
 This was implemented and tested in **Firefox**. It all should work with other methods. Fingers crossed.
 
@@ -311,6 +312,8 @@ The following table is the list of images retrieved from [Wikimedia Commons](htt
 
 ```
 
+---
 
 
-> Thank you ❤️
+
+> Thank you for your time ❤️

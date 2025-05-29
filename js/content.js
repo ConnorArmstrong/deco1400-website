@@ -110,6 +110,8 @@ async function loadContent(title) {
         updateUserText(title, notesEl.value);
     });
 
+    autoGrow(notesEl);
+
     // ---- SUMMARY PANEL ----
     // update heading with source
     const summaryHeader = document.querySelector('.summary h3');
@@ -129,7 +131,7 @@ async function loadContent(title) {
     // ---- 3) Q and A PANEL ----
     // .q-and-a .question is a <strong> and a <p>
     const qaSection = document.querySelector('.q-and-a');
-    qaSection.innerHTML = '<h3>Q&amp;A</h3>';  // reset
+    qaSection.innerHTML = '';  // reset
 
     item.questions.forEach(({ question, answer }, i) => {
         const div = document.createElement('div');
@@ -156,6 +158,7 @@ async function loadContent(title) {
         autoGrow(txt);
         txt.addEventListener('input', () => autoGrow(txt));
     })
+
 
     // global keybinding for saving everything
     window.addEventListener('keydown', e => {
