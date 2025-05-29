@@ -126,3 +126,26 @@ input.invalid {
   border-color: #ff6b6b !important;
   background: rgba(255, 107, 107, 0.1);
 }
+
+/*  Phone Break Point - Stack Each Section Vertically*/
+
+@media (max-width: 600px) {
+  /* make the login‐card almost full‐width on phones */
+  .login-card {
+    max-width: 90%;
+    padding: 1rem;
+    top: 1rem;
+    transform: none;       /* so it doesn’t try to vertically center */
+    margin: auto;          /* center it horizontally */
+  }
+
+  /* shrink the floating thumbnails so they’re less intrusive */
+  .bg img {
+    width: 80px !important;
+  }
+
+  /* reduce opacity a bit for performance/readability */
+  .bg {
+    opacity: 0.6;
+  }
+}

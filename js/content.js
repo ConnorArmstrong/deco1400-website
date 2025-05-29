@@ -110,8 +110,6 @@ async function loadContent(title) {
         updateUserText(title, notesEl.value);
     });
 
-    autoGrow(notesEl);
-
     // ---- SUMMARY PANEL ----
     // update heading with source
     const summaryHeader = document.querySelector('.summary h3');
@@ -157,7 +155,11 @@ async function loadContent(title) {
     allTextAreas.forEach(txt => {
         autoGrow(txt);
         txt.addEventListener('input', () => autoGrow(txt));
-    })
+    });
+
+    window.addEventListener('resize', () => {
+        document.querySelectorAll('textarea').forEach(txt => autoGrow(txt));
+     });
 
 
     // global keybinding for saving everything
@@ -223,4 +225,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const title = decodeURIComponent(rawTitle);
 
     loadContent(title);
+});
+
+// this fixes the initial page load not autogrowing the text input areas
+document.fonts.ready.then(() => {  // the autogrow would be called for the base font which is then overwridden
+  window.requestAnimationFrame(() => { 
+    document.querySelectorAll('textarea')
+      .forEach(txt => autoGrow(txt));
+  });
 });

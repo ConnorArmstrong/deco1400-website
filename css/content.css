@@ -159,3 +159,20 @@ textarea {
   border-radius: var(--radius);
   margin: 0;
 }
+
+/*  Phone Break Point - Stack Each Section Vertically*/
+
+@media (max-width: 600px) {
+  main {
+    /* switch to one column */
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "meta"
+      "summary"
+      "user"
+      "qa";
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+}

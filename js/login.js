@@ -34,7 +34,9 @@ async function setupLogIn() {
 
     const allCovers = [...bookCovers, ...movieCovers];
 
-    const numToShow = 70;  // how many floating covers
+    const isSmall = window.matchMedia('(max-width: 600px)').matches; // check if hitting mobile breakpoint
+    const numToShow = isSmall ? 30 : 70; 70;  // how many floating covers - less if mobile width
+
     for (let i = 0; i < numToShow; i++) {
         const img = document.createElement('img');
         // pick a random cover
