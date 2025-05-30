@@ -9,6 +9,7 @@ main {
   padding: 1rem 2em;
 }
 
+/* For each section...*/
 main > section {
   background: var(--surface);
   border-radius: var(--radius);
@@ -127,7 +128,7 @@ textarea {
 
 /* ---- AutoSummary | BOTTOM LEFT ---- */
 
-/* Styled Similar to Home Page */
+/* Styled Similar to Home Page Auto Summary*/
 .summary {
   border: 3px dashed var(--text-muted);
   border-radius: var(--radius);

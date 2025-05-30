@@ -22,6 +22,7 @@
   - [json-schemas/](#json-schemas)  
   - [media/](#media)
 - [Issues](#issues)
+- [Mobile Responsiveness](#mobile-responsiveness)
 - [References](#references)
   - [Cover Images](#cover-images)
 - [Data Files](#data-files)  
@@ -30,17 +31,20 @@
 
 ## Overview
 
-MyMedia allows you to add and review books and movies.
+MyMedia allows you to review and journal books and movies.
 
-This is currently **functional** and is driven by a `data.json` file and `localStorage`.
+This is currently **functional** and is driven by a `data.json` file and `localStorage`. 
+
+All html files are populated from content stored in the `data.json` file, so `.html` files showcase small examples.
 
 
 ## Features
 - See recent content on the **Home Page** carousels
 - Browse all titles on a central **Library** page with searching, sorting and filtering
 - View details on a **Content** page with fully functional freeform journalling and directed reflective questions
-- Simple **Log In** check with `localStorage`
-- Persistant data storage and visual theme switching
+- `localStorage` integratio allowing for persistent data storage. `localStorage` is also used with the following:
+  - Simple **log in** handling and session management
+  - Visual **theme switching**
 
 ## Running Locally
 Note that was run through python's http server called by:
@@ -54,7 +58,7 @@ in the project's root.
 **!! IMPORTANT !!**\
 Please note that on first launch you will be redirected to the log in page. Please enter a username and password of your choosing. The username is stored, but the password is simply there to test form validation and show proof of functionality. Thank you.
 
-This was implemented and tested in **Firefox**. It all should work with other methods. Fingers crossed.
+This was website was implemented and tested in **Firefox**. It all should work with other browsers and servers. Fingers crossed.
 
 
 ## HTML Pages
@@ -94,7 +98,7 @@ This was implemented and tested in **Firefox**. It all should work with other me
 
 ### css/
 
-- All stylesheets are here, one for each page, each html component and a global `style.css`
+- All stylesheets are here, one for each page and html component alongside a global `style.css`
 
 ### design-images/
 
@@ -104,19 +108,23 @@ This was implemented and tested in **Firefox**. It all should work with other me
 
 #### **carousel.js**
 
-- **index.html** javascript file. Loads and handles the carousels, and displaying information regarding the selected content.
+- **index.html** javascript file. Loads, populates and handles the carousels, as well as displaying information regarding the selected content.
+
+- I understand this name doesn't match anything else, but I am keeping it as is to showcase how my project (and my aproach to completing it) have changed over time.
+
+- Also native css carousel support was added like a month ago. This would of helped me. A lot.
 
 #### **content.js**
 
-- **content.html** javascript file. Loads and Populates the page, including adding questions and saving text.
+- **content.html** javascript file. Loads and Populates the page, including adding questions and saving text updates into `localStorage`.
 
 #### **library.js**
 
-- **library.html** javascript file. Loads and Populates the saved content and handles the page state (searching, sorting, filtering).
+- **library.html** javascript file. Loads and Populates the saved content and handles the page state (searching, sorting, filtering), which is then used to display remaining content.
 
 #### **login.js**
 
-- **login.html** javascript file. Handles loading the image thumbnails and using them for the background animation. Also handles login form validation and functionality. .
+- **login.html** javascript file. Handles loading the image thumbnails and using them for the background animation. Also handles login form validation and functionality.
 
 #### **modal-loader.js**
 
@@ -127,6 +135,8 @@ This was implemented and tested in **Firefox**. It all should work with other me
 #### **nav-loader.js**
 
 - **navbar.html** javascript file. Handles Navigation Bar loading and injection. This runs on pages **index.html**, **library.html** and **content.html**.
+
+- This also handles the log out functionality, clearing the `localStorage` of a log in key.
 
 #### **utils.js**
 
@@ -154,24 +164,28 @@ This was implemented and tested in **Firefox**. It all should work with other me
 
 - The schema for this is shown [here](#data-files)
 
-- The main data for MyMedia. This is loaded and stored in `localStorage` to allow for user content to be saved for future use. This data is loaded at startup and read by all major pages. The **Content** page (content.html) can update this information when the user inputs text in either the user text section or the Q and A section. If a piece of content has no listed questions, 3 random questions from **questions.txt** are loaded into the `localStorage` for the given data.
+- The main data for MyMedia. This is loaded and stored in `localStorage` to allow for user content to be saved for future use. This data is loaded at startup and read by all major pages. The **Content** page (`content.html`) can update this information when the user inputs text in either the user text section or the Q and A section. If a piece of content has no listed questions, 3 random questions from `questions.txt` are loaded into the `localStorage` for the given data.
 
-- **IMPORTANT:** pressing `Ctrl + Alt + R` **reloads** the data from `data.json` into `localStorage` resetting updated text. This also resets/refreshes questions loaded in from **content.js** for content that has no hard-coded questions (eg not The King in Yellow or Walden).
+- **IMPORTANT:** pressing `Ctrl + Alt + R` **resets** the data in `localStorage` back to what is stored in `data.json`. This resets updated text and also resets/refreshes the random questions loaded in from **content.js** for all content (Apart from The King in Yellow and Walden).
 
 - Note that currently adding new content to the `data.json` file is not handled by the webpage but extending functionality seems simple enough.
 
 
 #### questions.txt/
 
-- A list of questions that are randomly selected for content without hard coded questions in `data.json`. Originally it was planned to have different questions for different content status (completed/in progress/planned) but this functionality is not added. Also, currently all questions are text-based open ended questions for journaling. In the future, more categorical or non-text based questions could be added.
+- A list of questions that are randomly selected for content without hard coded questions in `data.json`. Originally it was planned to have different questions for different content status (completed/in progress/planned) but this functionality is not added.
+
+- Currently all questions are text-based open ended questions for journaling. In the future, more categorical or non-text based questions could be added.
 
 
-## Issues
-- Currently mobile responsiveness is properly implemented for **login.html** and **content.html**.
+## Mobile Responsiveness:
+- Mobile breakpoints have been set at 600px.
+
+- Currently mobile responsiveness is properly only fully implemented for **login.html** and **content.html**.
 
 - **library.html** has functional mobile responsiveness, but with some elements cut off and an inefficient design.
 
-- **index.html** *DOES NOT* have a mobile breakpoint, and shrinking the viewport breaks the page.
+- **index.html** *DOES NOT* have a mobile breakpoint, and shrinking the viewport breaks the page. Please be aware when testing with low widths. I will never touch carousels again.
 
 
 ## References:
