@@ -1,6 +1,8 @@
 # 📚 MyMedia 
 
 > A simple website for browsing, managing, reviewing and journalling your book and movie collection.
+>
+> 📚 MyMedia was created as part of an assessment for the University of Queensland (UQ) Course [**DECO1400 - Introduction to Web Design**](https://programs-courses.uq.edu.au/course.html?course_code=DECO1400) during Semester 1 2025.
 
 ![MyMedia Poster](poster.png)
 
